@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Itinfo">
+
+	<resultMap id="resultItinfo" type="Itinfo">
+		<id property="itinfo_no" column="ITINFO_NO" />
+		<result property="itinfo_title" column="ITINFO_TITLE" />
+		<result property="itinfo_content" column="ITINFO_CONTENT" />
+		<result property="itinfo_img" column="ITINFO_IMG" />
+		<result property="itinfo_date" column="ITINFO_DATE" />
+	</resultMap>
+	<!-- SEQUENCE SEQ_ITINFO 사용하여 Insert 구현 예정  -->
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM ITINFO
+	</select>
+	
+	<select id="selectList" resultType="arraylist" resultMap="resultItinfo">
+		SELECT * FROM ITINFO ORDER BY ITINFO_DATE DESC
+	</select>
+	
+	<select id="selectRecentFive" resultType="arraylist" resultMap="resultItinfo">
+		<![CDATA[
+		SELECT * FROM (SELECT * FROM ITINFO ORDER BY ITINFO_DATE DESC) WHERE ROWNUM < 6
+		]]>
+	</select>
+	
+	<select id="selectOne" parameterType="string" resultType="Itinfo" resultMap="resultItinfo">
+		SELECT * FROM ITINFO WHERE ITINFO_NO = #{itinfo_no}
+	</select>
+	<insert id="insertItinfo" parameterType="Itinfo" flushCache="true"
+		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
+		timeout="20">
+		INSERT INTO ITINFO VALUES('IT'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_ITINFO.NEXTVAL,2,'0'), #{itinfo_title}, #{itinfo_content}, #{itinfo_img}, SYSDATE)
+	</insert>
+
+	<update id="updateItinfo" parameterType="Itinfo" flushCache="true"
+		statementType="PREPARED" timeout="20">
+		UPDATE ITINFO SET ITINFO_TITLE = #{itinfo_title}, ITINFO_CONTENT = #{itinfo_content}, ITINFO_IMG = #{itinfo_img}
+		WHERE ITINFO_NO = #{itinfo_no}
+	</update>
+	
+	<delete id="deleteItinfo" parameterType="string" flushCache="true"
+		statementType="PREPARED" timeout="20">
+		DELETE FROM ITINFO WHERE ITINFO_NO = #{itinfo_no}
+	</delete>
+	
+</mapper>
