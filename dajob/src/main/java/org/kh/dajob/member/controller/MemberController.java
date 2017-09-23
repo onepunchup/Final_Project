@@ -510,7 +510,7 @@ public class MemberController {
 	}
 
 	/*** 마이페이지 ***/
-	/*@RequestMapping(value = "resume.do")
+	@RequestMapping(value = "resume.do")
 	public String resumeViewGo(HttpSession session, Model model) {
 		User user = memberService.selectUser((Member)session.getAttribute("member"));
 			
@@ -555,13 +555,13 @@ public class MemberController {
 		return "mypage/ability";
 	}
 	
-	이력서 이미지 파일 업로드
+	//이력서 이미지 파일 업로드
 	@RequestMapping(value = "ckfileUpload.do", method = RequestMethod.POST) 
 	public String procFileUpload(FileBean fileBean, HttpServletRequest request, Model model) { 
 		
 		HttpSession session = request.getSession(); 
 		String root_path = session.getServletContext().getRealPath("/"); // 웹서비스 root 경로 
-		String root_path = "D:\\git\\Final_Project\\dajob\\src\\main\\webapp\\";
+		//String root_path = "D:\\git\\Final_Project\\dajob\\src\\main\\webapp\\";
 		String attach_path = "resources/images/resumeimg/"; 
 		
 		MultipartFile upload = fileBean.getUpload(); 
@@ -615,5 +615,5 @@ public class MemberController {
 			chk.append("no");
 			chk.flush();
 		}
-	}*/
+	}
 }

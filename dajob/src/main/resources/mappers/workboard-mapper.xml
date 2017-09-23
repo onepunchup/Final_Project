@@ -19,14 +19,14 @@
 		<result property="member_id" column="MEMBER_ID" />
 		<result property="rnum" column="RNUM" />
 	</resultMap>
-	<!-- 
+	
 	<resultMap id="resultLikeList" type="LikeList">
 		<id property="member_id" column="MEMBER_ID" />
 		<result property="work_no" column="WORK_NO" />
 		<result property="company_name" column="COMPANY_NAME" />
 		<result property="work_title" column="WORK_TITLE" />
 	</resultMap>
-	 -->
+	
 	<select id="selectList" resultType="arraylist" resultMap="resultWorkBoard">
 		select ROWNUM RNUM, WORK_NO, WORK_WRITER, WORK_SKILL, WORK_CAREER, WORK_WORKPLACE, WORK_STARTDATE, WORK_ENDDATE, MEMBER_ID  
 		FROM VW_LIKECOMPLIST 
@@ -46,11 +46,11 @@
 		FROM VW_LIKECOMPLIST
 		WHERE MEMBER_ID = #{member_id} and WORK_WRITER = #{work_writer}
 	</select>
-	<!-- 
+	
 	<select id="likeList" resultType="arraylist" parameterType="string" resultMap="resultLikeList">
 		select * from vw_likelist where member_id = #{member_id}
 	</select>
-	 -->
+	
 	<delete id="deleteOne">
 		delete from likelist where member_id = #{member_id} and work_no = #{work_no}
 	</delete>

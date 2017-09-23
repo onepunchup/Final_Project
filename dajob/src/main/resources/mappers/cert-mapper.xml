@@ -15,7 +15,7 @@
 		<result property="cert_no" column="CERT_NO" />
 		<result property="cert_date" column="CERT_DATE" />
 	</resultMap>
-	<!-- 
+	
 	<resultMap id="resultTotalCert" type="TotalCert">
 		<id property="cert_no" column="CERT_NO" />
 		<result property="cert_name" column="CERT_NAME" />
@@ -28,7 +28,7 @@
 		<result property="cert_value" column="CERT_VALUE" />
 		<result property="cert_count" column="CERT_COUNT" />
 	</resultMap>
-	 -->
+	
 	<select id="selectList" resultType="arraylist" resultMap="resultCert">
 		SELECT * FROM CERT
 	</select>
@@ -36,7 +36,7 @@
 	<select id="selectUserCert" parameterType="string" resultType="arraylist" resultMap="resultUserCert">
 		SELECT * FROM USER_CERT WHERE MEMBER_ID = #{member_id}
 	</select>
-	<!-- 
+	
 	<select id="selectTotalCert" parameterType="string" resultType="arraylist" resultMap="resultTotalCert">
 		SELECT * FROM VW_TOTALCERT WHERE MEMBER_ID = #{member_id}
 	</select>
@@ -45,7 +45,7 @@
 		SELECT DECODE(GROUPING(CERT_TYPE),'1','총합',CERT_TYPE) "CERT_VALUE", COUNT(CERT_TYPE) "CERT_COUNT" FROM VW_TOTALCERT
 		WHERE MEMBER_ID = #{member_id}
 		GROUP BY ROLLUP(CERT_TYPE)
-	</select> -->
+	</select>
 	
 	<insert id="insertUserCert" parameterType="hashmap">
 		INSERT ALL

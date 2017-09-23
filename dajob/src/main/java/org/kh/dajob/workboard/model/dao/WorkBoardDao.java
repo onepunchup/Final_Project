@@ -34,4 +34,8 @@ public class WorkBoardDao {
 	public int deleteOne(WorkBoard w) {
 		return sqlSession.delete("WorkBoard.deleteOne", w);
 	}
+	
+	public Object likeList(String userid) {
+		return sqlSession.selectList("WorkBoard.likeList", userid);
+	}
 }

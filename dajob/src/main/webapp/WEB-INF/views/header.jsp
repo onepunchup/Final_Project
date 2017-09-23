@@ -18,7 +18,7 @@
 		</c:if>
 		
         <div id="logo">
-             <h1><a href="index.do"><img src="/dajob/resources/images/Pagelogo.png" alt="DaJob"/></a></h1>
+             <h1><a href="index.do"><img src="/dajob/resources/images/Pagelogo.png" alt="DaJob" style="outline-color: rgba(0,0,0,0);"/></a></h1>
         </div>
 
 <!--================================
@@ -134,7 +134,11 @@
             } else if(currentPath.indexOf("workhere") != -1){
                 $(".navbar-nav > li").removeClass('active');
 	        	$("li#workhere").addClass('active');
-            } else if(currentPath.indexOf("mypage") != -1 || currentPath.indexOf("myinfo") != -1 || currentPath.indexOf("interview") != -1){
+            } else if(currentPath.indexOf("mypage") != -1 || currentPath.indexOf("myinfo") != -1 || currentPath.indexOf("interview") != -1
+            		 || currentPath.indexOf("resume") != -1
+            		 || currentPath.indexOf("ability") != -1
+            		 || currentPath.indexOf("dashBoard") != -1
+            		 || currentPath.indexOf("powerLink") != -1){
                 $(".navbar-nav > li").removeClass('active');
 	        	$("li#mypage").addClass('active');
             } else if(currentPath.indexOf("itinfo") != -1){
