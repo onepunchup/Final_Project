@@ -10,14 +10,15 @@
 		<result property="work_content" column="WORK_CONTENT" />
 		<result property="work_writer" column="WORK_WRITER" />
 		<result property="work_date" column="WORK_DATE" />
-		<result property="work_job" column="WORK_JOB" />
-		<result property="work_skill" column="WORK_SKILL" />
+		<result property="job_name" column="JOB_NAME" />
+		<result property="skill_name" column="SKILL_NAME" />
 		<result property="work_career" column="WORK_CAREER" />
 		<result property="work_workplace" column="WORK_WORKPLACE" />
 		<result property="work_startdate" column="WORK_STARTDATE" />
 		<result property="work_enddate" column="WORK_ENDDATE" />
 		<result property="member_id" column="MEMBER_ID" />
 		<result property="rnum" column="RNUM" />
+		<result property="company_name" column="COMPANY_NAME" />
 	</resultMap>
 	
 	<resultMap id="resultLikeList" type="LikeList">
@@ -28,7 +29,7 @@
 	</resultMap>
 	
 	<select id="selectList" resultType="arraylist" resultMap="resultWorkBoard">
-		select ROWNUM RNUM, WORK_NO, WORK_WRITER, WORK_SKILL, WORK_CAREER, WORK_WORKPLACE, WORK_STARTDATE, WORK_ENDDATE, MEMBER_ID  
+		select ROWNUM RNUM, WORK_NO, COMPANY_NAME, SKILL_NAME, WORK_CAREER, WORK_WORKPLACE, WORK_STARTDATE, WORK_ENDDATE, MEMBER_ID  
 		FROM VW_LIKECOMPLIST 
 		WHERE MEMBER_ID = #{memberId}
 	</select>
@@ -38,13 +39,17 @@
 	</select>
 	
 	<select id="getListCount2" resultType="int">
-		select count(*) from VW_LIKECOMPLIST where MEMBER_ID = #{member_id} and WORK_WRITER = #{work_writer}
+		select count(*) from VW_LIKECOMPLIST where MEMBER_ID = #{member_id} 
+		and (COMPANY_NAME LIKE '%'|| LOWER(#{company_name}) || '%' 
+		OR COMPANY_NAME LIKE '%'|| UPPER(#{company_name}) || '%')
 	</select>
 	
 	<select id="selectList2" resultType="arraylist" resultMap="resultWorkBoard">
-		select ROWNUM RNUM, WORK_NO, WORK_WRITER, WORK_SKILL, WORK_CAREER, WORK_WORKPLACE, WORK_STARTDATE, WORK_ENDDATE, MEMBER_ID  
+		select ROWNUM RNUM, WORK_NO, COMPANY_NAME, SKILL_NAME, WORK_CAREER, WORK_WORKPLACE, WORK_STARTDATE, WORK_ENDDATE, MEMBER_ID  
 		FROM VW_LIKECOMPLIST
-		WHERE MEMBER_ID = #{member_id} and WORK_WRITER = #{work_writer}
+		WHERE (MEMBER_ID = #{member_id}) 
+		and (COMPANY_NAME LIKE '%'|| LOWER(#{company_name}) || '%' 
+		OR COMPANY_NAME LIKE '%'|| UPPER(#{company_name}) || '%')
 	</select>
 	
 	<select id="likeList" resultType="arraylist" parameterType="string" resultMap="resultLikeList">

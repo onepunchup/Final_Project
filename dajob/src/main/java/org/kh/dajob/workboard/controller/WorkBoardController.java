@@ -69,7 +69,7 @@ public class WorkBoardController {
 		
 		WorkBoard w = new WorkBoard();
 		w.setMember_id(m.getMember_id());
-		w.setWork_writer(request.getParameter("comp"));
+		w.setCompany_name(request.getParameter("comp"));
 		
 		int listCount = workboardService.getListCount(w);
 		int maxPage = (int)((double)listCount / limit + 0.9);
