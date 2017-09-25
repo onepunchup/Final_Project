@@ -73,16 +73,16 @@
 		        HEADER
 		        ============================ -->
 		        <div id="header" class="row">
-		            <div class="col-lg-2 col-md-2 col-sm-2" style="padding-bottom:15px">
-		            <c:if test="${!user.member_profile_img}">
-		            	<img class="propic" src="${pageContent.request.contextPath}/resources/images/userImage/${user.member_id}/${user.member_profile_img}" alt="" height="165px" width="165px">
-		            </c:if><c:if test="${user.member_profile_img}">
-		                <img class="propic" src="${pageContent.request.contextPath}/resources/images/img-style.png" alt="" height="165px" width="165px">
+		            <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom:15px">
+		            <c:if test="${!empty user.member_profile_img}">
+		            	<img class="propic" src="${pageContext.request.contextPath}/resources/images/userImage/${user.member_profile_img}" alt="" height="100%">
+		            </c:if><c:if test="${empty user.member_profile_img}">
+		                <img class="propic" src="${pageContext.request.contextPath}/resources/images/userImage/default.jpg" alt="" height="100%">
 		            </c:if>
 		            </div>
 		            <!-- photo end-->
 		
-		            <div class="col-lg-10 col-md-10 col-sm-10">
+		            <div class="col-lg-9 col-md-9 col-sm-9">
 		                    <div class="row">
 		                        <div class="col-lg-7">
 		                            <h1>${user.member_id}</h1>
