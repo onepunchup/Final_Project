@@ -96,7 +96,6 @@ public class WorkBoardController {
 		Member m = (Member)session.getAttribute("member");
 		String member_id = m.getMember_id();
 		String workNo = request.getParameter("work_no");
-		//System.out.println("work_no : " + workNo);
 		WorkBoard w = new WorkBoard();
 		w.setMember_id(member_id);
 		w.setWork_no(workNo);

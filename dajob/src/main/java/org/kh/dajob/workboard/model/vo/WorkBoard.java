@@ -3,7 +3,6 @@ package org.kh.dajob.workboard.model.vo;
 import java.sql.Date;
 
 public class WorkBoard implements java.io.Serializable{
-	
 	private static final long serialVersionUID = 61111111111L;
 	
 	private String work_no;

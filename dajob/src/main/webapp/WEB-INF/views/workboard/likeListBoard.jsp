@@ -64,7 +64,6 @@ header {
 		<!--./Container-->
 	</header>
 	<!--End Header-->
-
 	<!--start wrapper-->
 	<section class="content elements">
 		<div class="container">

@@ -39,7 +39,8 @@
 	</select>
 	
 	<select id="getListCount2" resultType="int">
-		select count(*) from VW_LIKECOMPLIST where MEMBER_ID = #{member_id} 
+		select count(*) from VW_LIKECOMPLIST 
+		where MEMBER_ID = #{member_id} 
 		and (COMPANY_NAME LIKE '%'|| LOWER(#{company_name}) || '%' 
 		OR COMPANY_NAME LIKE '%'|| UPPER(#{company_name}) || '%')
 	</select>
