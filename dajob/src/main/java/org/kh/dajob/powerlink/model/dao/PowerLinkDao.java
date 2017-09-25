@@ -15,7 +15,16 @@ public class PowerLinkDao {
 	}
 
 	public int updateCnt(String member_id) {
-		return sqlSession.update("PowerLink.updateCnt", member_id);
+		int result = 0;
+		System.out.println("member_id in DAO : "+member_id);
+		int count = sqlSession.selectOne("PowerLink.selectTodate", member_id);
+		System.out.println("PowerLink select in DAO : "+count);
+		if(count > 0){
+			result = sqlSession.update("PowerLink.updateCnt", member_id);
+		}else{
+			result = sqlSession.insert("PowerLink.insertPl", member_id);
+		}
+		return result;
 	}
 	
 }

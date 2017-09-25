@@ -2,6 +2,9 @@ package org.kh.dajob.powerlink.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,10 +33,8 @@ public class PowerLinkController {
 		Member m = (Member)session.getAttribute("member");
 		String memberId = m.getMember_id();
 		PowerLink pl = powerlinkService.selectId(memberId);
-		System.out.println(pl);
 		if(pl != null){
 			request.setAttribute("powerlink", pl);
-			System.out.println(pl);
 		}else{
 			
 		}
@@ -46,12 +47,11 @@ public class PowerLinkController {
 	}
 	
 	@RequestMapping(value="powerlink_payment.do", method=RequestMethod.POST)
-	public void powerlinkPayment(HttpServletResponse response, HttpServletRequest request) throws IOException{
+	public void powerlinkPayment(HttpServletResponse response, HttpServletRequest request) throws Exception{
 		PrintWriter chk = response.getWriter();
 		String member_id = request.getParameter("member_id");
-		System.out.println(member_id);
-		int update = powerlinkService.updateCnt(member_id);
-		if(update > 0){
+		int result = powerlinkService.updateCnt(member_id);
+		if(result > 0){
 			chk.append("success");
 			chk.flush();
 		}else{

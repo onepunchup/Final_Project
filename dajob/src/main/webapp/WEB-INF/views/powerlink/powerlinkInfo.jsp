@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.Date"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -65,19 +65,19 @@
                                 <div class="promo_content">
                                     <h1 align="center" style="font-weight: bolder;">POWERLINK</h1>
                                     <p style="font-size: 15pt; line-height:35px;" align="center">여러분은 이제, 직접 일일이 구직자를 찾아 방황하실 필요가 없습니다!<br>
-                                    단 돈 60만원에 <b>상위 랭크로 갱신</b>되는 여러분의 구인 글을 만나보세요!!<br>
+                                    단 돈 60만원에 상위 랭크로 갱신되는 여러분의 구인글을 만나보세요!!<br>
                                     여러분께서 구직목록을 직접 재작성하실 필요가 없이 PowerLink를 등록<br>하시면 별도 Premium Service로
-                                    5일간 여러분의 최신 구인 글 목록을 관리해<br>드립니다.  <b>단 돈 60만원에</b>, DAJOB 만의 멋진 서비스를 만나 보세요!<br>
-                                    <font style="font-size: 10pt;"><b>※</b> 함께하시는 기업 담당자 분들께는 저희 사이트의 다이얼로그 책자도 매 달 1개 씩 배달해드립니다.</font></p>
+                                    5일간 여러분의 최신 구인글 목록을 관리해<br>드립니다.  단, 돈 60만원에, DAJOB 만의 멋진 서비스를 만나 보세요!<br>
+                                    <font style="font-size: 10pt;"><b>※</b> 함께하시는 기업 담당자 분들께는 저희 사이트의 다이얼로그 책자도 매 달 1개 분씩 배달해드립니다.</font></p>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="pb_action">
                                 <c:set var="pl" value="${ requestScope.powerlink }" />
                                 <c:if test="${pl.powerlink_time eq 0}">
-                                    <p align="center"><br><a href="powerLink_offer.do" class="btn btn-default btn-lg">
+                                    <p align="center"><br><a class="btn btn-default btn-lg" onclick="powerlinkPay()" id="powerlinkButton"><!-- href="powerLink_offer.do"  -->
                                         <i class="fa fa-rocket"></i>
-                                        신청하기
+                                        	신청하기
                                     </a></p>
                                </c:if>
                                <c:if test="${pl.powerlink_time ne 0}">
@@ -92,10 +92,82 @@
                                </c:if>
                                 </div>
                             </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display: none;" id="powerlinkPayment">
+								<jsp:useBean id="today" class="java.util.Date" />
+								<fmt:formatDate value="${today}" type="DATE" pattern="yyyy-MM-dd" var="todate"/>
+								<c:set var="tomorrow" value="<%= new Date(new Date().getTime() + 5*(60*60*24*1000)) %>"/>
+								<fmt:formatDate value="${tomorrow}" type="DATE" pattern="yyyy-MM-dd" var="tomdate"/>					
+									<h2 align="center">결제내용</h2>
+									<p align="center" style="line-height: 20pt;">
+										 ${todate} 부터 ${tomdate} 까지 신청합니다.<br>
+                     	 					결제 금액은 60만원 입니다.<br>
+                     	 			<button onclick="pay()" style="border: 0; outline: 0; background-color: white;" >
+                     	 				<a class="btn btn-small btn-default">결제하기</a>
+                     	 			</button>
+                     	 			</p>
+							</div>
                         </div>
                     </div>
                 </div>
-        
         <c:import url="../footer.jsp"/>
+<script type="text/javascript">
+	function powerlinkPay(){
+		var payment = document.getElementById("powerlinkPayment");
+		if(payment.style.display == "none"){
+			payment.style.display="block";
+			$("#powerlinkButton").html('<i class="fa fa-rocket"></i> 취소하기');
+		}else{
+			payment.style.display="none";
+			$("#powerlinkButton").html('<i class="fa fa-rocket"></i> 신청하기');
+		}
+	}
+</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
+<script type="text/javascript">
+        $(function(){
+        	var IMP = window.IMP; // 생략가능
+        	IMP.init('imp99940489'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+        });
+        function pay(){
+        IMP.request_pay({
+            pg : 'uplus', // version 1.1.0부터 지원.
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : 'Power Loink 등록',
+            amount : 600000,
+            buyer_email : '<c:out value="${member.member_email}" />',
+            buyer_name : '<c:out value="${member.member_name}"/>',
+            buyer_tel : '<c:out value="${member.member_phone}" />',
+            buyer_addr : '<c:out value="${member.member_address}" />',
+            buyer_postcode : '123-456',
+            m_redirect_url : 'https://www.yourdomain.com/payments/complete' 
+        }, function(rsp) {
+            if ( rsp.success ) {
+                var msg = '결제가 완료되었습니다.';
+            /*     msg += '고유ID : ' + rsp.imp_uid;
+                msg += '상점 거래ID : ' + rsp.merchant_uid;
+                msg += '결제 금액 : ' + rsp.paid_amount;
+                msg += '카드 승인번호 : ' + rsp.apply_num; */
+                $.ajax({
+                  	url : "powerlink_payment.do",
+                  	type : "post",
+                  	data : {member_id : '<c:out value="${member.member_id}" />'},
+                  	success : function(result){
+                  		if(result == "success"){
+                  			location.href = "powerlink.do";
+                  		}else{
+                  			
+                  		}
+                  	}
+                });
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                //msg += '에러내용 : ' + rsp.error_msg;
+            }
+            alert(msg);
+        });
+        };
+        </script>
 </body>
 </html>

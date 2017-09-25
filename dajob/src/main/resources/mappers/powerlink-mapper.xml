@@ -3,7 +3,7 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PowerLink">
-
+ 
 	<resultMap id="resultPowerLink" type="PowerLink">
 		<id property="member_id" column="MEMBER_ID" />
 		<result property="powerlink_date" column="POWERLINK_DATE" />
@@ -11,14 +11,25 @@
 		<result property="powerlink_time" column="POWERLINK_TIME" />
 	</resultMap>
 	
-	<update id="updateCnt" parameterType="String">
-		UPDATE POWERLINK SET POWERLINK_CNT = POWERLINK_CNT + 1, POWERLINK_TIME = 120 
-		WHERE MEMBER_ID = #{memberId}
-	</update>
-	
-	<select id="selectId" parameterType="String" resultType="PowerLink" resultMap="resultPowerLink">
-		select * from powerlink where member_id = #{memberId}
+	<select id="selectTodate" parameterType="string" resultType="_int">
+		SELECT count(*) FROM POWERLINK 
+		WHERE SUBSTR(TO_CHAR(POWERLINK_DATE, 'rr-mm-dd'), 1, 5) = SUBSTR(TO_CHAR(SYSDATE, 'rr-mm-dd'), 1, 5) 
+		AND MEMBER_ID = #{member_id}
 	</select>
 	
-
+	<insert id="insertPl" parameterType="string">
+		INSERT INTO POWERLINK VALUES(#{member_id}, default, 1, 120)
+	</insert>
+	
+	<update id="updateCnt">
+		UPDATE POWERLINK SET POWERLINK_CNT = POWERLINK_CNT + 1, POWERLINK_TIME = 120 
+		WHERE MEMBER_ID = #{member_id} AND SUBSTR(TO_CHAR(POWERLINK_DATE, 'RR-MM-DD'), 1, 5) = 
+		SUBSTR(TO_CHAR(SYSDATE, 'RR-MM-DD'), 1, 5)
+	</update>
+	
+	<select id="selectId" resultType="String" resultMap="resultPowerLink">
+		select * from (select * from powerlink where member_id = #{member_id} 
+		order by POWERLINK_DATE desc) where rownum = 1
+	</select>
+	
 </mapper>
