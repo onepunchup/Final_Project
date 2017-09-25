@@ -18,6 +18,7 @@
 		<typeAlias type="org.kh.dajob.cert.model.vo.CountCert" alias="CountCert"/>
 		<typeAlias type="org.kh.dajob.interview.model.vo.Interview" alias="Interview" />		
 		<typeAlias type="org.kh.dajob.workboard.model.vo.WorkBoard" alias="WorkBoard" />
+		<typeAlias type="org.kh.dajob.workhere.model.vo.Workhere" alias="Workhere" />
 		<typeAlias type="org.kh.dajob.workboard.model.vo.LikeList" alias="LikeList" />
 		<typeAlias type="org.kh.dajob.powerlink.model.vo.PowerLink" alias="PowerLink" />
 		<typeAlias type="org.kh.dajob.notice.model.vo.Notice" alias="Notice" />
@@ -47,5 +48,6 @@
 		<mapper resource="mappers/interview-mapper.xml" />
 		<mapper resource="mappers/notice-mapper.xml" />
 		<mapper resource="mappers/itinfo-mapper.xml" />
+		<mapper resource="mappers/workhere-mapper.xml" />
 	</mappers>
 </configuration>
