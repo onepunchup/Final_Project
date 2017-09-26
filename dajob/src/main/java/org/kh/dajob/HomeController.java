@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kh.dajob.itinfo.model.service.ItinfoService;
 import org.kh.dajob.itinfo.model.vo.Itinfo;
+import org.kh.dajob.workJobAndSkill.model.service.WorkJobAndSkillService;
+import org.kh.dajob.workhere.model.service.WorkhereService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +29,23 @@ public class HomeController {
 	
 	@Autowired
 	private ItinfoService itinfoService;
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	
+	@Autowired
+	private WorkhereService workhereService;
+	
+	@Autowired
+	private WorkJobAndSkillService workJobnSkillService;
+	
+	
 	@RequestMapping(value = "index.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		ArrayList<Itinfo> itlist = itinfoService.selectR5List();
+		
 		model.addAttribute("itlist", itlist);
+		model.addAttribute("joblist", workJobnSkillService.selectJobList());
+		model.addAttribute("skilllist", workJobnSkillService.selectSkillList());
+		model.addAttribute("workPowerLink", workhereService.selectTopPower());
 		
 		return "index";
 	}

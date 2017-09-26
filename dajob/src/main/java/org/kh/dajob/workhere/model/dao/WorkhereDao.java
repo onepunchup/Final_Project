@@ -36,4 +36,9 @@ public class WorkhereDao {
 	public ArrayList<Workhere> selectJobSearchList(Workhere wh) {
 		return new ArrayList<Workhere>(sqlSession.selectList("Workhere.selectJobSearchList",wh));
 	}
+
+	public ArrayList<Workhere> selectTopPower() {
+		RowBounds rb = new RowBounds(0, 10);
+		return new ArrayList<Workhere>(sqlSession.selectList("Workhere.selectTopPowerLink",null,rb));
+	}
 }

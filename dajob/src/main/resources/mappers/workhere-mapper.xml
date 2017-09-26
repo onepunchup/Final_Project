@@ -53,9 +53,16 @@
 		select * FROM VW_WORKHERE where work_no = #{WORK_NO}
 	</select>
 	
+	<select id="selectTopPowerLink" resultType="arraylist" resultMap="resultWorkhere">
+		SELECT * FROM VW_WORKHERE
+		WHERE WORK_WRITER IN (SELECT MEMBER_ID FROM POWERLINK WHERE POWERLINK_TIME > 0)
+		ORDER BY 1 DESC
+	</select>
+	
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM VW_WORKHERE
 	</select>
+	
 	<delete id="deleteWorkhere" parameterType="string">
 		DELETE FROM VW_WORKHERE WHERE WORK_NO = #{work_no}
 	</delete>

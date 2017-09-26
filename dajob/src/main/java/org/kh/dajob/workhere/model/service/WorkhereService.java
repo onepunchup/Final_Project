@@ -13,4 +13,5 @@ public interface WorkhereService {
 	int getListCount();
 	int deleteWorkhere(String no);
 	ArrayList<Workhere> selectJobSearchList(Workhere wh);
+	ArrayList<Workhere> selectTopPower();
 }

@@ -91,7 +91,7 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-                                <input type="submit" class="btn" value="Search">
+                                <button type="submit" class="btn btn-social-linkedin" style="height:43px; margin-bottom:8px;"><i class="fa fa-search"></i>  Search</button>
                             </form>
                         </div>
                     </div>

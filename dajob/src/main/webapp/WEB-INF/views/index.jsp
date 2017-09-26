@@ -28,6 +28,26 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <style>
+     thead th{
+     	text-align:center;
+     }
+     .table tbody tr{
+     	text-align:center;
+     	height:55px;
+     }
+     .table tbody tr td{
+     	text-align:center;
+     	padding-top: 20px;
+     }
+     .table tbody tr a{
+     	color: #eff6fc;
+     }
+     .table tbody tr a:hover{
+     	color: #ffbbb2;
+     }
+    </style>
 </head>
 <body class="home">
 <!--Start Header-->
@@ -121,18 +141,14 @@
                         </div>
                     </div>
             </div>
-            <div class="row sub_content">
-					
-				</div>
         </div>
     </section>
 		<!--end info service-->
     <section class="parallax parallax-1">
-        <div class="container">
             <!--<h2 class="center">Testimonials</h2>-->
             <div class="row">
-                <div id="parallax-testimonial-carousel" class="parallax-testimonial carousel" style="padding:0 20px 30px 20px;">
-                  		<div class="col-md-7">
+                <div id="parallax-testimonial-carousel" class="parallax-testimonial carousel">
+                  		<div class="col-md-8">
 							<div class="dividerHeading">
 								<h4><font color="white">Recent Find Worker (PowerLink)</font></h4>
 							</div>
@@ -146,64 +162,41 @@
 					        <th>근무지</th>
 					        <th>직무</th>
 					        <th>필요기술</th>
-					        <th>마감일</th>
 					      </tr>
 					    </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>The Shawshank Redemption</td>
-                            <td>1994</td>
-                            <td>9.2</td>
-                            <td>923,629</td>
-                        </tr>
-                        <tr>
-                        	<td>1</td>
-                            <td>2</td>
-                            <td>The Godfather</td>
-                            <td>1972</td>
-                            <td>9.2</td>
-                            <td>663,133</td>
-                        </tr>
-                        <tr>
-                        	<td>1</td>
-                            <td>2</td>
-                            <td>The Godfather</td>
-                            <td>1972</td>
-                            <td>9.2</td>
-                            <td>663,133</td>
-                        </tr>
-                        <tr>
-                        	<td>1</td>
-                            <td>2</td>
-                            <td>The Godfather</td>
-                            <td>1972</td>
-                            <td>9.2</td>
-                            <td>663,133</td>
-                        </tr>
-                        <tr>
-                        	<td>1</td>
-                            <td>2</td>
-                            <td>The Godfather</td>
-                            <td>1972</td>
-                            <td>9.2</td>
-                            <td>663,133</td>
-                        </tr>
-                        <tr>
-                        	<td>1</td>
-                            <td>2</td>
-                            <td>The Godfather</td>
-                            <td>1972</td>
-                            <td>9.2</td>
-                            <td>663,133</td>
-                        </tr>
+                        <c:forEach var="workhere" items="${workPowerLink}">
+						      <tr>
+						      	<c:url var="workdetail" value="/workhereDetail.do">
+						        	<c:param name="workhere_no" value="${workhere.work_no}"/>
+						        </c:url>
+						        <td>${workhere.company_name }
+						        <c:forEach var="comtype" items="${comtype}">
+						        <c:if test="${workhere.company_type eq comtype.company_type}">
+						        (${comtype.company_tname})
+						        </c:if></c:forEach></td>
+						        <td><a href="${workdetail}">${workhere.work_title}</a></td>
+						        
+						        <td>${fn:substring(workhere.work_workplace,0,2)}</td>
+						        <c:forEach var="job" items="${joblist}">
+						        <c:if test="${ job.job_code eq workhere.work_job}">
+						        <td>${job.job_name}</td>
+						        </c:if></c:forEach>
+						        <c:forEach var="skill" items="${skilllist}">
+						        <c:if test="${ skill.skill_code eq workhere.work_skill}">
+						        <td>${skill.skill_name}</td>
+						        </c:if></c:forEach>
+						      </tr>
+						      </c:forEach>
+						      <tr>
+						      	<td colspan="5"></td>
+						      </tr>
                         </tbody>
                     </table>
                 </div>
 							</div>
 						</div>
-						<div class="col-md-5">
+						<div class="col-md-4">
 							<!-- TESTIMONIALS -->
 					<div class="clearfix">
 						<div class="dividerHeading">
@@ -250,7 +243,7 @@
 				</div>
 						</div>
                     </div>
-            	</div>
+            	<!-- </div> -->
     	</section>
     </section>
     <!--end wrapper-->
