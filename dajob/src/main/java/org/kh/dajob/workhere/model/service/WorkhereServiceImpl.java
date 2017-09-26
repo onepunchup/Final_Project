@@ -30,5 +30,10 @@ public class WorkhereServiceImpl implements WorkhereService{
 	@Override
 	public int deleteWorkhere(String no) {
 		return workhereDao.deleteWorkhere(no);
+	}
+
+	@Override
+	public ArrayList<Workhere> selectJobSearchList(Workhere wh) {
+		return workhereDao.selectJobSearchList(wh);
 	};
 }

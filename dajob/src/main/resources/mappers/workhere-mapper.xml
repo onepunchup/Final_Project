@@ -28,12 +28,25 @@
 		<result property="company_welfare" column="COMPANY_WELFARE" />
 		<result property="company_start_date" column="COMPANY_START_DATE" />
 		<result property="company_end_date" column="COMPANY_END_DATE" />
-		
 	</resultMap>
-	
 	
 	<select id="selectWorkhereList" resultType="arraylist" resultMap="resultWorkhere">
 		select * FROM VW_WORKHERE
+	</select>
+	
+	<select id="selectJobSearchList" parameterType="Workhere" resultType="arraylist" resultMap="resultWorkhere">
+		select * FROM VW_WORKHERE
+		<where>
+		<if test="work_title != null">
+		WORK_TITLE LIKE '%'|| #{work_title} ||'%'
+		</if>
+		<if test="work_job != null">
+		AND WORK_JOB = #{work_job}
+		</if>
+		<if test="work_skill != null">
+		AND WORK_SKILL = #{work_skill}
+		</if>
+		</where>
 	</select>
 	
 	<select id="selectWorkhere" parameterType="string" resultType="Workhere" resultMap="resultWorkhere">

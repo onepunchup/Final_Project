@@ -131,7 +131,7 @@
         <div class="container">
             <!--<h2 class="center">Testimonials</h2>-->
             <div class="row">
-                <div id="parallax-testimonial-carousel" class="parallax-testimonial carousel">
+                <div id="parallax-testimonial-carousel" class="parallax-testimonial carousel" style="padding:0 20px 30px 20px;">
                   		<div class="col-md-7">
 							<div class="dividerHeading">
 								<h4><font color="white">Recent Find Worker (PowerLink)</font></h4>
@@ -140,16 +140,18 @@
 							<div class="col-lg-12 col-md-12 col-sm-12">
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Name</th>
-                            <th>Year</th>
-                            <th>Rating</th>
-                            <th>Votes</th>
-                        </tr>
-                        </thead>
+					      <tr>
+					      	<th>회사 이름</th>
+					        <th>제목</th>
+					        <th>근무지</th>
+					        <th>직무</th>
+					        <th>필요기술</th>
+					        <th>마감일</th>
+					      </tr>
+					    </thead>
                         <tbody>
                         <tr>
+                            <td>1</td>
                             <td>1</td>
                             <td>The Shawshank Redemption</td>
                             <td>1994</td>
@@ -157,6 +159,7 @@
                             <td>923,629</td>
                         </tr>
                         <tr>
+                        	<td>1</td>
                             <td>2</td>
                             <td>The Godfather</td>
                             <td>1972</td>
@@ -164,25 +167,36 @@
                             <td>663,133</td>
                         </tr>
                         <tr>
-                            <td>3</td>
-                            <td>The Godfather: Part II</td>
-                            <td>1974</td>
-                            <td>9.0</td>
-                            <td>427,132</td>
+                        	<td>1</td>
+                            <td>2</td>
+                            <td>The Godfather</td>
+                            <td>1972</td>
+                            <td>9.2</td>
+                            <td>663,133</td>
                         </tr>
                         <tr>
-                            <td>4</td>
-                            <td>Pulp Fiction</td>
-                            <td>1994</td>
-                            <td>8.9</td>
-                            <td>719,280</td>
+                        	<td>1</td>
+                            <td>2</td>
+                            <td>The Godfather</td>
+                            <td>1972</td>
+                            <td>9.2</td>
+                            <td>663,133</td>
                         </tr>
                         <tr>
-                            <td>5</td>
-                            <td>The Good, the Bad and the Ugly</td>
-                            <td>1966</td>
-                            <td>8.9</td>
-                            <td>218,887</td>
+                        	<td>1</td>
+                            <td>2</td>
+                            <td>The Godfather</td>
+                            <td>1972</td>
+                            <td>9.2</td>
+                            <td>663,133</td>
+                        </tr>
+                        <tr>
+                        	<td>1</td>
+                            <td>2</td>
+                            <td>The Godfather</td>
+                            <td>1972</td>
+                            <td>9.2</td>
+                            <td>663,133</td>
                         </tr>
                         </tbody>
                     </table>

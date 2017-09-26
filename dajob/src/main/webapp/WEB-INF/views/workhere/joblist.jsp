@@ -47,14 +47,14 @@
         <div class="container page_head">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h2>인터뷰 List</h2>
+                    <h2>Work Here</h2>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <nav id="breadcrumbs">
                         <ul>
                             <li>You are here:</li>
                             <li><a href="index.do">Home</a></li>
-                            <li>Interview</li>
+                            <li>Work Here</li>
                         </ul>
                     </nav>
                 </div>
@@ -68,30 +68,30 @@
                         <h2>원하는 직무로 찾아보세요</h2>
                         <p>내가 원하는 직장을 직무로 찾아보자!</p>
                         <div class="search-form wow pulse" data-wow-delay="0.8s">
-                            <form action="" class=" form-inline">
+                        <c:url var="jobsearch" value="/jobsearch.do"/>
+                            <form action="${jobsearch}" class=" form-inline">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Job Key Word">
+                                <input type="hidden" name="jobkey" id="jobkey" value="">
+                                <input type="hidden" name="skillkey" id="skillkey" value="">
+                                    <input type="text" name="title" class="form-control" placeholder="Job Key Word">
                                 </div>
                                 <div class="form-group">
-                                    <select name="" id="" class="form-control">
-                                        <option>Select Your City</option>
-                                        <option selected>New york, CA</option>
-                                        <option>New york, CA</option>
-                                        <option>New york, CA</option>
-                                        <option>New york, CA</option>
+                                    <select name="jobselect" id="jobselect" class="form-control">
+                                        <option value="" selected>Select Wanna Job</option>
+                                        <c:forEach var="job" items="${joblist}">
+                                        <option value="${job.job_code}">${job.job_name}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <select name="" id="" class="form-control">
-                                        <option>Select Your Category</option>
-                                        <option selected>Graphic Design</option>
-                                        <option>Web Design</option>
-                                        <option>App Design</option>
+                                    <select name="skillselect" id="skillselect" class="form-control">
+                                        <option value="" selected>Select Your Skill</option>
+                                        <c:forEach var="skill" items="${skilllist}">
+                                        <option value="${skill.skill_code}">${skill.skill_name}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                                 <input type="submit" class="btn" value="Search">
-
-
                             </form>
                         </div>
                     </div>
@@ -122,8 +122,14 @@
         <td><a href="${workdetail}">${workherelist.work_title }</a></td>
         
         <td>${workherelist.work_workplace }</td>
-        <td>${workherelist.work_job}</td>
-        <td>${workherelist.work_skill}</td>
+        <c:forEach var="job" items="${joblist}">
+        <c:if test="${ job.job_code eq workherelist.work_job}">
+        <td>${job.job_name}</td>
+        </c:if></c:forEach>
+        <c:forEach var="skill" items="${skilllist}">
+        <c:if test="${ skill.skill_code eq workherelist.work_skill}">
+        <td>${skill.skill_name}</td>
+        </c:if></c:forEach>
         <td>${workherelist.work_enddate }</td>
       </tr>
       </c:forEach>
@@ -168,12 +174,18 @@
   </table>
 </div>
 	
-
-	
 	<!--start footer-->
 	<c:import url="../footer.jsp"/>
 	<!--end footer-->
-
-
+	<script type="text/javascript">
+	$("#jobselect").change(function(){
+		$("#jobkey").val($("#jobselect option:selected").val());
+		//console.log($("#jobkey").val());
+	});
+	$("#skillselect").change(function(){
+		$("#skillkey").val($("#skillselect option:selected").val());
+		//console.log($("#skillkey").val());
+	});
+	</script>
 </body>
 </html>

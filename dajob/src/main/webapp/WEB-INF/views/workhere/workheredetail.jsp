@@ -21,6 +21,16 @@
     <link rel="stylesheet" href="<c:url value='/resources/css/font-awesome.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/css/animate.css'/>"/>
 	<c:set var="workhere" value="${workhere}"/>
+	<c:forEach var="workjob" items="${joblist}">
+	 <c:if test="${workjob.job_code eq workhere.work_job}">
+	 	<c:set var="wJob" value="${workjob.job_name}"/>
+	 </c:if>
+	</c:forEach>
+	<c:forEach var="workskill" items="${skilllist}">
+	 <c:if test="${workskill.skill_code eq workhere.work_skill}">
+	 	<c:set var="wSkill" value="${workskill.skill_name}"/>
+	 </c:if>
+	</c:forEach>
 	<c:set var="skill" value="${skill}"/>
 	<c:set var="member" value="${member}"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -30,9 +40,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-       #map {
-        height: 400px;
-        width: 100%;
+       header{
+       	background: url("/dajob/resources/images/page-header3.jpg") no-repeat;
        }
     </style>
 </head>
@@ -44,14 +53,14 @@
         <div class="container page_head">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h2>${workhere.company_name }</h2>
+                    <h2 style="color:#0c1830;">${workhere.company_name}</h2>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <nav id="breadcrumbs">
                         <ul>
-                            <li>You are here:</li>
-                            <li><a href="index.do">Home</a></li>
-                            <li>workhere</li>
+                            <li style="color:#0c1830;">You are here:</li>
+                            <li style="color:#0c1830;"><a href="index.do">Home</a></li>
+                            <li style="color:#0c1830;">workhere</li>
                         </ul>
                     </nav>
                 </div>
@@ -72,7 +81,8 @@
                     <c:url var="wdel" value="/workhereDelete.do">
 									<c:param name="workhere_no" value="${workhere.work_no}"/>
 								</c:url>
-                    <h2>${workhere.work_job }</h2>
+					<h2>${workhere.work_title} : [${wJob}]</h2>
+                    <%-- <h2>${workhere.work_job }</h2> --%>
                     <c:if test="${member.member_type_code eq 'U' }">
                     <c:url var="interviewinsert" value="/interviewInsertView.do">
 			        	<c:param name="workhere_no" value="${workhere.work_no}"/>
@@ -145,9 +155,10 @@
 
                 <div class="col-sm-11 col-md-10">
                     <h3 >필요한 기술 </h3>
-                    <c:forEach var="skill" items="${skill}">
+                    <h4><span class="glyphicon glyphicon-star">${wSkill}</span></h4>
+                    <%-- <c:forEach var="skill" items="${skill}">
                     <h4><span class="glyphicon glyphicon-star">${skill}</span></h4>
-                    </c:forEach>
+                    </c:forEach> --%>
 					
                 </div><!--info end-->
             </div><!--tech skills end-->
@@ -180,11 +191,6 @@
             
         </div><!--right end-->
     </div><!--container end-->
-	
-	
-	
-	
-	
 	
 	<!--start footer-->
 	<c:import url="../footer.jsp"/>

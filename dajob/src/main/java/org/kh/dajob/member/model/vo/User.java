@@ -2,7 +2,7 @@ package org.kh.dajob.member.model.vo;
 
 import java.sql.Date;
 
-public class User extends Member {
+public class User extends Member implements java.io.Serializable {
 	private static final long serialVersionUID = 11111111112L;
 	
 	private Member m;

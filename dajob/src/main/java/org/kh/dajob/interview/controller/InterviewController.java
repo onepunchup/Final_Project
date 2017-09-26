@@ -107,8 +107,6 @@ public class InterviewController {
 		SimpleDateFormat n1 = new SimpleDateFormat("yyMMddHHmm");
 		SimpleDateFormat n2 = new SimpleDateFormat("yyMMddHHmm");
 		
-		
-		
 		if(start.length() == 22) {
 			if(start.substring(14,16) == "오전") {
 			System.out.println(n1.parse(start.substring(2,4)+ "0" + start.substring(6,7)+ start.substring(9,11)+start.substring(17,19)+start.substring(20,22)));

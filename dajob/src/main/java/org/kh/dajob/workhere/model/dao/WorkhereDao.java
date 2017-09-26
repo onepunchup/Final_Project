@@ -32,4 +32,8 @@ public class WorkhereDao {
 	public int deleteWorkhere(String no) {
 		return sqlSession.delete("Workhere.deleteWorkhere",no);
 	}
+
+	public ArrayList<Workhere> selectJobSearchList(Workhere wh) {
+		return new ArrayList<Workhere>(sqlSession.selectList("Workhere.selectJobSearchList",wh));
+	}
 }

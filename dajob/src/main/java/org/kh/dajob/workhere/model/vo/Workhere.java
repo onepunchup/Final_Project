@@ -19,6 +19,7 @@ public class Workhere implements Serializable{
 	private String work_workplace;
 	private Date work_startdate;
 	private Date work_enddate;
+	
 	//member_company
 	private String member_id;
 	private String company_name;

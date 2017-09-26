@@ -55,10 +55,10 @@
 
                     <li id="notice"><a href="nlist.do">공지사항</a></li>
 
-                    <li id="workhere"><a href="#">Work Here</a>
+                    <li id="workhere"><a href="jobList.do">Work Here</a>
                     	<ul class="dropdown-menu">
-                            <li><a href="#">직업별 분류</a></li>
-                            <li><a href="#">능력별 분류</a></li>
+                            <li><a href="jobList.do">직업별 분류</a></li>
+                            <li><a href="jobList.do">능력별 분류</a></li>
                         </ul>
                     </li>
                     <li id="mypage"><a href="#">마이페이지</a>

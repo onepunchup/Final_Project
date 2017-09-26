@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.kh.dajob.member.model.service.MemberService;
 import org.kh.dajob.notice.model.vo.Notice;
+import org.kh.dajob.workJobAndSkill.model.service.WorkJobAndSkillService;
 import org.kh.dajob.workhere.model.service.WorkhereService;
 import org.kh.dajob.workhere.model.vo.Workhere;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class WorkhereController {
 	private WorkhereService workhereService;
 	
 	@Autowired
+	private WorkJobAndSkillService workJobnSkillService;
+	
+	@Autowired
 	private MemberService memberService;
 	
 	@RequestMapping(value = "jobList.do")
@@ -44,10 +48,43 @@ public class WorkhereController {
 		if(request.getParameter("page") != null)
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		model.addAttribute("workherelist",workhereService.selectWorkhereList(currentPage, limit));
+		model.addAttribute("joblist", workJobnSkillService.selectJobList());
+		model.addAttribute("skilllist", workJobnSkillService.selectSkillList());
 		model.addAttribute("comtype", memberService.selectCompanyList());
 		model.addAttribute("currentPage",currentPage);
 		model.addAttribute("maxPage",maxPage);
 		model.addAttribute("listCount", listCount);
+		
+		return "workhere/joblist";
+	}
+	
+	@RequestMapping(value = "jobsearch.do")
+	public String jobSearch(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		
+		String work_job = request.getParameter("jobkey");
+		String work_skill = request.getParameter("skillkey");
+		String work_title = request.getParameter("title");
+		
+		if(request.getParameter("jobkey").isEmpty()) {
+			work_job = null;
+		}
+		if(request.getParameter("skillkey").isEmpty()) {
+			work_skill = null;
+		}
+		if(request.getParameter("title").isEmpty()) {
+			work_title = null;
+		}
+		
+		Workhere wh = new Workhere();
+		wh.setWork_job(work_job);
+		wh.setWork_skill(work_skill);
+		wh.setWork_title(work_title);
+		
+		model.addAttribute("workherelist",workhereService.selectJobSearchList(wh));
+		model.addAttribute("joblist", workJobnSkillService.selectJobList());
+		model.addAttribute("skilllist", workJobnSkillService.selectSkillList());
+		model.addAttribute("comtype", memberService.selectCompanyList());
 		return "workhere/joblist";
 	}
 	
@@ -75,6 +112,8 @@ public class WorkhereController {
 		String[] skill = wh.getWork_skill().split(" ");
 		model.addAttribute("workhere", wh);
 		model.addAttribute("skill", skill);
+		model.addAttribute("joblist", workJobnSkillService.selectJobList());
+		model.addAttribute("skilllist", workJobnSkillService.selectSkillList());
 		
 		return "workhere/workheredetail";
 	}
@@ -91,7 +130,4 @@ public class WorkhereController {
 		}
 		return mv;
 	}
-	
-	
-	
 }
