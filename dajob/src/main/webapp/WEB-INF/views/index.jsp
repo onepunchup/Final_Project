@@ -107,7 +107,7 @@
                             </div>
                             <h3><b>기업 구직 정보</b></h3>
                             <p>기업 구직 정보를 한 눈에!! <br>이곳에 들러 기업에서 원하는 구직 정보를 한 눈에 확인 하시고, 빠른 구직을 준비하실 수 있습니다!!</p>
-                            <p align="center"><button type="button" class="btn btn-sm btn-default" onclick="javascript:location.href='index.do';">Work Here</button></p>
+                            <p align="center"><button type="button" class="btn btn-sm btn-default" onclick="javascript:location.href='jobList.do';">Work Here</button></p>
                         </div>
                     </div>
                     <div class=" col-lg-4 col-sm-4 ">
