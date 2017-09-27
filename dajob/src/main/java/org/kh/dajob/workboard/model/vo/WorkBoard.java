@@ -12,16 +12,22 @@ public class WorkBoard implements java.io.Serializable{
 	private String work_content;
 	private String work_writer;
 	private Date work_date;
-	private String work_job;
-	private String work_skill;
+	private String job_name;
+	private String skill_name;
 	private String work_career;
 	private String work_workplace;
 	private Timestamp work_startdate;
 	private Timestamp work_enddate;
 	private String member_id;
 	private String rnum;
+	private String company_name;
 	
-	
+	public String getCompany_name() {
+		return company_name;
+	}
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
+	}
 	public String getRnum() {
 		return rnum;
 	}
@@ -71,17 +77,17 @@ public class WorkBoard implements java.io.Serializable{
 	public void setWork_date(Date work_date) {
 		this.work_date = work_date;
 	}
-	public String getWork_job() {
-		return work_job;
+	public String getJob_name() {
+		return job_name;
 	}
-	public void setWork_job(String work_job) {
-		this.work_job = work_job;
+	public void setJob_name(String job_name) {
+		this.job_name = job_name;
 	}
-	public String getWork_skill() {
-		return work_skill;
+	public String getSkill_name() {
+		return skill_name;
 	}
-	public void setWork_skill(String work_skill) {
-		this.work_skill = work_skill;
+	public void setSkill_name(String skill_name) {
+		this.skill_name = skill_name;
 	}
 	public String getWork_career() {
 		return work_career;

@@ -112,8 +112,18 @@ public class InterviewController {
 		date = df.parse(request.getParameter("end"));
 		Timestamp endT = new Timestamp(date.getTime());
 		System.out.println("end Time : "+endT);
+		i.setInterview_start_date(startT);
+		i.setInterview_end_date(endT);
+		System.out.println("Request Interview Info : "+i);
 		
-		model.setViewName("index.do");
+		int result = interviewService.insertInterview(i);
+		if(result > 0) {
+			model.setViewName("redirect:interviewList.do");
+		} else {
+			model.addObject("msg", "공지사항 등록 실패!");
+			model.setViewName("404-page");
+		}
+		
 		/*if(start.length() == 22) {
 			if(start.substring(14,16) == "오전") {
 			System.out.println(n1.parse(start.substring(2,4)+ "0" + start.substring(6,7)+ start.substring(9,11)+start.substring(17,19)+start.substring(20,22)));

@@ -64,19 +64,18 @@ header {
 		<!--./Container-->
 	</header>
 	<!--End Header-->
-
 	<!--start wrapper-->
 	<section class="content elements">
 		<div class="container">
 		<div class="row sub_content">
 		<div class="dividerHeading">
-			<h4><span>선호기업리스트</span></h4>
+			<h4><span><a href="likeCompList.do">선호기업리스트</a></span></h4>
 		</div>
 		<div class="col-lg-12 col-md-12 col-sm-12">
 			<c:url var="ltitle" value="lsearch.do" />
 			<form method="get" id="site-searchform" action="${ltitle}" style="padding-bottom: 30px;margin-bottom: 30px;">
 				<div>
-				<input class="input-text" name="comp" id="s" placeholder="기업명을 입력하세요." type="search"/>
+				<input class="input-text" name="comp" id="s" placeholder="회사명을 입력하세요." type="search"/>
 				<input id="searchsubmit" value="Search" type="submit"/>
 				</div>
 			</form>
@@ -99,9 +98,9 @@ header {
 						<c:forEach items="${requestScope.list }" var="list">
 							<tr>
 								<td><a>${ list.rnum }</a></td>
-								<td><a>${ list.work_writer }</a></td>
+								<td><a>${ list.company_name }</a></td>
 								<td><a>${ list.work_workplace }</a></td>
-								<td><a>${ list.work_skill }</a></td>
+								<td><a>${ list.skill_name }</a></td>
 								<td><a>${ list.work_career }</a></td>
 								<td><a>${ list.work_enddate } 까지</a></td>
 								<td>
@@ -172,6 +171,8 @@ header {
 						</c:if>
 					</ul>
 				</div>
+				</div>	<!-- close container -->
+				</section> <!-- content elements close  -->
 		<c:import url="../footer.jsp" />
 </body>
 </html>
