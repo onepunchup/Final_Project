@@ -1,6 +1,7 @@
 package org.kh.dajob.workboard.model.vo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class WorkBoard implements java.io.Serializable{
 	
@@ -15,8 +16,8 @@ public class WorkBoard implements java.io.Serializable{
 	private String work_skill;
 	private String work_career;
 	private String work_workplace;
-	private Date work_startdate;
-	private Date work_enddate;
+	private Timestamp work_startdate;
+	private Timestamp work_enddate;
 	private String member_id;
 	private String rnum;
 	
@@ -88,16 +89,17 @@ public class WorkBoard implements java.io.Serializable{
 	public void setWork_career(String work_career) {
 		this.work_career = work_career;
 	}
-	public Date getWork_startdate() {
+	public Timestamp getWork_startdate() {
 		return work_startdate;
 	}
-	public void setWork_startdate(Date work_startdate) {
+	public void setWork_startdate(Timestamp work_startdate) {
 		this.work_startdate = work_startdate;
 	}
-	public Date getWork_enddate() {
+	public Timestamp getWork_enddate() {
 		return work_enddate;
 	}
-	public void setWork_enddate(Date work_enddate) {
+	public void setWork_enddate(Timestamp work_enddate) {
 		this.work_enddate = work_enddate;
 	}
+	
 }

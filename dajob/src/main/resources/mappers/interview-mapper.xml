@@ -10,7 +10,8 @@
 		<result property="interviewee" column="INTERVIEWEE" />
 		<result property="interview_question" column="INTERVIEW_QUESTION" />
 		<result property="interview_answer" column="INTERVIEW_ANSWER" />
-		<result property="interview_date" column="INTERVIEW_DATE" />
+		<result property="interview_startdate" column="INTERVIEW_STARTDATE" />
+		<result property="interview_enddate" column="INTERVIEW_ENDDATE" />
 		<result property="interview_status" column="INTERVIEW_STATUS" />
 		<result property="work_no" column="WORK_NO" />
 	</resultMap>
@@ -32,15 +33,19 @@
 	</select>
 	
 	<insert id="insertInterview" parameterType="Interview">
-		INSERT INTO INTERVIEW VALUES(#{interview_no},#{interviewer},#{interviewee},#{interview_question},#{interview_answer},#{interview_date},#{interview_status},#{work_no})
+		INSERT INTO INTERVIEW VALUES('IN'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_INTERVIEW.NEXTVAL,2,'0'),
+		#{interviewer},#{interviewee},#{interview_question},#{interview_answer},
+		TO_TIMESTAMP(#{interview_startdate},'RRRR-MM-DD HH24:MI:SS'),
+		TO_TIMESTAMP(#{interview_enddate},'RRRR-MM-DD HH24:MI:SS'),
+		#{interview_status},#{work_no})
 	</insert>
 	
 	<delete id="deleteInterview" parameterType="string">
 		DELETE FROM INTERVIEW WHERE INTERVIEW_NO = #{interview_no}
 	</delete>
 	
-	<update id="updateInterview" parameterType="string">
+	<!-- <update id="updateInterview" parameterType="string">
 		UPDATE INTERVIEW SET INTERVIEWER = #{interviewer}, INTERVIEWEE = #{interviewee}, INTERVIEW_QUESTION = #{interview_question}, INTERVIEW_ANSWER = #{interview_answer}, INTERVIEW_DATE = #{interview_date}, INTERVIEW_STATUS = #{interview_status}, WORK_NO = #{work_no}
-	</update>
+	</update> -->
 
 </mapper>

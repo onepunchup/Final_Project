@@ -2,6 +2,7 @@ package org.kh.dajob.interview.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -83,8 +84,8 @@ public class InterviewController {
 	public String interviewUpdateView(HttpSession session,HttpServletRequest request, Model model) throws IOException {
 		
 		model.addAttribute("interview", interviewService.selectInterview(request.getParameter("interview_no")));
-		Date startdate = interviewService.selectInterview(request.getParameter("interview_no")).getInterview_start_date();
-		Date enddate = interviewService.selectInterview(request.getParameter("interview_no")).getInterview_end_date();
+		Timestamp startdate = interviewService.selectInterview(request.getParameter("interview_no")).getInterview_start_date();
+		Timestamp enddate = interviewService.selectInterview(request.getParameter("interview_no")).getInterview_end_date();
 		SimpleDateFormat startdateformat = new SimpleDateFormat("yyyy년 MM월 dd일 hh:mm");
 		SimpleDateFormat enddateformat = new SimpleDateFormat("yyyy년 MM월 dd일 hh:mm");
 		System.out.println(startdate.getTime());
@@ -101,13 +102,19 @@ public class InterviewController {
 	}
 	
 	@RequestMapping(value = "interviewInsert.do", method = RequestMethod.POST)
-	public ModelAndView interviewInsert(Interview i, ModelAndView model,HttpServletRequest request) throws ParseException{
-		String start= request.getParameter("start");
-		String end = request.getParameter("end");
-		SimpleDateFormat n1 = new SimpleDateFormat("yyMMddHHmm");
-		SimpleDateFormat n2 = new SimpleDateFormat("yyMMddHHmm");
+	public ModelAndView interviewInsert(Interview i, ModelAndView model, HttpServletRequest request) throws ParseException{
 		
-		if(start.length() == 22) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		java.util.Date date = df.parse(request.getParameter("start"));
+		Timestamp startT = new Timestamp(date.getTime());
+		System.out.println("start Time : "+startT);
+		
+		date = df.parse(request.getParameter("end"));
+		Timestamp endT = new Timestamp(date.getTime());
+		System.out.println("end Time : "+endT);
+		
+		model.setViewName("index.do");
+		/*if(start.length() == 22) {
 			if(start.substring(14,16) == "오전") {
 			System.out.println(n1.parse(start.substring(2,4)+ "0" + start.substring(6,7)+ start.substring(9,11)+start.substring(17,19)+start.substring(20,22)));
 			}
@@ -160,15 +167,16 @@ public class InterviewController {
 					String c = Integer.toString(b);
 					System.out.println(n2.parse(end.substring(2,4)+ end.substring(6,8)+ end.substring(10,12)+ c +end.substring(21,23)));
 				}
-			}
+			}*/
 		
-		int result = interviewService.insertInterview(i);
+		/*int result = interviewService.insertInterview(i);
 		if(result > 0) {
 			model.setViewName("redirect:interviewList.do");
 		} else {
 			model.addObject("msg", "공지사항 등록 실패!");
 			model.setViewName("404-page");
 		}
+		return model;*/
 		return model;
 	}
 }
