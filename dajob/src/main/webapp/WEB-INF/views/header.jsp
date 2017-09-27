@@ -50,7 +50,7 @@
 					</c:if>
                     </div>
                 </div>
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" style="padding-right:0px;">
                     <li class="active"><a href="index.do">Home</a></li>
 
                     <li id="notice"><a href="nlist.do">공지사항</a></li>
@@ -131,7 +131,7 @@
 	        		 || currentPath.indexOf("nupdate") != -1){
                 $(".navbar-nav > li").removeClass('active');
 	        	$("li#notice").addClass('active');
-            } else if(currentPath.indexOf("workhere") != -1){
+            } else if(currentPath.indexOf("workhere") != -1 || currentPath.indexOf("joblist") != -1 || currentPath.indexOf("skilllist") != -1){
                 $(".navbar-nav > li").removeClass('active');
 	        	$("li#workhere").addClass('active');
             } else if(currentPath.indexOf("mypage") != -1 || currentPath.indexOf("myinfo") != -1 || currentPath.indexOf("interview") != -1
