@@ -75,6 +75,10 @@ public class MemberDao {
 		return sqlSession.selectOne("WorkBoard.getListCount", memberId);
 	}
 
+	public int updateResumeFiles(User user) {
+		return sqlSession.update("User.updateResumeFiles",user);
+	}
+	
 	public int updateUser(User user) {
 		return 0;
 	}
@@ -97,6 +101,18 @@ public class MemberDao {
 
 	public ArrayList<Company> selectPowerLinkComp() {
 		return new ArrayList<Company>(sqlSession.selectList("Company.selectPowerLinkComp"));
+	}
+	
+	public int deleteFile(String userid, int fileno) {
+		int result = 0;
+		if(fileno == 1) {
+			result = sqlSession.update("User.deleteFile1", userid);
+		}else if(fileno == 2) {
+			result = sqlSession.update("User.deleteFile2", userid);
+		}else if(fileno == 3) {
+			result = sqlSession.update("User.deleteFile3", userid);
+		}
+		return result;
 	}
 }
 

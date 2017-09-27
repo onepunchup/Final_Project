@@ -17,7 +17,9 @@
 		<result property="gender" column="GENDER" />
 		<result property="birthday" column="BIRTHDAY" />
 		<result property="resume_data" column="RESUME_DATA" />
-		<result property="resumefile" column="RESUMEFILE" />
+		<result property="resumefile1" column="RESUMEFILE1" />
+		<result property="resumefile2" column="RESUMEFILE2" />
+		<result property="resumefile3" column="RESUMEFILE3" />
 	</resultMap>
 	
 	<select id="selectUser" parameterType="Member" resultType="User"
@@ -28,17 +30,33 @@
 	<insert id="insertUser" parameterType="User" flushCache="true"
 		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
 		timeout="20">
-		INSERT INTO MEMBER_USER VALUES(#{member_id}, #{gender}, #{birthday}, #{resume_data}, #{resumefile})
+		INSERT INTO MEMBER_USER VALUES(#{member_id}, #{gender}, #{birthday}, #{resume_data}, #{resumefile1})
 	</insert>
 
 	<update id="updateMember" parameterType="User" flushCache="true"
 		statementType="PREPARED" timeout="20">
 		UPDATE MEMBER SET GENDER = #{gender}, BIRTHDAY = #{birthday}, RESUME_DATA = #{resume_data},
-		RESUMEFILE = #{resumefile} WHERE MEMBER_ID = #{member_id}
+		RESUMEFILE1 = #{resumefile1} WHERE MEMBER_ID = #{member_id}
 	</update>
 	
 	<update id="insertResumeData" parameterType="User">
 		update member_user set resume_data = #{resume_data} where member_id = #{member_id}
 	</update>
-
+	
+	<update id="updateResumeFiles" parameterType="User">
+		update member_user set resumefile1 = #{resumefile1}, resumefile2 = #{resumefile2}, resumefile3 = #{resumefile3} where member_id = #{member_id}
+	</update>
+	
+	<update id="deleteFile1" parameterType="User">
+		update member_user set resumefile1 = null where member_id = #{member_id}
+	</update>
+	
+	<update id="deleteFile2" parameterType="User">
+		update member_user set resumefile2 = null where member_id = #{member_id}
+	</update>
+	
+	<update id="deleteFile3" parameterType="User">
+		update member_user set resumefile3 = null where member_id = #{member_id}
+	</update>
+	
 </mapper>

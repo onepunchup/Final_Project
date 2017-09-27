@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="<c:url value='/resources/css/font-awesome.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/css/animate.css'/>"/>
 	<c:set var="interviewlist" value="${interviewlist}"/>
-	<c:set var="company" value="${company}"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -58,37 +57,70 @@
         </div> <!--./Container-->
     </header>
 	<div class="container">
-  <h2>${company.company_name}</h2>
-  <p>The .table-hover class enables a hover state on table rows:</p>            
+  <h2>인터뷰 리스트</h2>  
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-        <th>Email</th>
-        <th>Email</th>
-        <th>Email</th>
+        <th>인터뷰 번호</th>
+        <th>회사 이름</th>
+        <th>신청자 아이디</th>
+        <th>면접 상태</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-   		 <c:forEach var="interviewlist" items="${interviewlist}">
+    	<!-- 유저입장 -->
+   		 <c:forEach var="interview" items="${interviewlist}">
+   		 <c:if test="${member.member_id eq interview.interviewee }">
       <tr>
-        <td>${interviewlist.interview_no }</td>
-        <td>${interviewlist.interviewer}</td>
-        <td>${interviewlist.interviewee }</td>
+        <td>${interview.interview_no}</td>
+        <td>${interview.company_name}</td>
+        <td>${interview.interviewee}</td>
+        <td>
+        <c:url var="interDetail" value="/interviewDetail.do">
+        	<c:param name="interview_no" value="${interview.interview_no}"/>
+        </c:url>
+        <c:if test="${interview.interview_status eq 'H' }">대기</c:if>
+        <c:if test="${interview.interview_status eq 'E' }"><a href="${interDetail}">입장 가능</a></c:if>
+        <c:if test="${interview.interview_status eq 'Q' }">종료</c:if>
+        </td>
+        
       </tr>
+      </c:if>
+      </c:forEach>
+      <!-- 회사입장 -->
+      <c:forEach var="interviewcompanylist" items="${interviewlist}">
+   		 <c:if test="${member.member_id eq interviewcompanylist.interviewer }">
+      <tr>
+        <td>${interviewcompanylist.interview_no}</td>
+        <td>${interviewcompanylist.company_name}</td>
+        <td>${interviewcompanylist.interviewee}</td>
+        <td>
+        <c:url var="interDetail" value="/interviewDetail.do">
+        	<c:param name="interview_no" value="${interviewcompanylist.interview_no}"/>
+        </c:url>
+        <c:if test="${interviewcompanylist.interview_status eq 'H' }">대기</c:if>
+        <c:if test="${interviewcompanylist.interview_status eq 'E' }"><a href="${interDetail}">입장 가능</a></c:if>
+        <c:if test="${interviewcompanylist.interview_status eq 'Q' }">종료</c:if>
+        </td>
+        <td>
+         <c:url var="interUpdate" value="/interviewUpdateView.do">
+        	<c:param name="interview_no" value="${interviewcompanylist.interview_no}"/>
+        </c:url>
+        	<button type="button" style="height:20px; font-size:10px; height:50%" class="btn btn-success" onclick="location.href='${interUpdate}'">입력 및 수정</button>
+       	<c:url var="interDelete" value="/interviewDelete.do">
+        	<c:param name="interview_no" value="${interviewcompanylist.interview_no}"/>
+        </c:url>
+        	<button type="button" style="height:20px; font-size:10px; height:50%" class="btn btn-danger" onclick="location.href='${interDelete}'">삭제하기</button>
+       	</td>
+      </tr>
+      </c:if>
       </c:forEach>
     </tbody>
   </table>
 </div>
-	
-
-	
 	<!--start footer-->
 	<c:import url="../footer.jsp"/>
 	<!--end footer-->
-
-
 </body>
 </html>

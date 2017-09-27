@@ -127,6 +127,9 @@
 			                            <li><a><span class="social fa fa-calendar"></span> : ${user.birthday}</a>
 			                            </li>
 			                            <li><a><span class="social fa fa-list-alt"></span> : 
+			                            		<c:if test="${ empty countCert }">
+			                            			0개 보유
+			                            		</c:if>
 			                            		<c:forEach items="${countCert}"  var="countCert" varStatus="vs">
 			                            			<c:if test="${ countCert.cert_value eq '총합' }">
 			                            				${ countCert.cert_count }개 보유
@@ -170,7 +173,6 @@
 					
 					<form id="resumeContents">
 						<textarea cols="100" id="resumeData" name="resumeData" rows="10">${user.resume_data}</textarea>
-						<input type="hidden" id="test" val="">
 						<div style="margin-top : 20px;"><p align="center">
 							<button class="btn btn-success btn-md" type="button" onclick="insertResumeData()"><i class="fa fa-check-circle"></i> 등록하기</button>
 							</p>
@@ -253,7 +255,7 @@
 			               	</c:if><c:if test="${empty totalCert}">
 			               		<p style="margin-top:50px; margin-bottom:50px;" align="center">
 			               		보유한 <b style="color:#00bdd2">자격증</b>이 없습니다.
-			               		<br><br><button class="btn btn-info btn-xs" type="button">자격증 등록</button>
+			               		<br><br><a href="myinfo.do"><button class="btn btn-info btn-xs" type="button">자격증 등록</button></a>
 			               		</p>
 			               	</c:if>
 		                    
@@ -278,7 +280,7 @@
 			                </c:if><c:if test="${ empty likeList }">
 		                			<p style="margin-top:50px; margin-bottom:50px;" align="center">
 		                			선호하는 <b style="color:#00bdd2">기업</b>이 없습니다.
-		                			<br><br><button class="btn btn-info btn-xs" type="button">선호기업 등록</button>
+		                			<br><br><a href="likeCompList.do"><button class="btn btn-info btn-xs" type="button">선호기업 등록</button></a>
 		                			</p>
 		                	</c:if>
 			        	</div><!--awards end-->
@@ -291,10 +293,55 @@
 		                </div><!--icon end-->
 		                <div class="col-sm-11 col-md-10" style="padding-left:0;">
 		                    <h3 class="mobmid" style="margin-bottom:20px;"><span class="secicon fa fa-file-text-o"></span>&nbsp;&nbsp; 증명 파일 첨부</h3>
-		                   	<p style="margin-top:50px; margin-bottom:50px;" align="center">
-		                		업로드한 <b style="color:#00bdd2">파일</b>이 없습니다.
-		                		<br><br><button class="btn btn-info btn-xs" type="button">첨부파일 등록</button>
-		                	</p>
+		                    <form id="frm" name="frm" method="post" enctype="multipart/form-data" action="resumefile.do">
+		                    <c:if test="${ empty user.resumefile1 }">
+		                    	<p align="center">
+		                    		<input type="file" id="file1" name="file1" style="display: inline-block; width: 200px;">
+		                    		<input type="hidden" id="fileno" name="fileno" value="1">
+		                    	</p>
+		                    </c:if><c:if test="${ !empty user.resumefile1 }">
+			                    <c:if test="${ empty user.resumefile2 }">
+			                    	<p align="center">
+			                    		<span style="display: inline-block; width:75%;"><a href="${pageContext.request.contextPath}/resources/userFiles/${user.member_id}/${ user.resumefile1 }" download>${ user.resumefile1 }</a></span>
+			                    		&nbsp;<button class="btn btn-info btn-xs" type="button" id="delfile1"><i class="fa fa-minus"></i></button>
+			                    	</p>
+			                    	<p align="center">
+			                    		<input type="file" id="file2" name="file2" style="display: inline-block; width: 200px;"/>
+			                    		<input type="hidden" id="fileno" name="fileno" value="2">
+			                    		<input type="hidden" id="fileName1" name="fileName1" value="${ user.resumefile1 }">
+			                    	</p>
+			                    </c:if><c:if test="${ !empty user.resumefile2 }">
+			                    	<c:if test="${ empty user.resumefile3 }">
+				                    	<p align="center">
+				                    		<span style="display: inline-block; width:75%;"><a href="${pageContext.request.contextPath}/resources/userFiles/${user.member_id}/${ user.resumefile1 }" download>${ user.resumefile1 }</a></span>
+				                    		<span style="display: inline-block; width:75%;"><a href="${pageContext.request.contextPath}/resources/userFiles/${user.member_id}/${ user.resumefile2 }" download>${ user.resumefile2 }</a></span>
+				                    		&nbsp;<button class="btn btn-info btn-xs" type="button" id="delfile2"><i class="fa fa-minus"></i></button>
+				                    	</p>
+				                    	<p align="center">
+				                    		<input type="file" id="file3" name="file3" style="display: inline-block; width: 200px;"/>
+				                    		<input type="hidden" id="fileno" name="fileno" value="3">
+				                    		<input type="hidden" id="fileName1" name="fileName1" value="${ user.resumefile1 }">
+				                    		<input type="hidden" id="fileName2" name="fileName2" value="${ user.resumefile2 }">
+				                    	</p>
+			                    	</c:if>
+			                    </c:if><c:if test="${ !empty user.resumefile3 }">
+			                    	<p align="center">
+			                    		<span style="display: inline-block; width:75%;"><a href="${pageContext.request.contextPath}/resources/userFiles/${user.member_id}/${ user.resumefile1 }" download>${ user.resumefile1 }</a></span>
+			                    		<span style="display: inline-block; width:75%;"><a href="${pageContext.request.contextPath}/resources/userFiles/${user.member_id}/${ user.resumefile2 }" download>${ user.resumefile2 }</a></span>
+			                    		<span style="display: inline-block; width:75%;"><a href="${pageContext.request.contextPath}/resources/userFiles/${user.member_id}/${ user.resumefile3 }" download>${ user.resumefile3 }</a></span>
+			                    		&nbsp;<button class="btn btn-info btn-xs" type="button" id="delfile3"><i class="fa fa-minus"></i></button>
+			          					<br><br> 첨부파일은 최대 3개까지 가능합니다.
+			          					<input type="hidden" id="fileno" name="fileno" value="4">
+			                    	</p>
+			                    </c:if>
+		                    </c:if>
+		                    
+		                    <c:if test="${ empty user.resumefile3 }">
+			                    <p align="center" style="margin-top:30px;">
+			                    	<button class="btn btn-info btn-xs" type="submit">등록 및 추가</button>
+			                    </p>
+		                    </c:if>
+		                    </form>
 						</div>
 					</div>
 					
@@ -327,6 +374,71 @@
 		} );
 	</script>
 	
+	<!-- 첨부파일 삭제 에이작스 -->
+	<script type="text/javascript">
+	
+		$("#delfile1").on("click",function(){
+			$.ajax({
+				url : "deleteFile.do",
+				data : {
+					file_name : '<c:out value="${ user.resumefile1 }" />', fileNo : $('#fileno').val()
+				},
+				type : "post",
+				success : function(result){
+					if(result == "ok"){
+						alert("삭제되었습니다.");
+						location.href = "resume.do";
+					} else {
+						alert("삭제실패");
+						location.href = "resume.do";
+						
+					}
+				}
+			});
+		});
+		
+		$("#delfile2").on("click",function(){
+			$.ajax({
+				url : "deleteFile.do",
+				data : {
+					file_name : '<c:out value="${ user.resumefile2 }" />', fileNo : $('#fileno').val()
+				},
+				type : "post",
+				success : function(result){
+					if(result == "ok"){
+						alert("삭제되었습니다.");
+						location.href = "resume.do";
+					} else {
+						alert("삭제실패");
+						location.href = "resume.do";
+						
+					}
+				}
+			});
+		});
+		
+		$("#delfile3").on("click",function(){
+			$.ajax({
+				url : "deleteFile.do",
+				data : {
+					file_name : '<c:out value="${ user.resumefile3 }" />', fileNo : $('#fileno').val()
+				},
+				type : "post",
+				success : function(result){
+					if(result == "ok"){
+						alert("삭제되었습니다.");
+						location.href = "resume.do";
+					} else {
+						alert("삭제실패");
+						location.href = "resume.do";
+						
+					}
+				}
+			});
+		});
+	
+	</script>
+	
 	<!-- 이력서 메인 등록 -->
  	<script type="text/javascript">
 	function insertResumeData(){
@@ -337,10 +449,10 @@
 			success : function(result){
 				if(result == "ok"){
 					alert("이력서를 성공적으로 등록하셨습니다.");
-					location.href = "resume.do";
+					location.href = "resumeUpdate.do";
 				} else {
 					alert("이력서 등록에 실패하셨습니다.");
-					location.href = "resume.do";
+					location.href = "resumeUpdate.do";
 					
 				}
 			}

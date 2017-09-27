@@ -86,7 +86,7 @@
                             </li>
                             <li><a href="powerlink.do">PowerLink 정보</a></li>
                             <li><a href="#">구직 신청자 리스트</a></li>
-                            <li><a href="#">화상 면접 대기실</a></li>
+                            <li><a href="interviewList.do">화상 면접 대기실</a></li>
                    			</c:if>
                          <!---------/ 기업 회원 메뉴 구성 --------->
                         <!--------- 관리자 메뉴 구성 --------->

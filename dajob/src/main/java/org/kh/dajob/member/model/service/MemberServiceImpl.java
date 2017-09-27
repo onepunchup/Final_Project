@@ -114,4 +114,14 @@ public class MemberServiceImpl implements MemberService{
 	public ArrayList<Company> selectPowerLinkComp() {
 		return memberDao.selectPowerLinkComp();
 	}
+	
+	@Override
+	public int updateResumeFiles(User user) {
+		return memberDao.updateResumeFiles(user);
+	}
+
+	@Override
+	public int deleteFile(String userid, int fileno) {
+		return memberDao.deleteFile(userid, fileno);
+	}
 }

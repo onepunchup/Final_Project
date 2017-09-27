@@ -15,7 +15,7 @@
     <!-- 로그인한 상태일 경우와 비로그인 상태일 경우의 chat_id설정 -->
     <c:set var="member" value="${sessionScope.member}"/>
     <c:if test="${empty member}">
-        <input type="hidden" value='${login.id }' id='chat_id' />
+        <input type="hidden" value='비회원' id='chat_id' />
     </c:if>
     <c:if test="${!empty member}">
         <input type="hidden" value='${ member.member_id }' id='chat_id' />

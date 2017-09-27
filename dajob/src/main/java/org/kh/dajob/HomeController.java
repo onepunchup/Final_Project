@@ -64,13 +64,13 @@ public class HomeController {
 		mv.addObject("powerComp", memberService.selectPowerLinkComp());
 		mv.addObject("comTypeList",memberService.selectCompanyList());
 		mv.addObject("powerList",powerlinkService.selectPowerLinkAll());
-		
+		/*
 		System.out.println("userCnt : " + memberService.selectUserAll());
 		System.out.println("compCnt : " + memberService.selectCompanyAll());
 		System.out.println("powerComp : " + memberService.selectPowerLinkComp());
 		System.out.println("comTypeList : " + memberService.selectCompanyList());
 		System.out.println("powerList : " + powerlinkService.selectPowerLinkAll());
-		
+		*/
 		mv.setViewName("mypage/powerLinkList");
 		
 		return mv;

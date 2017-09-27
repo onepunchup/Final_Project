@@ -30,7 +30,7 @@ public interface MemberService {
 	int updateMember(Member m);
 	
 	int updateUser(User user);
-	
+	int updateResumeFiles(User user);
 	int updateCompany(Company company);
 
 	int deleteMember(String id);
@@ -47,4 +47,5 @@ public interface MemberService {
 
 	ArrayList<Company> selectPowerLinkComp();
 
+	int deleteFile(String userid, int fileno);
 }

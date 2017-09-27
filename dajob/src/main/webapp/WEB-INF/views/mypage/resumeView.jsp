@@ -23,7 +23,6 @@
 	<!-- CKeditor CSS FILES -->
 	<link href="${pageContext.request.contextPath}/resources/api/CKeditor/contents.css"" rel="stylesheet">
 	<%-- <link rel="stylesheet" href="<c:url value='/resources/css/sntest.css'/>"/> --%>
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -38,7 +37,6 @@
     
 </head>
 <body>
-
 	<!--Start Header-->
 	<header>
 	<c:import url="../header.jsp"/>
@@ -123,6 +121,9 @@
 			                            <li><a><span class="social fa fa-calendar"></span> : ${user.birthday}</a>
 			                            </li>
 			                            <li><a><span class="social fa fa-list-alt"></span> : 
+			                            		<c:if test="${ empty countCert }">
+			                            			0개 보유
+			                            		</c:if>
 			                            		<c:forEach items="${countCert}"  var="countCert" varStatus="vs">
 			                            			<c:if test="${ countCert.cert_value eq '총합' }">
 			                            				${ countCert.cert_count }개 보유
@@ -145,7 +146,7 @@
 		        ============================ -->
 		        <div class="col-md-8 mainleft">
 		        
-		        	<div>
+		        	<!-- <div>
 		        		<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
 			            <div id="statement" class="row mobmid">
 			                <div class="col-sm-1">
@@ -162,7 +163,7 @@
 			                </div>
 			            </div>
 			            <hr>
-					</div>
+					</div> -->
 					
 					<c:if test="${!empty user.resume_data}">
 					<div class="row">
@@ -179,14 +180,15 @@
 					<hr>
 					
 					</c:if><c:if test="${empty user.resume_data}">
-						<p style="margin-top:35%; margin-bottom:35%;" align="center">
+						<div class="row">
+						<p style="margin-top:30%; margin-bottom:30%;" align="center">
 						등록하신 <b style="color:#339933">이력서</b>가 없네요
 						<br> 지금바로 추가하세요!
 						<br><br>
 						<a href="resumeUpdate.do"><button class="btn btn-success btn-md" type="button"><i class="fa fa-pencil"></i> 이력서 등록하기</button></a>
 						</p>
+					</div>
 					</c:if>
-
 		        </div><!--left end-->
 		        <!-- ===========================
 		        SIDEBAR
@@ -263,7 +265,7 @@
 			               	</c:if><c:if test="${empty totalCert}">
 			               		<p style="margin-top:50px; margin-bottom:50px;" align="center">
 			               		보유한 <b style="color:#00bdd2">자격증</b>이 없습니다.
-			               		<br><br><button class="btn btn-info btn-xs" type="button">자격증 등록</button>
+			               		<br><br><a href="myinfo.do"><button class="btn btn-info btn-xs" type="button">자격증 등록</button></a>
 			               		</p>
 			               	</c:if>
 		                    
@@ -288,7 +290,7 @@
 			                </c:if><c:if test="${ empty likeList }">
 		                			<p style="margin-top:50px; margin-bottom:50px;" align="center">
 		                			선호하는 <b style="color:#00bdd2">기업</b>이 없습니다.
-		                			<br><br><button class="btn btn-info btn-xs" type="button">선호기업 등록</button>
+		                			<br><br><a href="likeCompList.do"><button class="btn btn-info btn-xs" type="button">선호기업 등록</button></a>
 		                			</p>
 		                	</c:if>
 			        	</div><!--awards end-->
@@ -301,10 +303,28 @@
 		                </div><!--icon end-->
 		                <div class="col-sm-11 col-md-10" style="padding-left:0;">
 		                    <h3 class="mobmid" style="margin-bottom:20px;"><span class="secicon fa fa-file-text-o"></span>&nbsp;&nbsp; 증명 파일 첨부</h3>
-		                   	<p style="margin-top:50px; margin-bottom:50px;" align="center">
-		                		업로드한 <b style="color:#00bdd2">파일</b>이 없습니다.
-		                		<br><br><button class="btn btn-info btn-xs" type="button">첨부파일 등록</button>
-		                	</p>
+		                   	
+		                   	<c:if test="${ empty user.resumefile1 }">
+			                   	<p style="margin-top:50px; margin-bottom:50px;" align="center">
+			                		업로드한 <b style="color:#00bdd2">파일</b>이 없습니다.
+			                		<br><br><a href="resumeUpdate.do"><button class="btn btn-info btn-xs" type="button">첨부파일 등록</button></a>
+			                	</p>
+		                   	</c:if><c:if test="${ !empty user.resumefile1 }">
+		                   		<p align="center">
+		                    		<span style="display: block; width:100%;"><a href="${pageContext.request.contextPath}/resources/userFiles/${user.member_id}/${ user.resumefile1 }" download>${ user.resumefile1 }</a></span>
+		                    		<c:if test="${ !empty user.resumefile2 }">
+		                    			<span style="display: block; width:100%;"><a href="${pageContext.request.contextPath}/resources/userFiles/${user.member_id}/${ user.resumefile2 }" download>${ user.resumefile2 }</a></span>
+		                    		</c:if>
+		                    		<c:if test="${ !empty user.resumefile3 }">
+		                    			<span style="display: block; width:100%;"><a href="${pageContext.request.contextPath}/resources/userFiles/${user.member_id}/${ user.resumefile3 }" download>${ user.resumefile3 }</a></span>
+		                    		</c:if>
+		                    		<c:if test="${ empty user.resumefile3 }">
+		                    			<br><a href="resumeUpdate.do"><button class="btn btn-info btn-xs" type="button">파일추가 등록</button></a>
+		                    		</c:if><c:if test="${ !empty user.resumefile3 }">
+		                    			<br><a href="resumeUpdate.do"><button class="btn btn-info btn-xs" type="button">첨부파일 관리</button></a>
+		                    		</c:if>
+		                    	</p>
+		                   	</c:if>
 						</div>
 					</div>
 					
@@ -332,29 +352,10 @@
 	console.log(test);
 		CKEDITOR.replace( 'resumeData', {
 			customConfig: '${pageContext.request.contextPath}/resources/api/CKeditor/config.js',
-			filebrowserImageUploadUrl: 'fileUpload.do',
+			filebrowserImageUploadUrl: 'ckfileUpload.do',
 			height: 400
 		} );
 	</script>
-	
-	<!-- 이력서 메인 등록 -->
-<!-- 	<script type="text/javascript">
-	function insertResumeData(){
-		alert($('#resumeContents').children('div').children('div').children('div').children('iframe').contents().find('body').html());
- 		$.ajax({
-			url : "insertResumeData.do",
-			data : {resume_data : $('#resumeContents').children('div').children('div').children('div').children('iframe').contents().find('body').html()},
-			type : "post",
-			success : function(result){
-				if(result == "ok"){
-
-				} else {
-					alert("이력서 등록에 실패하셨습니다.");
-				}
-			}
-		});
-	}
-	</script> -->
 	
 	<!-- modal script -->
 	<script type="text/javascript">

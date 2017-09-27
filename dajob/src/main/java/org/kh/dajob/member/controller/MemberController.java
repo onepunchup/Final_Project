@@ -2,6 +2,7 @@ package org.kh.dajob.member.controller;
 
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.file.Files;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -27,11 +28,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
@@ -246,7 +250,7 @@ public class MemberController {
 		int result = memberService.insertMember(new Member(member_id,member_password,"U",
 				member_name,member_email,member_phone,member_address,member_profile_img));
 		if (result > 0) {
-			result = memberService.insertUser(new User(member_id, gender, birthday, null, null));
+			result = memberService.insertUser(new User(member_id, gender, birthday, null, null, null, null));
 			
 			if(result > 0) {
 				
@@ -380,7 +384,7 @@ public class MemberController {
 		int result = memberService.updateMember(new Member(member_id,member_password,"U",
 				member_name,member_email,member_phone,member_address,"default.jpg"));
 		if (result > 0) {
-			result = memberService.updateUser(new User(member_id, gender, birthday, null, null));
+			result = memberService.updateUser(new User(member_id, gender, birthday, null, null, null, null));
 			
 			if(result > 0) {
 				
@@ -616,4 +620,132 @@ public class MemberController {
 			chk.flush();
 		}
 	}
+	
+	@RequestMapping(value="resumefile.do",  method=RequestMethod.POST)
+	public ModelAndView resumefile(MultipartHttpServletRequest multipartRequest, HttpServletResponse response,HttpSession session) throws IOException {
+		logger.info("resumefile() call...");
+		multipartRequest.setCharacterEncoding("UTF-8");
+		
+		System.out.println(multipartRequest.getFileNames());
+		
+		Iterator<String> itr =  multipartRequest.getFileNames();
+		
+		String userid = ((Member)session.getAttribute("member")).getMember_id();
+	       
+		String root = multipartRequest.getSession().getServletContext().getRealPath("resources");
+	    String savePath = root + "\\userFiles"; //설정파일로 뺀다.
+	    logger.info("root : "+root);
+	    logger.info("savePath : "+savePath);
+	    
+	    while (itr.hasNext()) { //받은 파일들을 모두 돌린다.
+	    /* 기존 주석처리
+	    MultipartFile mpf = multipartRequest.getFile(itr.next());
+	    String originFileName = mpf.getfileName();
+	    System.out.println("FILE_INFO: "+originFileName); //받은 파일 리스트 출력'
+	    */
+	    	    
+	    MultipartFile mpf = multipartRequest.getFile(itr.next());
+	    	    
+	    fileName = mpf.getOriginalFilename(); //파일명
+	           
+	    File folder = new File(savePath + "\\"+userid);
+	           
+	    if(!folder.exists()) {
+/*	    	logger.info(folder.getName()+" Folder Already Exists..");
+	        logger.info("Folder Destroy and Create new Files Process Start..");
+	        File[] innerFiles = folder.listFiles();
+	        logger.info("innerFile Counts are "+innerFiles.length);
+	        
+	        for(File f : innerFiles){
+	        	f.delete(); 
+	        }
+	        
+	        logger.info("innerFiles delete Complete");
+	        folder.delete();*/
+	    	
+		    	if(!folder.mkdir()) {
+		    		Files.createDirectory(folder.toPath());
+		        };  // 폴더가 없다면 생성하세요~
+	    	
+	        }
+	        
+	        logger.info("folder : "+folder);
+	        //logger.info("need Folder : "+folder+"\\"+member_id);
+	           
+	        String fileFullPath = folder+"\\"+fileName; //파일 전체 경로
+        	
+	        try {
+            //파일 저장
+     	   		mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는 service에서 처리
+             
+     	   		logger.info("fileName => "+fileName);
+     	   		logger.info("fileFullPath => "+fileFullPath);
+            } catch (Exception e) {
+         	   logger.info("postTempFile_ERROR======>"+fileFullPath);
+         	   e.printStackTrace();
+            }
+        }
+	    
+	    int result = 0;
+	    
+	    	System.out.println(multipartRequest.getParameter("fileno"));
+		    if(multipartRequest.getParameter("fileno").equals("1")) {
+		    	result = memberService.updateResumeFiles(new User(userid, fileName, null, null));
+		    };
+		    if(multipartRequest.getParameter("fileno").equals("2")) {
+		    	String fileName1 = multipartRequest.getParameter("fileName1");
+		    	result = memberService.updateResumeFiles(new User(userid, fileName1, fileName, null));
+		    };
+		    if(multipartRequest.getParameter("fileno").equals("3")) {
+		    	String fileName1 = multipartRequest.getParameter("fileName1");
+		    	String fileName2 = multipartRequest.getParameter("fileName2");
+		    	result = memberService.updateResumeFiles(new User(userid, fileName1, fileName2, fileName));
+		    };
+	    
+		ModelAndView mv= new ModelAndView();
+		if(result > 0) {
+			mv.setViewName("redirect:resumeUpdate.do");
+		} else {
+			mv.addObject("msg", "이력서 파일 등록 실패!!!");
+			mv.setViewName("404-page");
+		}
+		
+        return mv;
+	}
+	
+	@RequestMapping(value="deleteFile.do", method=RequestMethod.POST)
+	public void deleteFile(HttpServletRequest request, HttpSession session, HttpServletResponse response) throws Exception {
+		logger.info("deleteFile.do() call...");
+		request.setCharacterEncoding("utf-8");
+		
+		PrintWriter chk = response.getWriter();
+		
+		String fileName = request.getParameter("file_name");
+		String userid = ((Member)session.getAttribute("member")).getMember_id();
+		int fileno = Integer.parseInt(request.getParameter("fileNo")) - 1;
+		
+		System.out.println("fileName : " + fileName + ", userid : " + userid + ", fileno : " + fileno);
+		
+		int result = 0;
+		
+		result = memberService.deleteFile(userid, fileno);
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+	    String savePath = root + "\\userFiles";
+	    String fileFullPath = savePath + "\\" + userid + "\\" + fileName;
+		
+	    if(result > 0 ) {
+	    	File delfile = new File(fileFullPath);
+	    	if(delfile.exists()) {
+	    		delfile.delete();
+	    	}
+	    	chk.append("ok");
+			chk.flush();
+		}else{
+			chk.append("no");
+			chk.flush();
+		}
+		
+	}
+	
 }
