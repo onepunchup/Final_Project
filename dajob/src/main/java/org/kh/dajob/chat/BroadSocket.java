@@ -1,4 +1,4 @@
-/*package org.kh.dajob.chat;
+package org.kh.dajob.chat;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -47,4 +47,3 @@ public class BroadSocket {
         t.printStackTrace();
     }
 }
-*/

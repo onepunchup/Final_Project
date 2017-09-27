@@ -241,6 +241,16 @@
     </section>
     <!--end wrapper-->
 <c:import url="./footer.jsp"/>
+
+<c:if test="${empty member}">
+        <input type="hidden" value='비회원' id='chat_id' />
+    </c:if>
+    <c:if test="${!empty member}">
+        <input type="hidden" value='${ member.member_id }' id='chat_id' />
+    </c:if>
+ <!-- Start Style Switcher -->
+ <div class="switcher"></div>
+ <!-- End Style Switcher -->
 <script type="text/javascript">
 $(function(){
 	$(".carousel-inner").children(".item:first").addClass("active");
@@ -255,16 +265,16 @@ $(document).ready(function($){
 				   
 var styleswitcherstr = ' \
 	<h2> \
-	1:1 상담 \
+	Question & Answer \
 	<button onclick="disconnect()" style="background: #021a21; border: 0; outline: 0; float: right;"><i class="fa fa-mail-forward"></i></button>\
 	<a href="#" onclick="conn()"></a>\
 	</h2> \
 	<div class="content"> \
     <div class="switcher-box" id="_chatbox"> \
     <fieldset>\
-       <textarea id="messageWindow" rows="10" cols="5" readonly="true"></textarea>\
-        <br> <input id="inputMessage" type="text" size="23" onkeyup="enterkey()" />\
-        <input type="submit" value="send" onclick="send()" />\
+       <div id="messageWindow" rows="10" cols="5" readonly="true" style="background-color: white; height: 210px;"></div>\
+        <div style="padding-top: 7px;"><input id="inputMessage" type="text" size="23" onkeyup="enterkey()" />\
+        <input type="submit" value="send" onclick="send()" /></div>\
     </fieldset>\
 	</div>\
 	</div>\
@@ -276,7 +286,6 @@ $(".switcher").prepend( styleswitcherstr );
 
 /*  Skins Style  */
 $(document).ready(function($){
-
     var cookieName = 'default';
 
     function changeLayout(layout) {
@@ -323,26 +332,31 @@ $(document).ready(function(){
     var textarea = document.getElementById("messageWindow");
     var webSocket = new WebSocket('ws://localhost:4080/dajob/broadcasting');
     var inputMessage = null;
+   
+    webSocket.onopen = function(event) {
+    	onOpen(event)
+	};
     webSocket.onerror = function(event) {
         onError(event)
     };
-    function conn(){
-    	onOpen();
-    	$("#messageWindow").html("채팅에 참여하였습니다.\n");
-    }
    
     webSocket.onmessage = function(event) {
         onMessage(event)
     };
     
-    webSocket.onerror = function(event){
-    	onError();
-    };
-    
+    function onOpen(event){
+    	$("#messageWindow").html("<font style='color: #ff8080;'>귓속말 채팅 : &nbsp;/아이디 내용</font><br>");
+    }
+
+    function onError(event) {
+        alert(event.data);
+    }
+	
     function onMessage(event) {
         var message = event.data.split("|");
         var sender = message[0];
         var content = message[1];
+        
         if (content == "") {
             alert("content");
         } else {
@@ -351,43 +365,26 @@ $(document).ready(function(){
                     var temp = content.replace("/" + $("#chat_id").val(), "(귓속말) :").split(":");
                     if (temp[1].trim() == "") {
                     } else {
-                        $("#messageWindow").html($("#messageWindow").html()
-                            + sender + content.replace("/" + $("#chat_id").val(), "(귓속말) :") + "\n");
+                    	$("#messageWindow").html($("#messageWindow").html() + "<font style='opacity: 0.7;'>"
+                        + sender + content.replace("/" + $("#chat_id").val(), "(귓속말) :") + "</font><br>");
                     }
                 } else {
                 }
             } else {
                 if (content.match("!")) {
-                    $("#messageWindow").html($("#messageWindow").html()
-                        + sender + " : " + content + "\n");
+                    $("#messageWindow").html($("#messageWindow").html() + "<font class=''>"
+                        + sender + " : " + content + "</font><br>");
                 } else {
-                    $("#messageWindow").html($("#messageWindow").html()
-                        + sender + " : " + content + "\n");
+                    $("#messageWindow").html($("#messageWindow").html() + "<font class=''>"
+                        + sender + " : " + content + "</font><br>");
                 }
             }
         }
     }
-    
-    function onOpen(event){
-    	webSocket.open;
-    }
-
-    function onError(event) {
-        alert(event.data);
-    }
-   /*  var test = false;
-    
-    var checkUnload = false;
-    $(window).on("beforeunload", function(){
-    	checkUnload = true;
-        if(checkUnload){
-        	return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다.";
-        }
-    }); */
-	
+  
     function disconnect(){
-    	$("#messageWindow").html($("#messageWindow").html()
-                + "채팅에 나가셨습니다." + "\n");
+    	$("#messageWindow").html($("#messageWindow").html() + "<font class=''>"
+                + "채팅에 나가셨습니다." + "</font><br>");
     	webSocket.send($("#chat_id").val() + "|" + "채팅에 나가셨습니다.");
     	
         var div = $('.switcher');
@@ -407,8 +404,16 @@ $(document).ready(function(){
     	inputMessage = $('#inputMessage').val();
         if (inputMessage == "") {
         } else {
-            $("#messageWindow").html($("#messageWindow").html()
-                + $("#chat_id").val() + " : " + inputMessage + "\n");
+        	if(inputMessage.match('/')){
+        		$("#messageWindow").html($("#messageWindow").html() + "<font style='opacity: 0.7;'>"
+                        + $("#chat_id").val() + " : " + inputMessage + "</font><br>");
+        	}else{
+        		$("#messageWindow").html($("#messageWindow").html() + "<font class=''>"
+                        + $("#chat_id").val() + " : " + inputMessage + "</font><br>");
+        	}
+			//채팅이 많아져 스크롤바가 넘어가더라도 자동적으로 스크롤바가 내려가게함
+            var elem = document.getElementById('messageWindow');
+            elem.scrollTop = elem.scrollHeight;
         }
         webSocket.send($("#chat_id").val() + "|" + inputMessage);
         $('#inputMessage').val('');
@@ -419,11 +424,7 @@ $(document).ready(function(){
             send();
         }
     }
-    //     채팅이 많아져 스크롤바가 넘어가더라도 자동적으로 스크롤바가 내려가게함
-     /* window.setInterval(function() {
-        var elem = document.getElementById('messageWindow');
-        elem.scrollTop = elem.scrollHeight;
-    }, 0);  */ 
+
 </script>
 </body>
 </html>
