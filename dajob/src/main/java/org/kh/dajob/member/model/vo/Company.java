@@ -6,6 +6,7 @@ public class Company extends Member implements java.io.Serializable{
 
 	private static final long serialVersionUID = 11111111113L;
 	
+	private Member m;
 	private String company_name;
 	private String company_type;
 	private int company_staff;
@@ -17,6 +18,23 @@ public class Company extends Member implements java.io.Serializable{
 	private Date company_date;
 	
 	public Company() {}
+	
+	public Company(String member_id, String member_password, String member_type_code, String member_name,
+	String member_email, String member_phone, String member_address, Date member_sign_date,
+	String member_profile_img,String company_name, String company_type, int company_staff, int company_capital,
+	String company_code, String company_tel, String company_fax, String company_welfare, Date company_date) {
+		super(member_id,member_password,member_type_code,member_name,member_email,member_phone,
+				member_address,member_sign_date,member_profile_img);
+		this.company_name = company_name;
+		this.company_type = company_type;
+		this.company_staff = company_staff;
+		this.company_capital = company_capital;
+		this.company_code = company_code;
+		this.company_tel = company_tel;
+		this.company_fax = company_fax;
+		this.company_welfare = company_welfare;
+		this.company_date = company_date;
+	}
 	
 	public Company(String member_id, String company_name, String company_type, int company_staff, int company_capital,
 			String company_code, String company_tel, String company_fax, String company_welfare, Date company_date) {
@@ -46,8 +64,27 @@ public class Company extends Member implements java.io.Serializable{
 		this.company_date = company_date;
 	}
 
+	public Company(Member m, String company_name, String company_type, int company_staff, int company_capital,
+			String company_code, String company_tel, String company_fax, String company_welfare, Date company_date) {
+		super();
+		this.m = m;
+		this.company_name = company_name;
+		this.company_type = company_type;
+		this.company_staff = company_staff;
+		this.company_capital = company_capital;
+		this.company_code = company_code;
+		this.company_tel = company_tel;
+		this.company_fax = company_fax;
+		this.company_welfare = company_welfare;
+		this.company_date = company_date;
+	}
 
-
+	public Member getM() {
+		return m;
+	}
+	public void setM(Member m) {
+		this.m = m;
+	}
 	public String getCompany_name() {
 		return company_name;
 	}
@@ -118,5 +155,14 @@ public class Company extends Member implements java.io.Serializable{
 
 	public void setCompany_date(Date company_date) {
 		this.company_date = company_date;
+	}
+
+	@Override
+	public String toString() {
+		return "Company [m=" + m + ", company_name=" + company_name + ", company_type=" + company_type
+				+ ", company_staff=" + company_staff + ", company_capital=" + company_capital + ", company_code="
+				+ company_code + ", company_tel=" + company_tel + ", company_fax=" + company_fax + ", company_welfare="
+				+ company_welfare + ", company_date=" + company_date + "]";
 	};
+	
 }

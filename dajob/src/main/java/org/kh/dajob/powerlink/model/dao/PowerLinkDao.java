@@ -1,5 +1,7 @@
 package org.kh.dajob.powerlink.model.dao;
 
+import java.util.ArrayList;
+
 import org.kh.dajob.powerlink.model.vo.PowerLink;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,10 @@ public class PowerLinkDao {
 			result = sqlSession.insert("PowerLink.insertPl", member_id);
 		}
 		return result;
+	}
+
+	public ArrayList<PowerLink> selectPowerLinkAll() {
+		return new ArrayList<PowerLink>(sqlSession.selectList("PowerLink.selectPowerLinkAll"));
 	}
 	
 }

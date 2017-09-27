@@ -30,6 +30,9 @@
        header{
        	background: url("/dajob/resources/images/page-header.jpg") no-repeat;
        }
+       .comment-body td{
+       	font-size : 15pt;
+       }
     </style>
 </head>
 <body>
@@ -57,13 +60,96 @@
 	
 	<!--start wrapper-->
 	<section class="wrapper">
-		<section class="content contact">
+	<section class="content blog">
 			<div class="container">
 				<div class="row sub_content">
-				 내용을 작성하세요~!
-				</div>
-			</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<h1>회원 수 분석</h1>
+						<div class="comment-container" style="margin-left:0;">
+							<div class="comment-body">
+                            	<table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th colspan="2"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>일반 회원 수 : </td>
+                            <td>${userCnt} 명</td>
+                        </tr>
+                        <tr>
+                            <td>기업 회원 수 : </td>
+                            <td>${compCnt} 명</td>
+                        </tr>
+                        <tr>
+                            <td>PowerLink 가입자 수 : </td>
+                            <td>${fn:length(powerComp)} / ${compCnt} 명</td>
+                        </tr>
+                        <tr>
+                            <td style="color:black;">총 가입자 수 : </td>
+                            <td style="color:black;">${userCnt+compCnt} 명</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                 	        </div>
+						</div>
+					</div>
+				</div><!--/.row-->
+				<div class="row sub_content">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="dividerHeading">
+							<h4><span>PowerLink 가입자 리스트</span></h4>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>기업 명</th>
+                            <th>담당자 이름</th>
+                            <th>기업 구분</th>
+                            <th>PowerLink 유효시간</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="comp" items="${powerComp}">
+                        <tr>
+                            <td>${comp.company_name}</td>
+                            <td>${comp.member_name}</td>
+                            <c:forEach var="type" items="${comTypeList}">
+                            <c:if test="${type.company_type eq comp.company_type}">
+                            	<td>${type.company_tname}</td>
+                            </c:if>
+                            </c:forEach>
+                            <c:forEach var="link" items="${powerList}">
+                            <c:if test="${link.member_id eq comp.member_id}">
+                            	<fmt:formatNumber var="test" value="${(link.powerlink_time / 24) - ((link.powerlink_time / 24) % 1)}" pattern="#"/>
+                               		<c:set var="plDate" value="${test}" />
+                               		<c:set var="plHour" value="${link.powerlink_time mod 24}"/>
+                            	<td>${plDate} 일 ${plHour} 시간</td>
+                            </c:if>
+                            </c:forEach>
+                        </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+					</div>
+				</div><!--/.row-->
+				<div class="row sub_content">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="dividerHeading">
+							<h4><span>Typography</span></h4>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<h1>H1 Header</h1>
+						<p>Fusce lacinia tempor malesuada. Ut lacus sapien, placerat a ornare nec, elementum sit amet felis. Maecenas pretium lorem hendrerit eros sagittis fermentum. Donec in ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo ad gravida. Cras suscipit, quam vitae adipiscing faucibus, risus nibh laoreet odio, a porttitor metus eros ut enim. Morbi augue velit, tempus mattis sum dignissim nec, porta sed risus. Donec eget magna eu lorem tristique pellentesque eget eu dui. Fusce lacinia tempor malesuada. Ut lacus sapien, po anemat ornare nec, elementum sit amet felis. Maecenas pretium hendrerit fermentum lacus sapien, placerat a ornare nec fringilla libero convals.</p>
+					</div>
+				</div><!--/.row-->
+			</div> <!--/.container-->
 		</section>
+		
 	</section>
 	<!--end wrapper-->
 

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kh.dajob.itinfo.model.service.ItinfoService;
 import org.kh.dajob.itinfo.model.vo.Itinfo;
+import org.kh.dajob.member.model.service.MemberService;
+import org.kh.dajob.powerlink.model.service.PowerLinkService;
 import org.kh.dajob.workJobAndSkill.model.service.WorkJobAndSkillService;
 import org.kh.dajob.workhere.model.service.WorkhereService;
 import org.slf4j.Logger;
@@ -26,6 +28,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	@Autowired
+	private MemberService memberService;
 	
 	@Autowired
 	private ItinfoService itinfoService;
@@ -36,6 +41,8 @@ public class HomeController {
 	@Autowired
 	private WorkJobAndSkillService workJobnSkillService;
 	
+	@Autowired
+	private PowerLinkService powerlinkService;
 	
 	@RequestMapping(value = "index.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -51,9 +58,22 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "powerLinkListView.do")
-	public String powerLinkListView(ModelAndView mv) throws IOException {
+	public ModelAndView powerLinkListView(ModelAndView mv) throws IOException {
+		mv.addObject("userCnt", memberService.selectUserAll());
+		mv.addObject("compCnt", memberService.selectCompanyAll());
+		mv.addObject("powerComp", memberService.selectPowerLinkComp());
+		mv.addObject("comTypeList",memberService.selectCompanyList());
+		mv.addObject("powerList",powerlinkService.selectPowerLinkAll());
 		
-		return "mypage/powerLinkList";
+		System.out.println("userCnt : " + memberService.selectUserAll());
+		System.out.println("compCnt : " + memberService.selectCompanyAll());
+		System.out.println("powerComp : " + memberService.selectPowerLinkComp());
+		System.out.println("comTypeList : " + memberService.selectCompanyList());
+		System.out.println("powerList : " + powerlinkService.selectPowerLinkAll());
+		
+		mv.setViewName("mypage/powerLinkList");
+		
+		return mv;
 	}
 	
 	@RequestMapping(value = "dashBoard.do")

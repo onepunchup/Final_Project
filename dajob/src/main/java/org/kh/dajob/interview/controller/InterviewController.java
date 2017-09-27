@@ -105,7 +105,7 @@ public class InterviewController {
 	public ModelAndView interviewInsert(Interview i, ModelAndView model, HttpServletRequest request) throws ParseException{
 		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-		java.util.Date date = df.parse(request.getParameter("start"));
+		java.util.Date date = df.parse(request.getParameter("start")); 
 		Timestamp startT = new Timestamp(date.getTime());
 		System.out.println("start Time : "+startT);
 		
@@ -120,73 +120,10 @@ public class InterviewController {
 		if(result > 0) {
 			model.setViewName("redirect:interviewList.do");
 		} else {
-			model.addObject("msg", "공지사항 등록 실패!");
+			model.addObject("msg", "인터뷰 등록 실패!");
 			model.setViewName("404-page");
 		}
 		
-		/*if(start.length() == 22) {
-			if(start.substring(14,16) == "오전") {
-			System.out.println(n1.parse(start.substring(2,4)+ "0" + start.substring(6,7)+ start.substring(9,11)+start.substring(17,19)+start.substring(20,22)));
-			}
-			else {
-				int a = Integer.parseInt(start.substring(17,19));
-				int b = a+12;
-				String c = Integer.toString(b);
-				System.out.println(n1.parse(start.substring(2,4)+ "0" + start.substring(6,7)+ start.substring(9,11)+ c +start.substring(20,22)));
-				
-			}
-			
-		}
-		
-			else if(start.length() == 23) {
-				
-				if(start.substring(15,17)=="오전") {
-				System.out.println(n1.parse(start.substring(2,4)+ start.substring(6,8)+ start.substring(10,12)+start.substring(18,20)+start.substring(21,23)));
-				}
-				
-				else {
-					int a = Integer.parseInt(start.substring(18,20));
-					int b = a+12;
-					String c = Integer.toString(b);
-					System.out.println(n1.parse(start.substring(2,4)+ start.substring(6,8)+ start.substring(10,12)+ c +start.substring(21,23)));
-					
-				}
-				
-			}
-		
-		if(end.length() == 22) {
-			
-			if(end.substring(14,16) == "오전") {
-			System.out.println(n2.parse(end.substring(2,4)+ "0" + end.substring(6,7)+ end.substring(9,11)+end.substring(17,19)+end.substring(20,22)));
-			}
-			else {
-				int a = Integer.parseInt(end.substring(17,19));
-				int b = a+12;
-				String c = Integer.toString(b);
-				System.out.println(n2.parse(end.substring(2,4)+ "0" + end.substring(6,7)+ end.substring(9,11)+ c +end.substring(20,22)));
-			}
-			
-		}
-			else if(end.length() == 23) {
-				if(end.substring(15,17) == "오전") {
-				System.out.println(n2.parse(end.substring(2,4)+ end.substring(6,8)+ end.substring(10,12)+end.substring(18,20)+end.substring(21,23)));
-				}
-				else {
-					int a = Integer.parseInt(end.substring(18,20));
-					int b = a+12;
-					String c = Integer.toString(b);
-					System.out.println(n2.parse(end.substring(2,4)+ end.substring(6,8)+ end.substring(10,12)+ c +end.substring(21,23)));
-				}
-			}*/
-		
-		/*int result = interviewService.insertInterview(i);
-		if(result > 0) {
-			model.setViewName("redirect:interviewList.do");
-		} else {
-			model.addObject("msg", "공지사항 등록 실패!");
-			model.setViewName("404-page");
-		}
-		return model;*/
 		return model;
 	}
 }

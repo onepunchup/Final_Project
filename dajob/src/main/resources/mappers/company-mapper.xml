@@ -39,6 +39,10 @@
 		SELECT * FROM COMP_TYPE
 	</select>
 	
+	<select id="selectPowerLinkComp" resultType="arraylist" resultMap="resultCompany">
+		SELECT * FROM VW_COMPANY WHERE MEMBER_ID IN (SELECT MEMBER_ID FROM POWERLINK WHERE POWERLINK_TIME > 0)
+	</select>
+	
 	<insert id="insertCompany" parameterType="Company" flushCache="true"
 		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
 		timeout="20">

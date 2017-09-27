@@ -34,7 +34,10 @@ public class PowerLink implements Serializable{
 	public void setPowerlink_time(int powerlink_time) {
 		this.powerlink_time = powerlink_time;
 	}
+	@Override
+	public String toString() {
+		return "PowerLink [member_id=" + member_id + ", powerlink_date=" + powerlink_date + ", powerlink_cnt="
+				+ powerlink_cnt + ", powerlink_time=" + powerlink_time + "]";
+	}
 	
-	
-
 }

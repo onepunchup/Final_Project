@@ -41,4 +41,10 @@ public interface MemberService {
 
 	int insertResumeData(User user);
 
+	int selectUserAll();
+	
+	int selectCompanyAll();
+
+	ArrayList<Company> selectPowerLinkComp();
+
 }

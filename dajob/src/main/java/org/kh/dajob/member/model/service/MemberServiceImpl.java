@@ -99,4 +99,19 @@ public class MemberServiceImpl implements MemberService{
 	public int insertResumeData(User user) {
 		return memberDao.insertResumeData(user);
 	}
+
+	@Override
+	public int selectUserAll() {
+		return memberDao.selectUserAll();
+	}
+
+	@Override
+	public int selectCompanyAll() {
+		return memberDao.selectCompanyAll();
+	}
+
+	@Override
+	public ArrayList<Company> selectPowerLinkComp() {
+		return memberDao.selectPowerLinkComp();
+	}
 }

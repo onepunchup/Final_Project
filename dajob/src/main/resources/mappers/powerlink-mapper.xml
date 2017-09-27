@@ -32,4 +32,8 @@
 		order by POWERLINK_DATE desc) where rownum = 1
 	</select>
 	
+	<select id="selectPowerLinkAll" resultType="arraylist" resultMap="resultPowerLink">
+	SELECT * FROM POWERLINK WHERE POWERLINK_TIME > 0
+	</select>
+	
 </mapper>

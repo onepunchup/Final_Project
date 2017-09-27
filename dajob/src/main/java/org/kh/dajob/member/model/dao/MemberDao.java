@@ -86,5 +86,17 @@ public class MemberDao {
 	public int insertResumeData(User user) {
 		return sqlSession.update("insertResumeData", user);
 	}
+
+	public int selectUserAll() {
+		return sqlSession.selectOne("Member.selectUserAll");
+	}
+
+	public int selectCompanyAll() {
+		return sqlSession.selectOne("Member.selectCompanyAll");
+	}
+
+	public ArrayList<Company> selectPowerLinkComp() {
+		return new ArrayList<Company>(sqlSession.selectList("Company.selectPowerLinkComp"));
+	}
 }
 

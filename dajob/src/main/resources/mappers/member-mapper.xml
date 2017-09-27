@@ -25,6 +25,14 @@
 		SELECT * FROM MEMBER
 	</select>
 	
+	<select id="selectUserAll" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_TYPE_CODE = 'U'
+	</select>
+	
+	<select id="selectCompanyAll" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_TYPE_CODE = 'C'
+	</select>
+	
 	<select id="checkDupId" parameterType="string" resultType="_int">
 		<!-- config의 typeAlias -->
 		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_ID = #{userid}
