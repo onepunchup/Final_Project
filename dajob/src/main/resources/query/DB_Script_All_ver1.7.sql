@@ -16,6 +16,8 @@ DROP VIEW VW_COMPANY;
 DROP VIEW VW_TOTALCERT;
 DROP VIEW VW_LIKELIST;
 DROP VIEW VW_LIKECOMPLIST;
+DROP VIEW VW_INTERVIEW;
+DROP VIEW VW_WORKHERE;
 
 DROP TABLE ITINFO CASCADE CONSTRAINTS;
 DROP SEQUENCE SEQ_ITINFO;
@@ -90,7 +92,9 @@ CREATE TABLE MEMBER_USER(
        GENDER VARCHAR2(3),       /* 성별 */       
 	     BIRTHDAY DATE NOT NULL, /* 생년월일 */
 	     RESUME_DATA VARCHAR2(3000), /* 이력서 */
-       RESUMEFILE VARCHAR2(50) DEFAULT NULL,   /* 첨부파일 */
+       RESUMEFILE1 VARCHAR2(50) DEFAULT NULL,   /* 첨부파일1 */
+       RESUMEFILE2 VARCHAR2(50) DEFAULT NULL,   /* 첨부파일2 */
+       RESUMEFILE3 VARCHAR2(50) DEFAULT NULL,   /* 첨부파일3 */
        CONSTRAINT FK_U_MEMBER FOREIGN KEY(MEMBER_ID) REFERENCES MEMBER ON DELETE CASCADE
 );
 
@@ -99,7 +103,9 @@ COMMENT ON COLUMN MEMBER_USER.MEMBER_ID IS '아이디';
 COMMENT ON COLUMN MEMBER_USER.GENDER IS '성별';
 COMMENT ON COLUMN MEMBER_USER.BIRTHDAY IS '생년월일';
 COMMENT ON COLUMN MEMBER_USER.RESUME_DATA IS '이력서';
-COMMENT ON COLUMN MEMBER_USER.RESUMEFILE IS '첨부파일';
+COMMENT ON COLUMN MEMBER_USER.RESUMEFILE1 IS '첨부파일1';
+COMMENT ON COLUMN MEMBER_USER.RESUMEFILE2 IS '첨부파일2';
+COMMENT ON COLUMN MEMBER_USER.RESUMEFILE3 IS '첨부파일3';
 
 CREATE TABLE COMP_TYPE(
        COMPANY_TYPE VARCHAR2(3) CONSTRAINT PK_CTYPE PRIMARY KEY,  /* 기업 구분코드 */
@@ -259,8 +265,8 @@ CREATE TABLE WORK_BOARD(
 	WORK_SKILL VARCHAR2(30),
 	WORK_CAREER VARCHAR2(30),
 	WORK_WORKPLACE VARCHAR2(300), /* 근무 지역 */
-	WORK_STARTDATE DATE DEFAULT SYSDATE,
-	WORK_ENDDATE DATE DEFAULT SYSDATE+14,
+	WORK_STARTDATE TIMESTAMP DEFAULT SYSDATE,
+	WORK_ENDDATE TIMESTAMP DEFAULT SYSDATE+14,
        CONSTRAINT FK_WORK_WR FOREIGN KEY(WORK_WRITER) REFERENCES MEMBER ON DELETE CASCADE,
        CONSTRAINT FK_WORK_JB FOREIGN KEY(WORK_JOB) REFERENCES WORKJOB ON DELETE CASCADE,
        CONSTRAINT FK_WORK_SK FOREIGN KEY(WORK_SKILL) REFERENCES SKILL ON DELETE CASCADE
@@ -295,9 +301,9 @@ CREATE TABLE INTERVIEW(
   INTERVIEWER VARCHAR2(30) NOT NULL,    /* 회사 */
   INTERVIEWEE VARCHAR2(30) NOT NULL,    /* 구직자 */
   INTERVIEW_QUESTION VARCHAR2(3000),   /* 질문 */
-  INTERVIEW_ANSWER VARCHAR2(3000) NOT NULL,       /* 답변 */
-  INTERVIEW_STARTDATE DATE DEFAULT SYSDATE,   /* 면접시작시간 */
-  INTERVIEW_ENDDATE DATE DEFAULT SYSDATE,   /* 면접종료시간 */
+  INTERVIEW_ANSWER VARCHAR2(3000),       /* 답변 */
+  INTERVIEW_START_DATE TIMESTAMP DEFAULT SYSDATE,   /* 면접시작시간 */
+  INTERVIEW_END_DATE TIMESTAMP DEFAULT SYSDATE,   /* 면접종료시간 */
   INTERVIEW_STATUS VARCHAR2(10) NOT NULL,      /* 면접상태 */
   WORK_NO VARCHAR2(14),      /* 구직게시글번호 */
   CONSTRAINT FK_INTERVIEWER FOREIGN KEY(INTERVIEWER) REFERENCES MEMBER_COMPANY(MEMBER_ID) ON DELETE CASCADE,
@@ -311,8 +317,8 @@ COMMENT ON COLUMN INTERVIEW.INTERVIEWER IS '회사';
 COMMENT ON COLUMN INTERVIEW.INTERVIEWEE IS '구직자';
 COMMENT ON COLUMN INTERVIEW.INTERVIEW_QUESTION IS '질문';
 COMMENT ON COLUMN INTERVIEW.INTERVIEW_ANSWER IS '답변';
-COMMENT ON COLUMN INTERVIEW.INTERVIEW_STARTDATE IS '면접시작시간';
-COMMENT ON COLUMN INTERVIEW.INTERVIEW_ENDDATE IS '면접종료시간';
+COMMENT ON COLUMN INTERVIEW.INTERVIEW_START_DATE IS '면접시작시간';
+COMMENT ON COLUMN INTERVIEW.INTERVIEW_END_DATE IS '면접종료시간';
 COMMENT ON COLUMN INTERVIEW.INTERVIEW_STATUS IS '면접상태';
 COMMENT ON COLUMN INTERVIEW.WORK_NO IS '구직게시글번호';
 
@@ -454,6 +460,19 @@ FROM LIKELIST L
 JOIN WORK_BOARD W USING(WORK_NO)
 JOIN VW_COMPANY C ON(W.WORK_WRITER = C.MEMBER_ID);
 
+--------------->> 상민 VIEW 생성부분 <<---------------
+
+--VW_WORKHERE
+CREATE OR REPLACE VIEW VW_WORKHERE (WORK_NO,WORK_TITLE,WORK_CONTENT,WORK_WRITER,WORK_DATE,WORK_JOB,WORK_SKILL,WORK_CAREER,WORK_WORKPLACE,WORK_STARTDATE,WORK_ENDDATE,MEMBER_ID,  COMPANY_NAME , COMPANY_TYPE, COMPANY_STAFF, COMPANY_CAPITAL, COMPANY_CODE, COMPANY_TEL, COMPANY_FAX, COMPANY_WELFARE, COMPANY_DATE)
+AS SELECT WORK_NO,WORK_TITLE,WORK_CONTENT,WORK_WRITER,WORK_DATE,WORK_JOB,WORK_SKILL,WORK_CAREER,WORK_WORKPLACE,WORK_STARTDATE,WORK_ENDDATE,MEMBER_ID,  COMPANY_NAME , COMPANY_TYPE, COMPANY_STAFF, COMPANY_CAPITAL, COMPANY_CODE, COMPANY_TEL, COMPANY_FAX, COMPANY_WELFARE, COMPANY_DATE FROM WORK_BOARD
+JOIN MEMBER_COMPANY ON(MEMBER_COMPANY.MEMBER_ID = WORK_BOARD.WORK_WRITER);
+
+CREATE OR REPLACE VIEW VW_INTERVIEW (INTERVIEW_NO,INTERVIEWER,INTERVIEWEE,INTERVIEW_QUESTION,INTERVIEW_ANSWER,INTERVIEW_START_DATE,INTERVIEW_END_DATE,INTERVIEW_STATUS,WORK_NO,MEMBER_ID,COMPANY_NAME,COMPANY_TYPE,COMPANY_STAFF,COMPANY_CAPITAL,COMPANY_CODE,COMPANY_TEL,COMPANY_FAX,COMPANY_WELFARE,COMPANY_DATE)
+AS SELECT INTERVIEW_NO,INTERVIEWER,INTERVIEWEE,INTERVIEW_QUESTION,INTERVIEW_ANSWER,INTERVIEW_START_DATE,INTERVIEW_END_DATE,INTERVIEW_STATUS,WORK_NO,MEMBER_ID,COMPANY_NAME,COMPANY_TYPE,COMPANY_STAFF,COMPANY_CAPITAL,COMPANY_CODE,COMPANY_TEL,COMPANY_FAX,COMPANY_WELFARE,COMPANY_DATE FROM INTERVIEW
+JOIN MEMBER_COMPANY ON(MEMBER_COMPANY.MEMBER_ID = INTERVIEW.INTERVIEWER);
+
+--select * from vw_interview;
+
 --------------->> Sample Data <<---------------
 
 INSERT INTO MEMBER_TYPE VALUES('A','관리자');
@@ -487,62 +506,62 @@ INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user11','pass11','U','유정훈','jeonghun@iei.or.kr',
 '010-1111-2222','22020,서울시,강남구 역삼동',SYSDATE,'user11/yjh.jpg');
-INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE)
-VALUES('user11','M',SYSDATE,NULL);
+INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
+VALUES('user11','M',SYSDATE,NULL,NULL,NULL);
 INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER_EMAIL,
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user22','pass22','U','나상민','sm9171@iei.or.kr',
 '010-2222-3333','22020,서울특별시,관악구 신림동',SYSDATE,'user22/test2.jpg');
-INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE)
-VALUES('user22','M',SYSDATE,NULL);
+INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
+VALUES('user22','M',SYSDATE,NULL,NULL,NULL);
 INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER_EMAIL,
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user33','pass33','U','김효현','kimhyohyeon@iei.or.kr',
 '010-3333-4444','22020,서울특별시,서초구 반포동',SYSDATE,'user33/test3.jpg');
-INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE)
-VALUES('user33','M',SYSDATE,NULL);
+INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
+VALUES('user33','M',SYSDATE,NULL,NULL,NULL);
 INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER_EMAIL,
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user44','pass44','U','안재성','jaesung@iei.or.kr',
 '010-4444-5555','22020,서울특별시, 송파구 잠실동',SYSDATE,'user44/test4.jpg');
-INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE)
-VALUES('user44','M',SYSDATE,NULL);
+INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
+VALUES('user44','M',SYSDATE,NULL,NULL,NULL);
 INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER_EMAIL,
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user55','pass55','U','정진모','jinmo@iei.or.kr',
 '010-5555-6666','22020,경기도 용인시, 수지구 동천동',SYSDATE,'user55/test5.jpg');
-INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE)
-VALUES('user55','M',SYSDATE,NULL);
+INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
+VALUES('user55','M',SYSDATE,NULL,NULL,NULL);
 INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER_EMAIL,
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user66','pass66','U','유재영','jaeyoungboy@iei.or.kr',
 '010-6666-7777','22020,서울특별시, 동작구 상도동',SYSDATE,'default.jpg');
-INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE)
-VALUES('user66','M',SYSDATE,NULL);
+INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
+VALUES('user66','M',SYSDATE,NULL,NULL,NULL);
 INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER_EMAIL,
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user77','pass77','U','배윤경','prettygirl@iei.or.kr',
 '010-6666-7777','22020,강원도 춘천시, 효자동',SYSDATE,'default.jpg');
-INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE)
-VALUES('user77','F',SYSDATE,NULL);
+INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
+VALUES('user77','F',SYSDATE,NULL,NULL,NULL);
 INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER_EMAIL,
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user88','pass88','U','서지혜','cutygirl@iei.or.kr',
 '010-7777-8888','22020,인천광역시 옹진군, 백령면 진촌리',SYSDATE,'default.jpg');
-INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE)
-VALUES('user88','F',SYSDATE,NULL);
+INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
+VALUES('user88','F',SYSDATE,NULL,NULL,NULL);
 INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER_EMAIL,
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user99','pass99','U','김세린','beutifulgirl@iei.or.kr',
 '010-8888-9999','22020,전라북도 익산시, 모현동',SYSDATE,'default.jpg');
-INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE)
-VALUES('user99','F',SYSDATE,NULL);
+INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
+VALUES('user99','F',SYSDATE,NULL,NULL,NULL);
 INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER_EMAIL,
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user00','pass00','U','배주현','irin@iei.or.kr',
 '010-9999-0000','22020,대구광역시, 중구 동인동',SYSDATE,'default.jpg');
-INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE)
-VALUES('user00','F',SYSDATE,NULL);
+INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
+VALUES('user00','F',SYSDATE,NULL,NULL,NULL);
 
 INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,
 MEMBER_NAME,MEMBER_EMAIL,MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
@@ -641,10 +660,10 @@ INSERT INTO NOTICE_REPLY VALUES('NP170723012003','NO170722203001','예압!!','us
 INSERT INTO POWERLINK VALUES('comp11',TO_DATE('2017-08-11','RRRR-MM-DD'),2,0);
 INSERT INTO POWERLINK VALUES('comp11',TO_DATE('2017-09-10','RRRR-MM-DD'),2,0);
 INSERT INTO POWERLINK VALUES('comp22',TO_DATE('2017-09-05','RRRR-MM-DD'),1,0);
-INSERT INTO POWERLINK VALUES('comp22',TO_DATE('2017-10-04','RRRR-MM-DD'),1,420);
+INSERT INTO POWERLINK VALUES('comp22',TO_DATE('2017-10-04','RRRR-MM-DD'),1,15);
 INSERT INTO POWERLINK VALUES('comp33',TO_DATE('2017-08-21','RRRR-MM-DD'),2,0);
 INSERT INTO POWERLINK VALUES('comp33',TO_DATE('2017-09-11','RRRR-MM-DD'),3,0);
-INSERT INTO POWERLINK VALUES('comp33',TO_DATE('2017-10-01','RRRR-MM-DD'),1,264);
+INSERT INTO POWERLINK VALUES('comp33',TO_DATE('2017-10-01','RRRR-MM-DD'),1,3);
 
 INSERT INTO SAL_AVG VALUES(1,2000,2200);
 INSERT INTO SAL_AVG VALUES(3,2200,2400);
@@ -682,6 +701,28 @@ INSERT INTO ITINFO VALUES('IT170821022000','능동형 보안 아키텍처(Adapti
 하지만, IoT의 한계는 수많은 IT 보안 담당자들에게 새로운 영역으로 새로운 취약 지점 영역을 생성하고 있기 때문에 새로운 교정 툴과 프로세스가 필요하며 IoT 플랫폼 관련 프로젝트에서는 이를 반드시 고려해야 할 것"이라고 강조했다.'
 ,'itinfoImage/image10.jpg',TO_DATE('2017-08-21','RRRR-MM-DD'));
 
-commit;
+-- Work here 샘플데이터
 
+INSERT ALL 
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1707141030','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[JAVA] 웹 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1707141030','RRMMDDHH24MI'),'1','1','신입','서울시 강남구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1707150930','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[DB] 웹 퍼블리셔 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1707150930','RRMMDDHH24MI'),'2','2','경력','부산시 서면',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1707171025','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 스프링 가능한 웹 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1707171025','RRMMDDHH24MI'),'1','3','신입','울산시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1708051200','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[C++] APP IO 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1708051200','RRMMDDHH24MI'),'2','4','신입','서울시 서초구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1708101025','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 스프링 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1708101025','RRMMDDHH24MI'),'1','3','신입','울산시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1708111200','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[C++] IOT 웹 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1708111200','RRMMDDHH24MI'),'2','4','신입','서울시 서초구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1708111530','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 스프링 실력자 급구','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1708111530','RRMMDDHH24MI'),'1','3','신입','부산시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1708121200','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[C/C++] C언어 가능자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1708121200','RRMMDDHH24MI'),'2','4','신입','부산시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1708121335','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 스프링 경험자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1708121335','RRMMDDHH24MI'),'1','3','신입','대구시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1708150530','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[C/C++] C 코딩 가능자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1708150530','RRMMDDHH24MI'),'2','4','신입','서울시 서초구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1708161125','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[JAVA] MVC 패턴 숙련자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp33',TO_DATE('1708161125','RRMMDDHH24MI'),'3','1','경력','대전시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1709010150','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 숙련된 디자이너 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp33',TO_DATE('1709010150','RRMMDDHH24MI'),'3','3','경력','대전시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1709050505','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[JAVA] 자바 개발 가능하신 분','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1709050505','RRMMDDHH24MI'),'2','1','경력','대구시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1709101520','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 스프링 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1709101520','RRMMDDHH24MI'),'2','3','신입','서울시 강남구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1709111520','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 웹 어플 구현 가능자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1709111520','RRMMDDHH24MI'),'2','3','신입','서울시 강남구',DEFAULT,DEFAULT)
+SELECT * FROM DUAL;
+
+--INTERVIEW 샘플데이터
+INSERT INTO INTERVIEW VALUES('IN'||TO_CHAR(TO_DATE('1707141030','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'comp11','user11','당신의 미래 가치관에 대해서 10000자로 서술하시오.',NULL,TO_DATE('1707141030','RRMMDDHH24MI'),TO_DATE('1707141130','RRMMDDHH24MI'),'H','WO170714103001');
+
+commit;
 -----------------------------------------------
