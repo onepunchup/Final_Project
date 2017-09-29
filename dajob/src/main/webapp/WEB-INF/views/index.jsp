@@ -337,7 +337,7 @@ $(document).ready(function(){
 
 <script type="text/javascript">
     var textarea = document.getElementById("messageWindow");
-    var webSocket = new WebSocket('ws://localhost:4080/dajob/broadcasting');
+    var webSocket = new WebSocket('ws://192.168.30.9:4080/dajob/broadcasting');
     // localhost 부분에 ip 주소를 넣으세요.
     
     var inputMessage = null;

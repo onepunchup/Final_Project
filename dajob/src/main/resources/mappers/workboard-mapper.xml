@@ -57,6 +57,18 @@
 		select * from vw_likelist where member_id = #{member_id}
 	</select>
 	
+	<select id="insertChk" parameterType="LikeList" resultType="_int">
+		select count(*) from LIKELIST where MEMBER_ID = #{member_id} and WORK_NO = #{work_no}
+	</select>
+	
+	<insert id="insertLikeList" parameterType="LikeList">
+		insert into LIKELIST VALUES(#{member_id}, #{work_no})
+	</insert>
+	
+	<insert id="insertWorkboard" parameterType="Workboard">
+		INSERT INTO WORK_BOARD VALUES('WO'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_WORK.NEXTVAL,2,'0'),#{work_title},#{work_content},#{work_writer},#{work_date},#{work_job},#{work_skill},#{work_career},#{work_workplace},#{work_startdate},#{work_enddate})
+	</insert>
+	
 	<delete id="deleteOne">
 		delete from likelist where member_id = #{member_id} and work_no = #{work_no}
 	</delete>

@@ -28,6 +28,10 @@ public class WorkhereServiceImpl implements WorkhereService{
 		return workhereDao.getListCount();
 	}
 	@Override
+	public int updateWorkhere(Workhere w) {
+		return workhereDao.updateWorkhere(w);
+	};
+	@Override
 	public int deleteWorkhere(String no) {
 		return workhereDao.deleteWorkhere(no);
 	}

@@ -87,7 +87,9 @@
                     <c:url var="interviewinsert" value="/interviewInsertView.do">
 			        	<c:param name="workhere_no" value="${workhere.work_no}"/>
 			        </c:url>
-                    <a class="btn btn-success" href="${ interviewinsert}"><span class="glyphicon glyphicon-edit"></span>인터뷰 신청하기</a>
+                    <a class="btn btn-success" href="${interviewinsert}"><span class="glyphicon glyphicon-edit"></span>인터뷰 신청하기</a>
+                	&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                	<a class="btn btn-success" onclick="likeAdd();"><span class="fa fa-heart"></span>선호 기업 정보 등록</a>
                 	</c:if>
                 	<c:if test="${member.member_type_code eq 'C' }">
                     <a class="btn btn-success" href="${wdel}"><span class="glyphicon glyphicon-edit"></span>삭제하기</a>
@@ -196,6 +198,39 @@
 	<c:import url="../footer.jsp"/>
 	<!--end footer-->
 
+<script type="text/javascript">
+function likeAdd(){
+	$.ajax({
+		url : "likeCompAdd.do",
+		type : "post",
+		data : {
+			userid : "<c:out value='${member.member_id}'/>",
+			work_no : "<c:out value='${workhere.work_no}'/>"
+		},
+		dataType : "text",
+		success : function(value) {
+			//alert("서블릿이 보낸 값 : " + data);
+			var regex = /^[A-Za-z0-9]{5,14}$/;
+			if ($('#member_id').val().length < 5) {
+				var str = "아이디는 5자 이상이어야 합니다.";
+				$('.idchk').html(str).css(s_fail);
+			} else if (!regex.test($('#member_id').val())) {
+				var str = "아이디는 영문자와 숫자만 가능합니다.";
+				$('.idchk').html(str).css(s_fail);
+			} else if (value === "ok") {
+				var str = "사용 가능한 아이디입니다.";
+				$('.idchk').html(str).css(s_success);
+			} else {
+				var str = "이미 존재하는 아이디입니다. 다른 아이디로 정하십시오.";
+				$('.idchk').html(str).css(s_fail);
+			}
+		},
+		error : function(value) {
+			alert("에러 : " + value);
+		}
+	});
+};
+</script>
 
 </body>
 </html>

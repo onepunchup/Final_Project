@@ -12,8 +12,8 @@ public class WorkBoard implements java.io.Serializable{
 	private String work_content;
 	private String work_writer;
 	private Date work_date;
-	private String job_name;
-	private String skill_name;
+	private String work_job;
+	private String work_skill;
 	private String work_career;
 	private String work_workplace;
 	private Timestamp work_startdate;
@@ -22,31 +22,24 @@ public class WorkBoard implements java.io.Serializable{
 	private String rnum;
 	private String company_name;
 	
-	public String getCompany_name() {
-		return company_name;
-	}
-	public void setCompany_name(String company_name) {
-		this.company_name = company_name;
-	}
-	public String getRnum() {
-		return rnum;
-	}
-	public void setRnum(String rnum) {
-		this.rnum = rnum;
-	}
-	public String getMember_id() {
-		return member_id;
-	}
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
-	}
-	public String getWork_workplace() {
-		return work_workplace;
-	}
-	public void setWork_workplace(String work_workplace) {
+	public WorkBoard(String work_title, String work_content, String work_writer, Date work_date, String work_job,
+			String work_skill, String work_career, String work_workplace, Timestamp work_startdate,
+			Timestamp work_enddate) {
+		super();
+		this.work_title = work_title;
+		this.work_content = work_content;
+		this.work_writer = work_writer;
+		this.work_date = work_date;
+		this.work_job = work_job;
+		this.work_skill = work_skill;
+		this.work_career = work_career;
 		this.work_workplace = work_workplace;
+		this.work_startdate = work_startdate;
+		this.work_enddate = work_enddate;
 	}
-  
+	public WorkBoard() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getWork_no() {
 		return work_no;
 	}
@@ -77,23 +70,29 @@ public class WorkBoard implements java.io.Serializable{
 	public void setWork_date(Date work_date) {
 		this.work_date = work_date;
 	}
-	public String getJob_name() {
-		return job_name;
+	public String getWork_job() {
+		return work_job;
 	}
-	public void setJob_name(String job_name) {
-		this.job_name = job_name;
+	public void setWork_job(String work_job) {
+		this.work_job = work_job;
 	}
-	public String getSkill_name() {
-		return skill_name;
+	public String getWork_skill() {
+		return work_skill;
 	}
-	public void setSkill_name(String skill_name) {
-		this.skill_name = skill_name;
+	public void setWork_skill(String work_skill) {
+		this.work_skill = work_skill;
 	}
 	public String getWork_career() {
 		return work_career;
 	}
 	public void setWork_career(String work_career) {
 		this.work_career = work_career;
+	}
+	public String getWork_workplace() {
+		return work_workplace;
+	}
+	public void setWork_workplace(String work_workplace) {
+		this.work_workplace = work_workplace;
 	}
 	public Timestamp getWork_startdate() {
 		return work_startdate;
@@ -107,5 +106,25 @@ public class WorkBoard implements java.io.Serializable{
 	public void setWork_enddate(Timestamp work_enddate) {
 		this.work_enddate = work_enddate;
 	}
-	
+	public String getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+	public String getRnum() {
+		return rnum;
+	}
+	public void setRnum(String rnum) {
+		this.rnum = rnum;
+	}
+	public String getCompany_name() {
+		return company_name;
+	}
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

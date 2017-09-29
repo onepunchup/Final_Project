@@ -20,7 +20,6 @@ public class Workhere implements Serializable{
 	private String work_workplace;
 	private Timestamp work_startdate;
 	private Timestamp work_enddate;
-	
 	//member_company
 	private String member_id;
 	private String company_name;
@@ -33,37 +32,23 @@ public class Workhere implements Serializable{
 	private String company_welfare;
 	private Date company_date;
 	
-	public Workhere() {}
-	
-	public Workhere(String work_no, String work_title, String work_content, String work_writer, Date work_date,
-			String work_job, String work_skill, String work_career, String work_workplace, Timestamp work_startdate,
-			Timestamp work_enddate, String member_id, String company_name, String company_type, int company_staff,
-			int company_capital, String company_code, String company_tel, String company_fax, String company_welfare,
-			Date company_date) {
+	public Workhere( String work_title, String work_content, String work_job, String work_skill,
+			String work_career, String work_workplace, Timestamp work_startdate, Timestamp work_enddate,String work_no) {
 		super();
 		this.work_no = work_no;
 		this.work_title = work_title;
 		this.work_content = work_content;
-		this.work_writer = work_writer;
-		this.work_date = work_date;
 		this.work_job = work_job;
 		this.work_skill = work_skill;
 		this.work_career = work_career;
 		this.work_workplace = work_workplace;
 		this.work_startdate = work_startdate;
 		this.work_enddate = work_enddate;
-		this.member_id = member_id;
-		this.company_name = company_name;
-		this.company_type = company_type;
-		this.company_staff = company_staff;
-		this.company_capital = company_capital;
-		this.company_code = company_code;
-		this.company_tel = company_tel;
-		this.company_fax = company_fax;
-		this.company_welfare = company_welfare;
-		this.company_date = company_date;
 	}
-
+	public Workhere() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public String getWork_no() {
 		return work_no;
 	}
@@ -190,7 +175,36 @@ public class Workhere implements Serializable{
 	public void setCompany_date(Date company_date) {
 		this.company_date = company_date;
 	}
-
+	
+	public Workhere(String work_no, String work_title, String work_content, String work_writer, Date work_date,
+			String work_job, String work_skill, String work_career, String work_workplace, Timestamp work_startdate,
+			Timestamp work_enddate, String member_id, String company_name, String company_type, int company_staff,
+			int company_capital, String company_code, String company_tel, String company_fax, String company_welfare,
+			Date company_date) {
+		super();
+		this.work_no = work_no;
+		this.work_title = work_title;
+		this.work_content = work_content;
+		this.work_writer = work_writer;
+		this.work_date = work_date;
+		this.work_job = work_job;
+		this.work_skill = work_skill;
+		this.work_career = work_career;
+		this.work_workplace = work_workplace;
+		this.work_startdate = work_startdate;
+		this.work_enddate = work_enddate;
+		this.member_id = member_id;
+		this.company_name = company_name;
+		this.company_type = company_type;
+		this.company_staff = company_staff;
+		this.company_capital = company_capital;
+		this.company_code = company_code;
+		this.company_tel = company_tel;
+		this.company_fax = company_fax;
+		this.company_welfare = company_welfare;
+		this.company_date = company_date;
+	}
+	
 	@Override
 	public String toString() {
 		return "Workhere [work_no=" + work_no + ", work_title=" + work_title + ", work_content=" + work_content

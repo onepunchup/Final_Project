@@ -577,10 +577,10 @@ public class MemberController {
 	public String procFileUpload(FileBean fileBean, HttpServletRequest request, Model model) { 
 		
 		HttpSession session = request.getSession(); 
-		String root_path = session.getServletContext().getRealPath("/"); // 웹서비스 root 경로 
+		String root_path = session.getServletContext().getRealPath("resources"); // 웹서비스 root 경로 
 		//String root_path = "D:\\git\\Final_Project\\dajob\\src\\main\\webapp\\";
-		String attach_path = "resources/images/resumeimg/"; 
-		
+		String attach_path = "/images/resumeimg/"; 
+		String file_path = null;
 		MultipartFile upload = fileBean.getUpload(); 
 		String filename = ""; 
 		String CKEditorFuncNum = ""; 
@@ -595,12 +595,13 @@ public class MemberController {
 				System.out.println("filename : " + filename);
 				
 				File file = new File(root_path + attach_path + filename); 
+				file_path = "/dajob/resources" + attach_path + filename;
 				logger.info(root_path + attach_path + filename); upload.transferTo(file); 
 				} catch (IOException e) { 
 					e.printStackTrace(); 
-				} 
+				}
 			} 
-		String file_path = "/dajob/" + attach_path + filename;
+		
 		model.addAttribute("file_path", file_path); 
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum); 
 		

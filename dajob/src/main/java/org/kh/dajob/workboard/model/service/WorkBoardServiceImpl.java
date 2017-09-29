@@ -43,4 +43,9 @@ public class WorkBoardServiceImpl implements WorkBoardService{
 		String userid = m.getMember_id();
 		return workboardDao.likeList(userid);
 	}
+	
+	@Override
+	public int workboardInsert(WorkBoard w) {
+		return workboardDao.insertWorkboard(w);
+	}
 }

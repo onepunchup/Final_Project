@@ -387,10 +387,10 @@
 				success : function(result){
 					if(result == "ok"){
 						alert("삭제되었습니다.");
-						location.href = "resume.do";
+						location.href = "resumeUpdate.do";
 					} else {
 						alert("삭제실패");
-						location.href = "resume.do";
+						location.href = "resumeUpdate.do";
 						
 					}
 				}
@@ -407,10 +407,10 @@
 				success : function(result){
 					if(result == "ok"){
 						alert("삭제되었습니다.");
-						location.href = "resume.do";
+						location.href = "resumeUpdate.do";
 					} else {
 						alert("삭제실패");
-						location.href = "resume.do";
+						location.href = "resumeUpdate.do";
 						
 					}
 				}
@@ -427,10 +427,10 @@
 				success : function(result){
 					if(result == "ok"){
 						alert("삭제되었습니다.");
-						location.href = "resume.do";
+						location.href = "resumeUpdate.do";
 					} else {
 						alert("삭제실패");
-						location.href = "resume.do";
+						location.href = "resumeUpdate.do";
 						
 					}
 				}
@@ -449,10 +449,10 @@
 			success : function(result){
 				if(result == "ok"){
 					alert("이력서를 성공적으로 등록하셨습니다.");
-					location.href = "resumeUpdate.do";
+					location.href = "resume.do";
 				} else {
 					alert("이력서 등록에 실패하셨습니다.");
-					location.href = "resumeUpdate.do";
+					location.href = "resume.do";
 					
 				}
 			}

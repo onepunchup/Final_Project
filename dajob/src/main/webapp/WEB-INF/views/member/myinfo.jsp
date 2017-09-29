@@ -128,7 +128,7 @@ label {
 									<td colspan="2"><span class="passcheckLayer2"></span></td>
 								</tr>
 								<tr><td>프로필<br>이미지 : </td>
-									<td><p align="center"><input type="file" name="member_profile_img"></p></td>
+									<td><p align="center"><img width="200px;" height="200px;" src="${pageContext.request.contextPath}/resources/images/userImage/${member.member_profile_img}"></p></td>
 								</tr>
 								<tr><td>회원이름 : </td>
 									<td><input type="text" name="member_name"
@@ -267,7 +267,7 @@ label {
 									<td colspan="2"><span class="passcheckLayer2"></span></td>
 								</tr>
 								<tr><td>기업<br>이미지 : </td>
-									<td><p align="center"><input type="file" name="member_profile_img"></p></td>
+									<td><p align="center"><img width="200px;" height="200px;" src="${pageContext.request.contextPath}/resources/images/userImage/${member.member_profile_img}"></p></td>
 								</tr>
 								<tr><td>기업 명 : </td>
 									<td><input type="text" name="company_name" size="52%" value="${myinfo.company_name}"></td>

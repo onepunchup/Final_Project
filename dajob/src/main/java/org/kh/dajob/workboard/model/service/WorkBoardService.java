@@ -19,4 +19,7 @@ public interface WorkBoardService {
 	
 	Object likeList(Member m);
 
+	int workboardInsert(WorkBoard w);
+	
+	//int insertChk();
 }

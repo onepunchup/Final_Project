@@ -12,6 +12,12 @@ public class LikeList implements Serializable{
 	private String work_title;
 	
 	public LikeList() {}
+	
+	public LikeList(String member_id, String work_no) {
+		super();
+		this.member_id = member_id;
+		this.work_no = work_no;
+	}
 
 	public LikeList(String member_id, String work_no, String company_name, String work_title) {
 		super();
