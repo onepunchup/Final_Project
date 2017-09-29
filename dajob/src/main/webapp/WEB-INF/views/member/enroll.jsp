@@ -221,7 +221,7 @@ label{vertical-align:-1px}.inputBtn{width:13px;height:13px;vertical-align:text-t
 									<td colspan="2"><span class="passcheckLayer2"></span></td>
 								</tr>
 								<tr><td>프로필<br>이미지 : </td>
-									<td><div id="fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div></td>
+									<td><div id="fileUpload" class="dragAndDropDiv">Drag &amp; Drop Files Here</div></td>
 								</tr>
 								<tr><td>회원이름 : </td>
 									<td><input type="text" name="member_name"
@@ -316,7 +316,7 @@ label{vertical-align:-1px}.inputBtn{width:13px;height:13px;vertical-align:text-t
 									<td colspan="2"><span class="passcheckLayer2"></span></td>
 								</tr>
 								<tr><td>기업<br>이미지 : </td>
-									<td><div id="fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div></td>
+									<td><div id="fileUpload" class="dragAndDropDiv">Drag &amp; Drop Files Here</div></td>
 								</tr>
 								<tr><td>기업 명 : </td>
 									<td><input type="text" name="company_name"

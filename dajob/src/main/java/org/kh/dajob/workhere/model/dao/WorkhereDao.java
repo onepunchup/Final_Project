@@ -3,7 +3,6 @@ package org.kh.dajob.workhere.model.dao;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
-import org.kh.dajob.notice.model.vo.Notice;
 import org.kh.dajob.workhere.model.vo.Workhere;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +39,13 @@ public class WorkhereDao {
 	public ArrayList<Workhere> selectTopPower() {
 		RowBounds rb = new RowBounds(0, 10);
 		return new ArrayList<Workhere>(sqlSession.selectList("Workhere.selectTopPowerLink",null,rb));
+	}
+
+	public ArrayList<Workhere> selectWorkhereList() {
+		return new ArrayList<Workhere>(sqlSession.selectList("Workhere.selectWorkhereList"));
+	}
+
+	public ArrayList<Workhere> selectPowerLinkList() {
+		return new ArrayList<Workhere>(sqlSession.selectList("Workhere.selectPowerLinkList"));
 	}
 }

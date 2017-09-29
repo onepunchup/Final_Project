@@ -27,10 +27,6 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-       #map {
-        height: 400px;
-        width: 100%;
-       }
        .promo_box .pb_action a.btn{
        float: none;
        }
@@ -129,7 +125,7 @@
         	var IMP = window.IMP; // 생략가능
         	IMP.init('imp99940489'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
         });
-        function pay(){
+        
         IMP.request_pay({
             pg : 'uplus', // version 1.1.0부터 지원.
             pay_method : 'card',

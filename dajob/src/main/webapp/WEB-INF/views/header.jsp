@@ -55,12 +55,7 @@
 
                     <li id="notice"><a href="nlist.do">공지사항</a></li>
 
-                    <li id="workhere"><a href="jobList.do">Work Here</a>
-                    	<ul class="dropdown-menu">
-                            <li><a href="jobList.do">직업별 분류</a></li>
-                            <li><a href="jobList.do">능력별 분류</a></li>
-                        </ul>
-                    </li>
+                    <li id="workhere"><a href="jobList.do">Work Here</a></li>
                     <li id="mypage"><a href="#">마이페이지</a>
                         <ul class="dropdown-menu">
                         <!--------- 일반 회원 메뉴 구성 --------->
@@ -68,7 +63,6 @@
                             <li><a href="myinfo.do">내 정보 수정/탈퇴</a></li>
                             <li><a href="resume.do">내 이력서 조회</a></li>
                              <li><a href="likeCompList.do">선호 기업 리스트</a></li>
-                            <li><a href="#">입사 신청 기업 목록</a></li>
                             <li><a href="ability.do">내 능력 분석</a></li>
                             <li><a href="interviewList.do">화상 면접 대기실</a></li>
                             </c:if>
@@ -91,7 +85,7 @@
                          <!---------/ 기업 회원 메뉴 구성 --------->
                         <!--------- 관리자 메뉴 구성 --------->
                         <c:if test="${ member.member_type_code == 'A' }" >
-                            <li><a href="powerLinkListView.do">파워링크 가입 기업 목록</a></li>
+                            <li><a href="powerLinkListView.do">사용자 분석</a></li>
                             <li><a href="dashBoard.do">통합 대시 보드</a></li>
                         </c:if>
                          <!---------/ 관리자 메뉴 구성 --------->

@@ -76,14 +76,14 @@
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-md-2 mb-2">
-									<label>면접자 아이디</label> 
+									<label>면접자 아이디</label>
 									<input type="text" class="form-control is-valid" id="validationServer02" placeholder="Last name" value="${interview.interviewee}" readonly>
 								</div>
 								<div class="col-md-2 mb-2">
 									<label>면접 상태</label>
 									<input type="hidden" id="interview_status" name="interview_status" value=""> 
 									<select class="form-control is-valid" autofocus="${interview.interview_status }" id="IVstatus" name="IVstatus">
-										<option value="H">대기</option>
+										<option value="H" selected>대기</option>
 										<option value="E">입장가능</option>
 										<option value="Q">종료</option>
 									</select>

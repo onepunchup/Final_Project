@@ -1,25 +1,18 @@
 package org.kh.dajob.interview.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.collections.bag.SynchronizedSortedBag;
-import org.apache.commons.lang.ObjectUtils;
 import org.kh.dajob.interview.model.service.InterviewService;
 import org.kh.dajob.interview.model.vo.Interview;
 import org.kh.dajob.member.model.service.MemberService;
-import org.kh.dajob.member.model.vo.Member;
-import org.kh.dajob.notice.model.vo.Notice;
-import org.kh.dajob.notice.model.vo.NoticeReply;
+import org.kh.dajob.member.model.vo.*;
 import org.kh.dajob.workhere.model.service.WorkhereService;
-import org.kh.dajob.workhere.model.vo.Workhere;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.sun.media.sound.SoftSynthesizer;
 
 @Controller
 public class InterviewController {
@@ -45,10 +36,12 @@ public class InterviewController {
 	@RequestMapping(value = "interviewList.do")
 	public String interviewList(HttpSession session, Model model) throws IOException {
 		model.addAttribute("interviewlist", interviewService.selectInterviewList((Member)session.getAttribute("member")));
+		model.addAttribute("userinfo", memberService.selectMemberAll());
+		
 		return "interview/interviewlist";
 	}
 	
-	@RequestMapping(value = "interviewCompanyList.do")
+	@RequestMapping(value = "interviewCompanyList.do") // 안씀 ㅇㅇ
 	public String interviewCompanyList(HttpSession session, Model model) throws IOException {
 		model.addAttribute("interviewlist", interviewService.selectInterviewList((Member)session.getAttribute("member")));
 		return "interview/interviewcompanylist";
@@ -103,7 +96,7 @@ public class InterviewController {
 		
 		int result = interviewService.updateInterview(i);
 		if(result > 0) {
-			mv.setViewName("interview/interviewlist");
+			mv.setViewName("redirect:interviewList.do");
 		} else {
 			mv.addObject("msg", "인터뷰 데이터 수정 에러!!!");
 			mv.setViewName("404-page");

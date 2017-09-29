@@ -1,28 +1,19 @@
 package org.kh.dajob.workhere.controller;
 
+import java.io.*;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import org.kh.dajob.member.model.service.MemberService;
-import org.kh.dajob.notice.model.vo.Notice;
 import org.kh.dajob.workJobAndSkill.model.service.WorkJobAndSkillService;
 import org.kh.dajob.workhere.model.service.WorkhereService;
 import org.kh.dajob.workhere.model.vo.Workhere;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javafx.scene.control.Alert;
 
 @Controller
 public class WorkhereController {

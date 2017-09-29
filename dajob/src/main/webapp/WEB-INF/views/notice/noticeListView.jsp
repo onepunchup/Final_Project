@@ -133,7 +133,7 @@
 						</tbody>
 					</table>
 				</c:if><c:if test="${empty list}">
-				<p align="center"><h1>현재 공지사항이 없습니다.</h1></p>
+				<p align="center" style="font-size:20pt;"></p>
 				</c:if>
 				</div>
 			</div>

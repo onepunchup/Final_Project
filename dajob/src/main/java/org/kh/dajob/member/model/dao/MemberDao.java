@@ -114,5 +114,9 @@ public class MemberDao {
 		}
 		return result;
 	}
+
+	public User selectUserResume(String member_id) {
+		return sqlSession.selectOne("User.selectUserResume", member_id);
+	}
 }
 

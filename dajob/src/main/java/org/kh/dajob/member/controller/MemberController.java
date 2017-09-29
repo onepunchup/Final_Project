@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,21 +17,14 @@ import org.kh.dajob.FileBean;
 import org.kh.dajob.cert.model.service.CertService;
 import org.kh.dajob.cert.model.vo.UserCert;
 import org.kh.dajob.member.model.service.MemberService;
-import org.kh.dajob.member.model.vo.Company;
-import org.kh.dajob.member.model.vo.Member;
-import org.kh.dajob.member.model.vo.User;
+import org.kh.dajob.member.model.vo.*;
 import org.kh.dajob.workboard.model.service.WorkBoardService;
-import org.kh.dajob.workboard.model.vo.WorkBoard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -71,13 +63,15 @@ public class MemberController {
 	}
 	
 	@RequestMapping("logout.do")
-	public String logoutMember(HttpSession session){
+	public ModelAndView logoutMember(ModelAndView mv, HttpSession session){
 		logger.info("logoutMember() call...");
 		
 		if(session.getAttribute("member") != null){			
 			session.invalidate();
 		}
-		return "index";
+		mv.setViewName("redirect:index.do");
+		
+		return mv;
 	}
 	
 	@RequestMapping("enrollView.do")
@@ -140,7 +134,7 @@ public class MemberController {
 	       return "fileUpload";
 	   }
 	    */
-	   @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "fileUpload.do") //ajax에서 호출하는 부분
 	   @ResponseBody // 결과를 응답 페이지에 담아 보냄
 	   public String upload(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws UnsupportedEncodingException { //Multipart로 받는다.
@@ -530,6 +524,21 @@ public class MemberController {
 		return "mypage/resumeView";
 	}
 	
+	@RequestMapping(value = "resumeComp.do")
+	public String resumeViewGoComp(@RequestParam("member_id") String member_id, Model model) {
+		User user = memberService.selectUserResume(member_id);
+		if(user != null){
+			model.addAttribute("user", user);
+			model.addAttribute("totalCert", certService.totalCert(user));
+			model.addAttribute("countCert", certService.countCert(user));
+			model.addAttribute("likeList", workBoardService.likeList(user));
+		} else {
+			
+		}
+		
+		return "mypage/resumeView";
+	}
+	
 	@RequestMapping(value = "resumeUpdate.do")
 	public String resumeGo(HttpSession session, Model model) {
 		User user = memberService.selectUser((Member)session.getAttribute("member"));
@@ -552,6 +561,10 @@ public class MemberController {
 			
 		if(user != null){
 			model.addAttribute("user", user);
+			model.addAttribute("totalCert", certService.totalCert((Member)session.getAttribute("member")));
+			model.addAttribute("countCert", certService.countCert((Member)session.getAttribute("member")));
+			model.addAttribute("likeList", workBoardService.likeList((Member)session.getAttribute("member")));
+			model.addAttribute("recommendCert", certService.recommendCert((Member)session.getAttribute("member")));
 		} else {
 				
 		}

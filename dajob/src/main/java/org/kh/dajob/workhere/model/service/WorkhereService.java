@@ -3,8 +3,6 @@ package org.kh.dajob.workhere.model.service;
 import java.util.ArrayList;
 
 import org.kh.dajob.workhere.model.vo.Workhere;
-import org.springframework.stereotype.Service;
-
 
 public interface WorkhereService {
 
@@ -14,4 +12,6 @@ public interface WorkhereService {
 	int deleteWorkhere(String no);
 	ArrayList<Workhere> selectJobSearchList(Workhere wh);
 	ArrayList<Workhere> selectTopPower();
+	ArrayList<Workhere> selectWorkhereList();
+	ArrayList<Workhere> selectPowerLinkList();
 }

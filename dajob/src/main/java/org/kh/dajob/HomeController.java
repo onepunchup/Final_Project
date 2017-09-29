@@ -63,7 +63,9 @@ public class HomeController {
 		mv.addObject("compCnt", memberService.selectCompanyAll());
 		mv.addObject("powerComp", memberService.selectPowerLinkComp());
 		mv.addObject("comTypeList",memberService.selectCompanyList());
-		mv.addObject("powerList",powerlinkService.selectPowerLinkAll());
+		mv.addObject("powerLink",powerlinkService.selectPowerLinkAll());
+		mv.addObject("powerList",workhereService.selectPowerLinkList());
+		mv.addObject("workherelist", workhereService.selectWorkhereList());
 		/*
 		System.out.println("userCnt : " + memberService.selectUserAll());
 		System.out.println("compCnt : " + memberService.selectCompanyAll());

@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="<c:url value='/resources/css/animate.css'/>"/>
 
 	<!-- CKeditor CSS FILES -->
-	<link href="${pageContext.request.contextPath}/resources/api/CKeditor/contents.css"" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/resources/api/CKeditor/contents.css" rel="stylesheet">
 	<%-- <link rel="stylesheet" href="<c:url value='/resources/css/sntest.css'/>"/> --%>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -67,11 +67,11 @@
 		        HEADER
 		        ============================ -->
 		        <div id="header" class="row">
-		            <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom:15px">
+		            <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom:15px;">
 		            <c:if test="${!empty user.member_profile_img}">
-		            	<img class="propic" src="${pageContext.request.contextPath}/resources/images/userImage/${user.member_profile_img}" alt="" height="100%">
+		            	<img class="propic" src="${pageContext.request.contextPath}/resources/images/userImage/${user.member_profile_img}" alt="" style="max-width: 100%; height: auto;">
 		            </c:if><c:if test="${empty user.member_profile_img}">
-		                <img class="propic" src="${pageContext.request.contextPath}/resources/images/userImage/default.jpg" alt="" height="100%">
+		                <img class="propic" src="${pageContext.request.contextPath}/resources/images/userImage/default.jpg" alt="" style="max-width: 100%; height: auto;">
 		            </c:if>
 		            </div>
 		            <!-- photo end-->
@@ -349,7 +349,7 @@
 	<!-- CKeditor script -->
 	<script>
 	/* var test = '${pageContext.request.contextPath}'; */
-	console.log(test);
+	//console.log(test);
 		CKEDITOR.replace( 'resumeData', {
 			customConfig: '${pageContext.request.contextPath}/resources/api/CKeditor/config.js',
 			filebrowserImageUploadUrl: 'ckfileUpload.do',

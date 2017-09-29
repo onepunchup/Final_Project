@@ -75,9 +75,9 @@
 		        <div id="header" class="row">
 		            <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom:15px">
 		            <c:if test="${!empty user.member_profile_img}">
-		            	<img class="propic" src="${pageContext.request.contextPath}/resources/images/userImage/${user.member_profile_img}" alt="" height="100%">
+		            	<img class="propic" src="${pageContext.request.contextPath}/resources/images/userImage/${user.member_profile_img}" alt="" style="max-width: 100%; height: auto;">
 		            </c:if><c:if test="${empty user.member_profile_img}">
-		                <img class="propic" src="${pageContext.request.contextPath}/resources/images/userImage/default.jpg" alt="" height="100%">
+		                <img class="propic" src="${pageContext.request.contextPath}/resources/images/userImage/default.jpg" alt="" style="max-width: 100%; height: auto;">
 		            </c:if>
 		            </div>
 		            <!-- photo end-->

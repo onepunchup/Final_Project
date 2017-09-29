@@ -1,10 +1,6 @@
 package org.kh.dajob.powerlink.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.io.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +26,7 @@ public class PowerLinkController {
 	
 	@RequestMapping(value="powerlink.do", method=RequestMethod.GET)
 	public String powerlinkInfo(HttpSession session, HttpServletRequest request){
+		logger.info("powerlinkInfo() started...");
 		Member m = (Member)session.getAttribute("member");
 		String memberId = m.getMember_id();
 		PowerLink pl = powerlinkService.selectId(memberId);

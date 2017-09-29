@@ -33,6 +33,9 @@
        .comment-body td{
        	font-size : 15pt;
        }
+      	.powerlinkcnt td, th{
+       	font-size : 14pt;
+       }
     </style>
 </head>
 <body>
@@ -43,14 +46,14 @@
         <div class="container page_head">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h2>PowerLink List</h2>
+                    <h2>사용자 분석</h2>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <nav id="breadcrumbs">
                         <ul>
                             <li>You are here:</li>
                             <li><a href="index.do">Home</a></li>
-                            <li>PowerLink List</li>
+                            <li>사용자 분석</li>
                         </ul>
                     </nav>
                 </div>
@@ -98,6 +101,46 @@
 				</div><!--/.row-->
 				<div class="row sub_content">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<h1>WorkHere 게시글 분석</h1>
+					<div class="comment-container" style="margin-left:0;">
+							<div class="comment-body" style="height:400px;">
+					<script src="https://code.highcharts.com/highcharts.js"></script>
+					<script src="https://code.highcharts.com/modules/exporting.js"></script>
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<div id="workherechart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+					</div>
+					<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12" style="margin-left:50px;">
+						<h1>사용률 분석표</h1>
+						<table class="table powerlinkcnt">
+						<thead>
+						<tr>
+							<th>게시글 분류</th>
+							<th>게시글 갯수</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td style="padding-top: 15px; padding-bottom: 15px;">일반 게시글</td>
+							<td style="padding-top: 15px; padding-bottom: 15px;">${fn:length(workherelist) - fn:length(powerList)} 개</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 15px; padding-bottom: 15px;">PowerLink 게시글</td>
+							<td style="padding-top: 15px; padding-bottom: 15px;">${fn:length(powerList)} 개</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 15px; padding-bottom: 15px;">총 게시글</td>
+							<td style="padding-top: 15px; padding-bottom: 15px;">${fn:length(workherelist)} 개</td>
+						</tr>
+						<tr><td colspan="2"></td></tr>
+						</tbody>
+						</table>
+							</div>
+						</div>
+					</div>
+				</div><!--/.row-->
+				</div>
+				<div class="row sub_content">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="dividerHeading">
 							<h4><span>PowerLink 가입자 리스트</span></h4>
 						</div>
@@ -122,7 +165,7 @@
                             	<td>${type.company_tname}</td>
                             </c:if>
                             </c:forEach>
-                            <c:forEach var="link" items="${powerList}">
+                            <c:forEach var="link" items="${powerLink}">
                             <c:if test="${link.member_id eq comp.member_id}">
                             	<fmt:formatNumber var="test" value="${(link.powerlink_time / 24) - ((link.powerlink_time / 24) % 1)}" pattern="#"/>
                                		<c:set var="plDate" value="${test}" />
@@ -134,28 +177,77 @@
                         </c:forEach>
                         </tbody>
                     </table>
-					</div>
-				</div><!--/.row-->
-				<div class="row sub_content">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="dividerHeading">
-							<h4><span>Typography</span></h4>
 						</div>
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<h1>H1 Header</h1>
-						<p>Fusce lacinia tempor malesuada. Ut lacus sapien, placerat a ornare nec, elementum sit amet felis. Maecenas pretium lorem hendrerit eros sagittis fermentum. Donec in ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo ad gravida. Cras suscipit, quam vitae adipiscing faucibus, risus nibh laoreet odio, a porttitor metus eros ut enim. Morbi augue velit, tempus mattis sum dignissim nec, porta sed risus. Donec eget magna eu lorem tristique pellentesque eget eu dui. Fusce lacinia tempor malesuada. Ut lacus sapien, po anemat ornare nec, elementum sit amet felis. Maecenas pretium hendrerit fermentum lacus sapien, placerat a ornare nec fringilla libero convals.</p>
-					</div>
-				</div><!--/.row-->
-			</div> <!--/.container-->
+					</div><!--/.row-->
+				</div> <!--/.container-->
 		</section>
-		
-	</section>
-	<!--end wrapper-->
-
+	</section> <!--end wrapper-->
 	
 	<!--start footer-->
 	<c:import url="../footer.jsp"/>
 	<!--end footer-->
+	
+	<script type="text/javascript">
+					$(function(){
+						var powerCnt = "<c:out value='${fn:length(powerList)}'/>";
+						var normalCnt = "<c:out value='${fn:length(workherelist) - fn:length(powerList)}'/>";
+						Highcharts.chart('workherechart', {
+							colors:['#a7d6d0','#123456'],
+						    chart: {
+						        type: 'column'
+						    },
+						    title: {
+						        text: 'Work Here 사용 분석'
+						    },
+						    xAxis: {
+						        categories: ['Work Here']
+						    },
+						    yAxis: {
+						        min: 0,
+						        title: {
+						            text: 'Total Work Here Boards'
+						        },
+						        stackLabels: {
+						            enabled: true,
+						            style: {
+						                fontWeight: 'bold',
+						                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+						            }
+						        }
+						    },
+						    legend: {
+						        align: 'right',
+						        x: -30,
+						        verticalAlign: 'top',
+						        y: 25,
+						        floating: true,
+						        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+						        borderColor: '#CCC',
+						        borderWidth: 1,
+						        shadow: false
+						    },
+						    tooltip: {
+						        headerFormat: '<b>{point.x}</b><br/>',
+						        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+						    },
+						    plotOptions: {
+						        column: {
+						            stacking: 'normal',
+						            dataLabels: {
+						                enabled: true,
+						                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+						            }
+						        }
+						    },
+						    series: [{
+						        name: 'PowerLink',
+						        data: [parseInt(powerCnt)]
+						    }, {
+						        name: '일반 게시글',
+						        data: [parseInt(normalCnt)]
+						    }]
+						});
+					});
+					</script>
 </body>
 </html>

@@ -27,6 +27,11 @@
 		SELECT * FROM VW_USER WHERE MEMBER_ID = #{member_id} AND MEMBER_PASSWORD = #{member_password}
 	</select>
 	
+	<select id="selectUserResume" parameterType="string" resultType="User"
+		resultMap="resultUser">
+		SELECT * FROM VW_USER WHERE MEMBER_ID = #{member_id}
+	</select>
+	
 	<insert id="insertUser" parameterType="User" flushCache="true"
 		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
 		timeout="20">

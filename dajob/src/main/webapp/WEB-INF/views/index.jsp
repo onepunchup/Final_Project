@@ -281,7 +281,7 @@ var styleswitcherstr = ' \
     <fieldset>\
        <div id="messageWindow" rows="10" cols="5" readonly="true" style="background-color: white; height: 210px;"></div>\
         <div style="padding-top: 7px;"><input id="inputMessage" type="text" size="23" onkeyup="enterkey()" />\
-        <input type="submit" value="send" onclick="send()" /></div>\
+        <button type="submit" onclick="send()" style="width:38px;"><font style="color:#1a2944;"><i class="fa fa-paper-plane-o"></i></font></button></div>\
     </fieldset>\
 	</div>\
 	</div>\
@@ -331,13 +331,15 @@ $(document).ready(function(){
               right: '-255px'
             });
         }
-    })
+    });
 });
 </script>
 
 <script type="text/javascript">
     var textarea = document.getElementById("messageWindow");
     var webSocket = new WebSocket('ws://localhost:4080/dajob/broadcasting');
+    // localhost 부분에 ip 주소를 넣으세요.
+    
     var inputMessage = null;
    
     webSocket.onopen = function(event) {
@@ -352,7 +354,7 @@ $(document).ready(function(){
     };
     
     function onOpen(event){
-    	$("#messageWindow").html("<font style='color: #ff8080;'>귓속말 채팅 : &nbsp;/아이디 내용</font><br>");
+    	$("#messageWindow").html("<font style='color: #ff8080;'>귓속말 채팅 : &nbsp;/아이디 내용<br>Ex) /admin : 관리자에게 귓말하기</font><br>");
     }
 
     function onError(event) {

@@ -34,6 +34,10 @@
 		select * FROM VW_WORKHERE
 	</select>
 	
+	<select id="selectPowerLinkList" resultType="arraylist" resultMap="resultWorkhere">
+		select * FROM VW_WORKHERE WHERE MEMBER_ID IN (SELECT MEMBER_ID FROM POWERLINK WHERE POWERLINK_TIME > 0)
+	</select>
+	
 	<select id="selectJobSearchList" parameterType="Workhere" resultType="arraylist" resultMap="resultWorkhere">
 		select * FROM VW_WORKHERE
 		<where>

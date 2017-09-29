@@ -40,5 +40,15 @@ public class WorkhereServiceImpl implements WorkhereService{
 	@Override
 	public ArrayList<Workhere> selectTopPower() {
 		return workhereDao.selectTopPower();
+	}
+
+	@Override
+	public ArrayList<Workhere> selectWorkhereList() {
+		return workhereDao.selectWorkhereList();
+	}
+
+	@Override
+	public ArrayList<Workhere> selectPowerLinkList() {
+		return workhereDao.selectPowerLinkList();
 	};
 }

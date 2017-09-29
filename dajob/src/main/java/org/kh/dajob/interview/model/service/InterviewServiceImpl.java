@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import org.kh.dajob.interview.model.dao.InterviewDao;
 import org.kh.dajob.interview.model.vo.Interview;
-import org.kh.dajob.member.model.dao.MemberDao;
 import org.kh.dajob.member.model.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 @Service("interviewService")
 public class InterviewServiceImpl implements InterviewService{
 

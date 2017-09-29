@@ -124,4 +124,9 @@ public class MemberServiceImpl implements MemberService{
 	public int deleteFile(String userid, int fileno) {
 		return memberDao.deleteFile(userid, fileno);
 	}
+
+	@Override
+	public User selectUserResume(String member_id) {
+		return memberDao.selectUserResume(member_id);
+	}
 }

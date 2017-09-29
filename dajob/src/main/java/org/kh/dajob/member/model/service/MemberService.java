@@ -48,4 +48,6 @@ public interface MemberService {
 	ArrayList<Company> selectPowerLinkComp();
 
 	int deleteFile(String userid, int fileno);
+
+	User selectUserResume(String member_id);
 }

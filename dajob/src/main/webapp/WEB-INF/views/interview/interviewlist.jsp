@@ -63,7 +63,7 @@
       <tr>
         <th>인터뷰 번호</th>
         <th>회사 이름</th>
-        <th>신청자 아이디</th>
+        <th>신청자</th>
         <th>면접 상태</th>
         <th></th>
       </tr>
@@ -75,7 +75,11 @@
       <tr>
         <td>${interview.interview_no}</td>
         <td>${interview.company_name}</td>
-        <td>${interview.interviewee}</td>
+        <c:forEach var="user" items="${userinfo}">
+        <c:if test="${interview.interviewee eq user.member_id}">
+        <td>${user.member_name}</td>
+        </c:if>
+        </c:forEach>
         <td>
         <c:url var="interDetail" value="/interviewDetail.do">
         	<c:param name="interview_no" value="${interview.interview_no}"/>
@@ -94,7 +98,15 @@
       <tr>
         <td>${interviewcompanylist.interview_no}</td>
         <td>${interviewcompanylist.company_name}</td>
-        <td>${interviewcompanylist.interviewee}</td>
+        <c:forEach var="user" items="${userinfo}">
+        <c:if test="${interviewcompanylist.interviewee eq user.member_id}">
+        <td>
+        <c:url var="resume" value="/resumeComp.do">
+        	<c:param name="member_id" value="${user.member_id}"/>
+        </c:url>
+        <a href="${resume}">${user.member_name}</a></td>
+        </c:if>
+        </c:forEach>
         <td>
         <c:url var="interDetail" value="/interviewDetail.do">
         	<c:param name="interview_no" value="${interviewcompanylist.interview_no}"/>
