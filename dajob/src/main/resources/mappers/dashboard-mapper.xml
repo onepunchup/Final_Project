@@ -38,9 +38,10 @@
 	</select>
 	<!-- 월별 구인정보 등록 횟수 -->
 	<select id="monTop5" resultType="arraylist" resultMap="DashBoardMon2">
-		SELECT SUBSTR(WORK_DATE, 1, 2) "YEAR", SUBSTR(WORK_DATE, 4, 2) "MON", COUNT(WORK_DATE) "MON_COUNT" 
+		SELECT SUBSTR(WORK_DATE, 1, 2) "YEAR", NVL(SUBSTR(WORK_DATE, 4, 2), '합계') "MON", 
+		COUNT(*) "MON_COUNT", SUM(COUNT(*)) OVER(ORDER BY SUBSTR(WORK_DATE, 4, 2)) "COUNT_SUM" 
 		FROM WORK_BOARD 
-		GROUP BY SUBSTR(WORK_DATE, 1, 2), SUBSTR(WORK_DATE, 4, 2) 
+		GROUP BY SUBSTR(WORK_DATE, 1, 2), ROLLUP(SUBSTR(WORK_DATE, 4, 2)) 
 		ORDER BY 1 DESC, 2
 	</select>
 	

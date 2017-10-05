@@ -10,6 +10,7 @@ public class DashBoard {
 	private String area;
 	private int area_count;
 	private int mon_count;
+	private int count_sum;
 
 	public DashBoard(){}
 	public DashBoard(int tot_profit){
@@ -24,7 +25,19 @@ public class DashBoard {
 		this.area = area;
 		this.area_count = area_count;
 	}
+	public DashBoard(String year, String mon, int mon_count, int count_sum){
+		this.year = year;
+		this.mon = mon;
+		this.mon_count = mon_count;
+		this.count_sum = count_sum;
+	}
 	
+	public int getCount_sum() {
+		return count_sum;
+	}
+	public void setCount_sum(int count_sum) {
+		this.count_sum = count_sum;
+	}
 	public int getMon_count() {
 		return mon_count;
 	}

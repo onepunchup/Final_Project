@@ -141,7 +141,12 @@
                         <tbody>
                         <c:forEach var="m2" items="${ requestScope.mon_top5 }">
 				 			<tr>
+                           		 <c:if test="${ m2.mon ne '합계' }">
                            		 <td>${ m2.mon } 月  </td>
+                           		</c:if>
+                           		<c:if test="${ m2.mon eq '합계' }">
+                           		 <td>${ m2.mon } </td>
+                           		</c:if>
                             	 <td>${ m2.mon_count }</td>
                        		</tr>
 						 </c:forEach>
@@ -150,6 +155,8 @@
                  	        </div>
 						</div>
 					</div>
+					 <div id="chartContainer3" style="height: 300px; width: 50%; padding-left: 50%;">
+  					 </div>
 				</div>
 			</div>
 		</section>
@@ -230,6 +237,45 @@
 		});
 		chart2.render();
 		$('a.canvasjs-chart-credit').remove();
+		
+		var monApplyList = new Array();
+		var applyCountList = new Array();
+		var countSumList = new Array();
+		<c:forEach var="m2" items="${requestScope.mon_top5}">
+			monApplyList.push("${m2.mon}");
+			applyCountList.push("${m2.mon_count}");
+			countSumList.push("${m2.count_sum}");
+		</c:forEach>
+		var chart3 = new CanvasJS.Chart("chartContainer3",
+			    {
+			      title:{
+			        text: "A Combination of Column & Line Chart"
+			      },   
+			      data: [{        
+			        type: "column",
+			        dataPoints: [
+			        { x: Number(monApplyList[0]), y: Number(applyCountList[0]) },
+					{ x: Number(monApplyList[1]), y: Number(applyCountList[1]) },
+					{ x: Number(monApplyList[2]), y: Number(applyCountList[2]) }/* ,
+					{ x: Number(monApplyList[3]), y: Number(applyCountList[3]) },
+					{ x: Number(monApplyList[4]), y: Number(applyCountList[4]) } */
+					]
+			      },
+			      {        
+			        type: "line",
+			        dataPoints: [
+			        { x: Number(monApplyList[0]), y: Number(countSumList[0]) },
+			        { x: Number(monApplyList[1]), y: Number(countSumList[1]) },
+			        { x: Number(monApplyList[2]), y: Number(countSumList[2]) }/* ,
+			        { x: Number(monApplyList[3]), y: Number(countSumList[3]) },
+			        { x: Number(monApplyList[4]), y: Number(countSumList[4]) } */
+			        ]
+			      }
+			        
+			      ]
+			    });
+
+			    chart3.render();
 		}
 	</script>
 	
