@@ -26,6 +26,7 @@
 		<typeAlias type="org.kh.dajob.itinfo.model.vo.Itinfo" alias="Itinfo" />
 		<typeAlias type="org.kh.dajob.workJobAndSkill.model.vo.WorkJob" alias="WorkJob" />
 		<typeAlias type="org.kh.dajob.workJobAndSkill.model.vo.WorkSkill" alias="WorkSkill" />
+		<typeAlias type="org.kh.dajob.dashboard.model.vo.DashBoard" alias="DashBoard"/>
 	</typeAliases>
 	
 	<!-- <environments default="development">
@@ -52,5 +53,6 @@
 		<mapper resource="mappers/itinfo-mapper.xml" />
 		<mapper resource="mappers/workhere-mapper.xml" />
 		<mapper resource="mappers/jobandskill-mapper.xml" />
+		<mapper resource="mappers/dashboard-mapper.xml" />
 	</mappers>
 </configuration>

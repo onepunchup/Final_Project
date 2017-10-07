@@ -3,6 +3,7 @@ package org.kh.dajob.workboard.model.service;
 import java.util.ArrayList;
 
 import org.kh.dajob.member.model.vo.Member;
+import org.kh.dajob.workboard.model.vo.LikeList;
 import org.kh.dajob.workboard.model.vo.WorkBoard;
 
 public interface WorkBoardService {
@@ -15,11 +16,13 @@ public interface WorkBoardService {
 
 	ArrayList<WorkBoard> likeCompList(WorkBoard w, int page, int limit);
 
-	int deleteOne(WorkBoard w);
+	int deleteOne(LikeList w);
 	
 	Object likeList(Member m);
 
 	int workboardInsert(WorkBoard w);
 	
-	//int insertChk();
+	int insertChk(LikeList l);
+
+	int insertLikeList(LikeList likeList);
 }

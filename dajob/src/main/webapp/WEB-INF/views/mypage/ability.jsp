@@ -40,8 +40,8 @@
                     <nav id="breadcrumbs">
                         <ul>
                             <li>You are here:</li>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="index.html">Mypage</a></li>
+                            <li><a href="index,do">Home</a></li>
+                            <li><a href="index.do">Mypage</a></li>
                             <li>My ability</li>
                         </ul>
                     </nav>
@@ -130,10 +130,19 @@
                         <div class="promo_box" style="margin-top:10%">
                             <div class="col-sm-9">
                                 <div class="promo_content">
-                                    <h3 style="width: 140%;">취득 자격증 기준 <b style="color:#03adde">${ user.member_name }</b>님의 전문 능력은
+                                    <h3 style="width: 140%;">취득 자격증 기준 <b style="color:#03adde">${ user.member_name }</b>님의 전문 능력 : 
                                      	<c:forEach items="${countCert}"  var="countCert" varStatus="vs">
                                      		<c:if test="${ vs.index eq 1 }">
-                                     			<b style="color:#03adde">${ countCert.cert_value }</b>분야입니다.
+                                     			<b style="color:#03adde">${ countCert.cert_value }</b><br><br>
+                                     		</c:if>
+                                     		<c:if test="${vs.index eq 1 and countCert.cert_value eq 'JAVA'}">
+                                     			관련된 직업으로는 웹 개발자, 웹 퍼블리셔, 웹 어플 개발자 등을 추천 드립니다.
+                                     		</c:if>
+                                     		<c:if test="${vs.index eq 1 and countCert.cert_value eq 'DB'}">
+                                     			관련된 직업으로는 DB 운영자, DB 세션 관리자, DB 전문가 등을 추천 드립니다.
+                                     		</c:if>
+                                     		<c:if test="${vs.index eq 1 and countCert.cert_value eq '공통'}">
+                                     			관련된 직업으로는 시스템 관리자, 솔루션 개발자 등을 추천 드립니다.
                                      		</c:if>
                                      	</c:forEach>
                                      </h3>
@@ -184,16 +193,25 @@
 			              		 <blockquote class="default">
 		              		 		<h2 style="margin:0; padding:0;">
 			              		 		<p align="center"><i class="fa fa-street-view" style="color:black;"></i>&nbsp;&nbsp;현재 내 위치</p>
-		              		 		</h2>
-			              		 	<p align="center">
+		              		 		</h2><font style="font-size: 15pt; line-height: 20pt;">
 				              		 		<c:if test="${ countCert.cert_count <= 3 }">
-				              		 			<br> 현재 당신의 위치는 <b style="color:green;">하위연봉</b>입니다. 연관 자격증을 더 취득하시면 좋을 것 같습니다.
+				              		 			<br> <p align="center">현재 당신의 위치는 <b style="color:green;">하위연봉</b>입니다. </p>
+				              		 			<br><span class="dropcap_block" style="background-color: black;">연</span>봉 계산 기준 ${member.member_name}님이 받을 수 있는 급여는 2000 ~ 2400만원이며,
+				              		 			<br>관련 전문 자격증을 ${ 4 - countCert.cert_count } 개 더 취득하시면 <b style="color:orange;">평균 연봉자</b>가 될 수 있습니다.
+				              		 			<br>추천하는 추가 취득 전문 자격증으로는 하기 자격증을 취득하시는 것을 추천 드립니다.
 				              		 		</c:if><c:if test="${ countCert.cert_count > 3 and  countCert.cert_count < 11 }">
-				              		 			<br> 현재 당신의 위치는 <b style="color:orange;">평균연봉</b>입니다. 연관 자격증을 더 취득하시면 좋을 것 같습니다.
+				              		 			<br> <p align="center">현재 당신의 위치는 <b style="color:orange;">평균연봉</b>입니다.</p>
+				              		 			<br><span class="dropcap_block" style="background-color: black;">연</span>봉 계산 기준 ${member.member_name}님이 받을 수 있는 급여는 2400 ~ 2600만원이며,
+				              		 			<br>관련 전문 자격증을 ${ 12 - countCert.cert_count } 개 더 취득하시면 <b style="color:red;">상위 연봉자</b>가 될 수 있습니다.
+				              		 			<br>추천하는 추가 취득 전문 자격증으로는 하기 자격증을 취득하시는 것을 추천 드립니다.
 				              		 		</c:if><c:if test="${ countCert.cert_count > 11 }">
-				              		 			<br> 현재 당신의 위치는 <b style="color:red;">상위연봉</b>입니다. 이력서를 통해 취업에 도전하세요.
+				              		 			<br> <p align="center">현재 당신의 위치는 <b style="color:red;">상위연봉</b>입니다.</p>
+				              		 			<br><span class="dropcap_block" style="background-color: black;">연</span>봉 계산 기준 ${member.member_name}님이 받을 수 있는 급여는 2600 만원 이상이며,
+				              		 			<br>현재 취업에 있어 자격증이 문제가 되지 않는 상태입니다!!
+				              		 			<br>자신의 능력을 살려 멋진 직장에 취업하시길 기원합니다.
+				              		 			<br>관련 추가 취득 자격증은 하기를 참조하시기 바랍니다.
 				              		 		</c:if>
-			              		 	</p>
+				              		 		</font>
 			              		 </blockquote>
 			          		 </c:if>
 		            		</c:forEach>

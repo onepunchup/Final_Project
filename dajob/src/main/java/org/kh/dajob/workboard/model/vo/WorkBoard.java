@@ -12,8 +12,8 @@ public class WorkBoard implements java.io.Serializable{
 	private String work_content;
 	private String work_writer;
 	private Date work_date;
-	private String work_job;
-	private String work_skill;
+	private String job_name;
+	private String skill_name;
 	private String work_career;
 	private String work_workplace;
 	private Timestamp work_startdate;
@@ -22,16 +22,16 @@ public class WorkBoard implements java.io.Serializable{
 	private String rnum;
 	private String company_name;
 	
-	public WorkBoard(String work_title, String work_content, String work_writer, Date work_date, String work_job,
-			String work_skill, String work_career, String work_workplace, Timestamp work_startdate,
+	public WorkBoard(String work_title, String work_content, String work_writer, Date work_date, String job_name,
+			String skill_name, String work_career, String work_workplace, Timestamp work_startdate,
 			Timestamp work_enddate) {
 		super();
 		this.work_title = work_title;
 		this.work_content = work_content;
 		this.work_writer = work_writer;
 		this.work_date = work_date;
-		this.work_job = work_job;
-		this.work_skill = work_skill;
+		this.job_name = job_name;
+		this.skill_name = skill_name;
 		this.work_career = work_career;
 		this.work_workplace = work_workplace;
 		this.work_startdate = work_startdate;
@@ -70,17 +70,17 @@ public class WorkBoard implements java.io.Serializable{
 	public void setWork_date(Date work_date) {
 		this.work_date = work_date;
 	}
-	public String getWork_job() {
-		return work_job;
+	public String getjob_name() {
+		return job_name;
 	}
-	public void setWork_job(String work_job) {
-		this.work_job = work_job;
+	public void setjob_name(String job_name) {
+		this.job_name = job_name;
 	}
-	public String getWork_skill() {
-		return work_skill;
+	public String getskill_name() {
+		return skill_name;
 	}
-	public void setWork_skill(String work_skill) {
-		this.work_skill = work_skill;
+	public void setskill_name(String skill_name) {
+		this.skill_name = skill_name;
 	}
 	public String getWork_career() {
 		return work_career;

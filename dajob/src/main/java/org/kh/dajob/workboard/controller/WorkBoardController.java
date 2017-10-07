@@ -16,6 +16,7 @@ import org.kh.dajob.member.model.service.MemberService;
 import org.kh.dajob.member.model.vo.Member;
 import org.kh.dajob.workJobAndSkill.model.service.WorkJobAndSkillService;
 import org.kh.dajob.workboard.model.service.WorkBoardService;
+import org.kh.dajob.workboard.model.vo.LikeList;
 import org.kh.dajob.workboard.model.vo.WorkBoard;
 import org.kh.dajob.workhere.model.service.WorkhereService;
 import org.kh.dajob.workhere.model.vo.Workhere;
@@ -43,7 +44,28 @@ public class WorkBoardController {
 	private MemberService memberservice;
 	
 	@RequestMapping(value = "likeCompAdd.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public void likeCompAdd(@RequestParam("work_no") String work_no, @RequestParam("userid") String member_id, HttpSession session, HttpServletRequest request){
+	public void likeCompAdd(@RequestParam("work_no") String work_no, @RequestParam("userid") String member_id,
+			HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException{
+		response.setContentType("text/html; charset=utf-8;");
+		PrintWriter chk = response.getWriter();
+		int insertchk = workboardService.insertChk(new LikeList(member_id, work_no));
+		int result = 0;
+		if(insertchk == 0){
+			result = workboardService.insertLikeList(new LikeList(member_id, work_no));
+			if(result > 0) {
+				chk.append("ok");
+				chk.flush();
+			} else {
+				chk.append("no:2");
+				chk.flush();
+				
+			}
+		} else {
+			workboardService.deleteOne(new LikeList(member_id, work_no));
+			chk.append("no:1");
+			chk.flush();
+		}
+		chk.close();
 	}
 	
 	@RequestMapping(value = "likeCompList.do", method = {RequestMethod.GET, RequestMethod.POST})
@@ -124,7 +146,7 @@ public class WorkBoardController {
 		w.setMember_id(member_id);
 		w.setWork_no(workNo);
 		PrintWriter chk = response.getWriter();
-		int result = workboardService.deleteOne(w);
+		int result = workboardService.deleteOne(new LikeList(member_id,workNo));
 		if(result > 0){
 			chk.append("success");
 			chk.flush();

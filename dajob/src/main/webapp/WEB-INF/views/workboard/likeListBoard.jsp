@@ -47,7 +47,7 @@ header {
 		<div class="container page_head">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12">
-					<h2>Like Company List</h2>
+					<h2 style="color:black;">Like Company List</h2>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12">
 					<nav id="breadcrumbs">

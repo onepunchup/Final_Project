@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.kh.dajob.member.model.vo.Member;
 import org.kh.dajob.workboard.model.dao.WorkBoardDao;
+import org.kh.dajob.workboard.model.vo.LikeList;
 import org.kh.dajob.workboard.model.vo.WorkBoard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class WorkBoardServiceImpl implements WorkBoardService{
 	}
 
 	@Override
-	public int deleteOne(WorkBoard w) {
+	public int deleteOne(LikeList w) {
 		return workboardDao.deleteOne(w);
 	}
 	
@@ -47,5 +48,15 @@ public class WorkBoardServiceImpl implements WorkBoardService{
 	@Override
 	public int workboardInsert(WorkBoard w) {
 		return workboardDao.insertWorkboard(w);
+	}
+
+	@Override
+	public int insertChk(LikeList l) {
+		return workboardDao.insertChk(l);
+	}
+
+	@Override
+	public int insertLikeList(LikeList l) {
+		return workboardDao.insertLikeList(l);
 	}
 }

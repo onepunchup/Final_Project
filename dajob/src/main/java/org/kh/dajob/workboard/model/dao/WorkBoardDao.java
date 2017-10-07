@@ -3,6 +3,7 @@ package org.kh.dajob.workboard.model.dao;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
+import org.kh.dajob.workboard.model.vo.LikeList;
 import org.kh.dajob.workboard.model.vo.WorkBoard;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class WorkBoardDao {
 		return new ArrayList<WorkBoard>(sqlSession.selectList("WorkBoard.selectList2", w, rowBounds));
 	}
 
-	public int deleteOne(WorkBoard w) {
+	public int deleteOne(LikeList w) {
 		return sqlSession.delete("WorkBoard.deleteOne", w);
 	}
 	
@@ -41,5 +42,13 @@ public class WorkBoardDao {
 	
 	public Object likeList(String userid) {
 		return sqlSession.selectList("WorkBoard.likeList", userid);
+	}
+
+	public int insertChk(LikeList l) {
+		return sqlSession.selectOne("WorkBoard.insertChk",l);
+	}
+
+	public int insertLikeList(LikeList l) {
+		return sqlSession.insert("WorkBoard.insertLikeList",l);
 	}
 }

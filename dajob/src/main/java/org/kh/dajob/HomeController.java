@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.kh.dajob.dashboard.model.service.DashBoardService;
+import org.kh.dajob.dashboard.model.vo.DashBoard;
 import org.kh.dajob.itinfo.model.service.ItinfoService;
 import org.kh.dajob.itinfo.model.vo.Itinfo;
 import org.kh.dajob.member.model.service.MemberService;
@@ -44,6 +46,9 @@ public class HomeController {
 	@Autowired
 	private PowerLinkService powerlinkService;
 	
+	@Autowired
+	private DashBoardService dashboardService;
+	
 	@RequestMapping(value = "index.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -79,8 +84,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "dashBoard.do")
-	public String dashBoard(ModelAndView mv) throws IOException {
-		
+	public String dashBoard(HttpServletRequest request) throws IOException {
+		//총수익
+		request.setAttribute("tot_profit", dashboardService.totProfit());
+		//월별 수익
+		request.setAttribute("mon_profitArr", dashboardService.selectMonTot());
+		//지역별 구인 정보 개수(top5)
+		request.setAttribute("area_top5", dashboardService.areaTop5());
+		//월별 구인 정보 등록 횟수(top5)
+		request.setAttribute("mon_top5", dashboardService.monTop5());
 		return "mypage/dashBoard";
 	}
 	

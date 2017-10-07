@@ -66,7 +66,7 @@ public class MemberController {
 	public ModelAndView logoutMember(ModelAndView mv, HttpSession session){
 		logger.info("logoutMember() call...");
 		
-		if(session.getAttribute("member") != null){			
+		if(session.getAttribute("member") != null){
 			session.invalidate();
 		}
 		mv.setViewName("redirect:index.do");

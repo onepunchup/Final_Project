@@ -36,7 +36,7 @@
 	</select>
 	
 	<select id="recommendCert" parameterType="string" resultType="arraylist" resultMap="resultTotalCert">
-		SELECT * FROM CERT WHERE CERT_NO NOT IN (SELECT CERT_NO FROM USER_CERT WHERE MEMBER_ID = #{member_id})	
+		SELECT * FROM (SELECT * FROM CERT WHERE CERT_NO NOT IN (SELECT CERT_NO FROM USER_CERT WHERE MEMBER_ID = #{member_id}) order by DBMS_RANDOM.RANDOM)	
 	</select>
 	
 	<select id="selectUserCert" parameterType="string" resultType="arraylist" resultMap="resultUserCert">
