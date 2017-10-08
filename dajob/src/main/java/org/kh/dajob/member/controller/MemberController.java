@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
-
+import org.kh.dajob.EmailSend;
 import org.kh.dajob.FileBean;
 import org.kh.dajob.cert.model.service.CertService;
 import org.kh.dajob.cert.model.vo.UserCert;
@@ -203,6 +203,7 @@ public class MemberController {
 		logger.info("userInsert() call...");
 		request.setCharacterEncoding("utf-8");
 		String returnPage = null;
+		EmailSend emailSend = new EmailSend();
 		
 		String member_id = request.getParameter("member_id");
 		String member_password = request.getParameter("member_password");
@@ -265,6 +266,7 @@ public class MemberController {
 				} else {result = 1;}
 				
 				if(result > 0) {
+					emailSend.emailSend(member_email, "DAJOB 의 회원이 되신 것을 환영합니다!", "<b>"+member_name+"</b>님의 DAJOB 회원 가입이 성공적으로 이루어졌습니다.<br>앞으로 많은 이용 부탁드립니다!");
 					returnPage = "index";
 				} else {
 					model.addAttribute("message", "회원 자격증 정보 등록 실패!!");
@@ -287,6 +289,7 @@ public class MemberController {
 		logger.info("compInsert() call...");
 		request.setCharacterEncoding("utf-8");
 		String returnPage = null;
+		EmailSend emailSend = new EmailSend();
 		
 		String member_id = request.getParameter("member_id");
 		String member_password = request.getParameter("member_password");
@@ -334,6 +337,7 @@ public class MemberController {
 		if (result > 0) {
 			result = memberService.insertCompany(new Company(member_id, company_name, company_type, company_staff, company_capital, company_code, company_tel, company_fax, company_welfare, company_date));
 			if(result > 0) {
+				emailSend.emailSend(member_email, "DAJOB 의 기업 회원이 되신 것을 환영합니다!", "<b>"+company_name+"</b>기업의 DAJOB 회원 가입이 성공적으로 이루어졌습니다.<br>앞으로 많은 이용 부탁드립니다!");
 				returnPage = "index";
 			} else {
 				model.addAttribute("message", "기업 정보 등록 실패!!");

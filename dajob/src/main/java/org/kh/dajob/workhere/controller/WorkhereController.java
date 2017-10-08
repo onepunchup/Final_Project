@@ -101,6 +101,7 @@ public class WorkhereController {
 	public String workhereDetail(HttpSession session, HttpServletRequest request, Model model) throws IOException {
 		Workhere wh = workhereService.selectWorkhere(request.getParameter("workhere_no"));
 		String[] skill = wh.getWork_skill().split(" ");
+		model.addAttribute("comtype", memberService.selectCompanyList());
 		model.addAttribute("workhere", wh);
 		model.addAttribute("skill", skill);
 		model.addAttribute("joblist", workJobnSkillService.selectJobList());

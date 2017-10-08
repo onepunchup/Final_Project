@@ -208,7 +208,7 @@
  
 </script>
 <c:set var="interview" value="${interview}"/>
-<c:set var="interviewname" value="${interviewname}"/>
+<c:set var="interviewanswer" value="${interviewanswer}"/>
 </head>
 <body onload="initialize();">
 
@@ -232,7 +232,9 @@
             </div> <!--./row-->
         </div> <!--./Container-->
     </header>
-    <div class="container clearfix" style="width:70%;">
+    <div class="container clearfix " style="width:70%;">
+    <div class="panel panel-default">
+    <h4>화상채팅</h4>
     <table class="table table-bordered">
 	  <thead>
 	    <tr>

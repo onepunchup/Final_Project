@@ -29,12 +29,14 @@
 	</select>
 	<!-- 지역별 구인정보 개수 -->
 	<select id="areaTop5" resultType="arraylist" resultMap="DashBoardArea">
+		<![CDATA[
 		SELECT * FROM 
 		(SELECT NVL(SUBSTR(WORK_WORKPLACE, 1, 2), '합계') "AREA", COUNT(WORK_WORKPLACE) "AREA_COUNT" 
 		FROM WORK_BOARD 
 		GROUP BY ROLLUP(SUBSTR(WORK_WORKPLACE, 1, 2)) 
 		ORDER BY 2 DESC) 
-		WHERE ROWNUM IN(1, 2, 3, 4, 5, 6) ORDER BY 2 ASC
+		WHERE ROWNUM < 7 ORDER BY CASE WHEN "AREA" = '합계' THEN 1 ELSE 0 END, 2 DESC
+		]]>
 	</select>
 	<!-- 월별 구인정보 등록 횟수 -->
 	<select id="monTop5" resultType="arraylist" resultMap="DashBoardMon2">

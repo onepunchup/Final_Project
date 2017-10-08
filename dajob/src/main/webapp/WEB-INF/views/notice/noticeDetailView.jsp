@@ -269,6 +269,11 @@ table tr {
 	
 	<script type="text/javascript">
     $('.replyBtn').on('click',function(){
+    	var m = "<c:out value='${member}'/>";
+    	if(m == null || m == ""){
+    		alert("회원만 댓글 작성이 가능합니다.");
+    	}
+    	else {
     	var pDiv = $(this).parent().parent().parent('li');
     	var child = ' \
     		<ul class="children"> \
@@ -318,6 +323,7 @@ table tr {
 			pDiv.append($(child2));
 		}
     	 */
+    	}
     });
 	function repInsert(event){
 		var level = 0; 

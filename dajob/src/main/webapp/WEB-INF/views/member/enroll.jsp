@@ -768,11 +768,11 @@ label{vertical-align:-1px}.inputBtn{width:13px;height:13px;vertical-align:text-t
 			var row = "odd";
 			if (rowCount % 2 == 0)
 				row = "even";
-			this.statusbar = $("<div class='statusbar "+row+"'></div>");
-			this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
-			this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
-			this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-			this.abort = $("<div class='abort'>중지</div>")
+			this.statusbar = $("<div class='statusbar "+row+" hidden'></div>");
+			this.filename = $("<div class='filename hidden'></div>").appendTo(this.statusbar);
+			this.size = $("<div class='filesize hidden'></div>").appendTo(this.statusbar);
+			this.progressBar = $("<div class='progressBar hidden'><div></div></div>").appendTo(this.statusbar);
+			this.abort = $("<div class='abort hidden'>중지</div>")
 					.appendTo(this.statusbar);
 
 			obj.after(this.statusbar);
@@ -841,7 +841,11 @@ label{vertical-align:-1px}.inputBtn{width:13px;height:13px;vertical-align:text-t
 						dataType : "json",
 						success : function(data) {
 							$(".member_profile_img").val(decodeURIComponent(data.path.replace(/\+/g, " ")));
-							alert($(".member_profile_img").val());
+							var imgPreview = $(".member_profile_img").val().substring($(".member_profile_img").val().indexOf("resources"));
+							$(".dragAndDropDiv").html("<p align='center'>정상 등록이 되었습니다.<br></p>");
+							$(".dragAndDropDiv").append("<p align='center'><img width='150px;' height='150px;' src="+imgPreview+"></p>");
+							$(".dragAndDropDiv").removeClass("dragAndDropDiv");
+							//alert($(".member_profile_img").val());
 							status.setProgress(100);
 							//$("#status1").append("File upload Done<br>");
 						}

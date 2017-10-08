@@ -25,7 +25,7 @@ public class MemberDao {
 	}
 
 	public ArrayList<Member> selectMemberAll() {
-		return new ArrayList<Member>(sqlSession.selectList("Member.selectMemberAll"));
+		return  new ArrayList<Member>(sqlSession.selectList("Member.selectMemberAll"));
 	}
 	
 	public User selectUser(Member m) {

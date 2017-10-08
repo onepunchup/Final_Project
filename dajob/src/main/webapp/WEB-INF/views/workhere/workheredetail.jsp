@@ -33,6 +33,7 @@
 	</c:forEach>
 	<c:set var="skill" value="${skill}"/>
 	<c:set var="member" value="${member}"/>
+	<c:set var="comtype" value="${comtype}"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -68,6 +69,8 @@
         </div> <!--./Container-->
     </header>
 
+
+
   <div class="container">
         <!-- ===========================
         HEADER
@@ -80,20 +83,55 @@
 									<c:param name="workhere_no" value="${workhere.work_no}"/>
 								</c:url>
 					<h2>${workhere.work_title} : [${wJob}]</h2>
-                    <%-- <h2>${workhere.work_job }</h2> --%>
-                    <c:if test="${member.member_type_code eq 'U' }">
+                	
+                	<div class="row">
+		                	<div style="pointer-events: none">
+			                	<div class="col-sm-6">
+				                        <ul class="list-unstyled">
+				                             <li><a><span class="social fa fa-calendar"></span> : ${workhere.work_startdate } ~ ${workhere.work_enddate } </a>
+				                            </li>
+				                             <li>
+				                            <c:forEach var="com" items="${comtype }">
+				                            <c:if test="${workhere.company_type eq com.company_type }">
+				                            <a><span class="social fa fa-building"></span> : ${com.company_tname }</a>
+				                            </c:if>
+				                            </c:forEach>
+				                            </li>			                            	                            				                            
+				                            <li>
+				                            <a><span class="social fa fa-child"></span> : ${workhere.company_staff }명</a>
+				                            </li>
+				                           <li>
+				                            <a><span class="social fa fa-money"></span> : ${workhere.company_capital }(백만원)</a>
+				                            </li>
+				                           
+				                        </ul>
+				                    </div>
+			                    <div class="col-sm-6">
+			                        <ul class="list-unstyled">
+			                            <li><a><span class="social fa fa-envelope-o"></span> : ${workhere.company_fax }  </a>
+			                            </li>
+			                            <li><a><span class="social fa fa-phone"></span> : ${workhere.company_tel}</a>
+			                            </li>
+			                            <li>
+			                            
+			                            <a><span class="social fa fa-location-arrow"></span> : ${workhere.work_workplace }</a>
+			                            </li>
+			                        </ul>
+			                    </div><!-- social 1st col end-->		                    
+		                    </div>
+		                </div><!-- header social end-->
+                </div><!-- Title end-->
+					<c:if test="${member.member_type_code eq 'U' }">
                     <c:url var="interviewinsert" value="/interviewInsertView.do">
 			        	<c:param name="workhere_no" value="${workhere.work_no}"/>
 			        </c:url>
                     <a class="btn btn-success" href="${interviewinsert}"><span class="glyphicon glyphicon-edit"></span>인터뷰 신청하기</a>
-                	&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                	<a class="btn btn-danger" onclick="likeAdd();"><span class="fa fa-heart"></span> 선호 기업 정보 등록</a>
+                	&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                	<a class="btn btn-success" onclick="likeAdd();"><span class="fa fa-heart"></span>선호 기업 정보 등록</a>
                 	</c:if>
-                	<c:if test="${member.member_type_code eq 'C' }">
+                	<c:if test="${member.member_id eq workhere.member_id }">
                     <a class="btn btn-success" href="${wdel}"><span class="glyphicon glyphicon-edit"></span>삭제하기</a>
                 	</c:if>
-                </div><!-- Title end-->
-
             </div><!-- header right end-->
         </div><!-- header end-->
 
@@ -115,33 +153,7 @@
                     </blockquote>
                 </div><!--info end-->
             </div><!--personal statement end-->
-
             <hr>
-            <!-- ===========================
-            JOB EXPERIENCES
-            ============================ -->
-            <div id="job" class="row mobmid">
-                <div class="col-sm-1">
-                    <span class="secicon fa fa-briefcase"></span>
-                </div><!--icon end-->
-
-                <div class="col-sm-11">
-                    <h3>Job Experiences</h3>
-
-                    <div class="row">
-                        <div class="col-md-9">
-                            <h4>Lead Graphic Designer</h4>
-                            <p class="sub"><a href="">Lifeview Media Ltd.</a>
-                            </p>
-                            <p>Adipiscing elit. Nullam dapibus vehicula condimentum. Curabitur elit enim, accumsan vitae tristique ut, mollis at orci. Fusce cursus interdum neque nec aliquam. Proin turpis leo, laoreet non ultricies non, dictum nec nulla.</p>
-                        </div>
-
-                        <div class="year col-md-3">
-                            <p>2008 - present</p>
-                        </div>
-                    </div><!--Job 1 end-->
-                </div><!--Job experiences end-->
-            </div><!--Job experiences end-->
         </div><!--left end-->
         
         <!-- ===========================
@@ -171,25 +183,14 @@
                 </div><!--icon end-->
 
                 <div class="col-sm-11 col-md-10 ">
-                    <h3>Awards</h3>
-
-                    <div class="award">
-                        <h4>Best Designer 2012</h4>
-                        <p class="sub"><a href="">Life View Media Ltd.</a></p>
-                        <p>Studying all aspect of Graphic Design Including Advertising Design, Branding, Copy Exhibition Design, Ilustration.</p>
-                    </div>
-                    <!--1st award end-->
-
-                    <div class="award">
-                        <h4>Best Designer 2011</h4>
-                        <p class="sub"><a href="">Alexa Design Solution</a></p>
-                        <p>Studying all aspect of Graphic Design Including Advertising Design, Branding, Copy Exhibition Design, Ilustration, Information Design, Packaging Design and Website Design</p>
-                    </div><!--1st award end-->
+                    <h3>복지</h3>
+                    <p>${workhere.company_welfare } </p>
                 </div><!--awards end-->
 
             </div>
-            
+            <hr>
         </div><!--right end-->
+        
     </div><!--container end-->
 	
 	<!--start footer-->

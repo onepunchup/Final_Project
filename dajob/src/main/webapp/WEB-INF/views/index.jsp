@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.net.InetAddress"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -7,6 +7,10 @@
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="ko"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="ko"> <!--<![endif]-->
 <head>
+<%
+InetAddress inet = InetAddress.getLocalHost();
+String svrIP = inet.getHostAddress();
+%>
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -321,7 +325,7 @@ $(document).ready(function(){
     $('.switcher h2 a').click(function(e){
         e.preventDefault();
         var div = $('.switcher');
-        console.log(div.css('left'));
+        //console.log(div.css('left'));
         if (div.css('right') === '-255px') {
             $('.switcher').animate({
               right: '0px'
@@ -336,8 +340,10 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
+	var serverIP = '<%=svrIP %>:4080';
+	//console.log(serverIP);
     var textarea = document.getElementById("messageWindow");
-    var webSocket = new WebSocket('ws://192.168.30.9:4080/dajob/broadcasting');
+    var webSocket = new WebSocket('ws://'+serverIP+'/dajob/broadcasting');
     // localhost 부분에 ip 주소를 넣으세요.
     
     var inputMessage = null;

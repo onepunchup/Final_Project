@@ -35,13 +35,13 @@
 	<insert id="insertUser" parameterType="User" flushCache="true"
 		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
 		timeout="20">
-		INSERT INTO MEMBER_USER VALUES(#{member_id}, #{gender}, #{birthday}, #{resume_data}, #{resumefile1})
+		INSERT INTO MEMBER_USER VALUES(#{member_id}, #{gender}, #{birthday}, #{resume_data}, null, null, null)
 	</insert>
 
 	<update id="updateMember" parameterType="User" flushCache="true"
 		statementType="PREPARED" timeout="20">
-		UPDATE MEMBER SET GENDER = #{gender}, BIRTHDAY = #{birthday}, RESUME_DATA = #{resume_data},
-		RESUMEFILE1 = #{resumefile1} WHERE MEMBER_ID = #{member_id}
+		UPDATE MEMBER SET GENDER = #{gender}, BIRTHDAY = #{birthday}, RESUME_DATA = #{resume_data}
+		WHERE MEMBER_ID = #{member_id}
 	</update>
 	
 	<update id="insertResumeData" parameterType="User">

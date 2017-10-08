@@ -23,8 +23,7 @@
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/interview/interviewlist.css'/>">
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/style.css'/>" media="screen"
-	data-name="skins">
+	href="<c:url value='/resources/css/style.css'/>" media="screen"	data-name="skins">
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/font-awesome.css'/>" />
 <link rel="stylesheet"
