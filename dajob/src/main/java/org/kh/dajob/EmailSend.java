@@ -42,7 +42,7 @@ public class EmailSend {
 		   message.setFrom(new InternetAddress(user));
 		   message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
-		   // Subject
+		   // sender Email Address
 		   message.setFrom("vxxoov@naver.com");
 		   
 		   // Subject
