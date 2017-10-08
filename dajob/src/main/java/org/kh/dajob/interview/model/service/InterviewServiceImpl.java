@@ -44,5 +44,8 @@ public class InterviewServiceImpl implements InterviewService{
 	public String selectCompanyName(Interview i) {
 		return interviewDao.selectCompanyName(i);
 	};
-
+	@Override
+	public int updateInterviewAnswer(Interview i) {
+		return interviewDao.updateInterviewAnswer(i);
+	}
 }

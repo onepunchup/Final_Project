@@ -56,5 +56,7 @@
 	<delete id="deleteInterview" parameterType="string">
 		DELETE FROM INTERVIEW WHERE INTERVIEW_NO = #{interview_no}
 	</delete>
-	
+	<update id="updateInterviewAnswer" parameterType="Interview">
+		UPDATE INTERVIEW SET INTERVIEW_ANSWER = #{interview_answer}	WHERE INTERVIEW_NO = #{interview_no}
+	</update>
 </mapper>

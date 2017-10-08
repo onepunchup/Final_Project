@@ -208,14 +208,14 @@
  
 </script>
 <c:set var="interview" value="${interview}"/>
-<c:set var="interviewname" value="${interviewname}"/>
+<c:set var="interviewanswer" value="${interviewanswer}"/>
 </head>
 <body onload="initialize();">
 
 	<!--Start Header-->
 	<header>
 	<c:import url="../header.jsp"/>
-        <div class="container page_head">
+        <div class="container page_head ">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <h2>화상 면접</h2>
@@ -232,7 +232,9 @@
             </div> <!--./row-->
         </div> <!--./Container-->
     </header>
-    <div class="container clearfix" style="width:70%;">
+    <div class="container clearfix " style="width:70%;">
+    <div class="panel panel-default">
+    <h4>화상채팅</h4>
     <table class="table table-bordered">
 	  <thead>
 	    <tr>
@@ -258,28 +260,70 @@
 	  </thead>
 	  <tbody>
 	    <tr>
-	    <c:if test="${member.member_type_code eq 'U'}">
-	      <td align="center">${member.member_name}</td>
-	         <c:forEach var="comp" items="${interviewname}">
-		        <c:if test="${interview.interviewer eq comp.member_id}">
-		        <td align="center">${comp.company_name}</td>
-		        </c:if>
-        	</c:forEach>
-	    </c:if>
-	    <c:if test="${member.member_type_code eq 'C'}">
 	      <td align="center">${interview.interviewee}</td>
-	      <td align="center">${interview.interviewer}</td>
-	    </c:if>  
+	      <td align="center">${interview.company_name}</td>
 	    </tr>
 	  </tbody>
     </table>
- 
+ 	</div>
  	<button id="join">join</button>
-</div>
-
+ 	<div class="panel panel-default">
+			<div class="panel-body article">
+					<h4>답변작성하기</h4>
+					<input type="hidden" name="interview_no" value="${interview.interview_no}">
+					<div class="panel panel-default">
+					<h2>${interview.interview_question }</h2>
+					</div>
+					<form id="resumeContents">
+						<textarea cols="100" id="editor" name="answer" rows="10">${interviewanswer}</textarea>
+						<div style="margin-top : 20px;"><p align="center">
+							<button class="btn btn-success btn-md" type="button" onclick="insertResumeData()"><i class="fa fa-check-circle"></i> 등록하기</button>
+							<button type="button" class="btn btn-default" onclick="javascript:history.go(-1);">나가기</button>
+							</p>
+						</div>
+					</form>
+			</div>
+		</div>
+	</div>
+	
+	
 	<!--start footer-->
 	<c:import url="../footer.jsp"/>
 	<!--end footer-->
-
+	<script
+		src="${pageContext.request.contextPath}/resources/api/CKeditor/ckeditor.js"></script>
+	<!-- summer note korean language pack -->
+	<script
+		src="${pageContext.request.contextPath}/resources/api/CKeditor/lang/ko.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/api/CKeditor/config.js"></script>
+	<script>
+			CKEDITOR.config.customConfig = '${pageContext.request.contextPath}/resources/api/CKeditor/config.js';
+			CKEDITOR.replace( 'editor', {
+				filebrowserImageUploadUrl: '${pageContext.request.contextPath}/resources/up',
+				height: 400
+			});
+			</script>
+	
+	<!-- Answer등록 -->	
+	<script type="text/javascript">
+	function insertResumeData(){
+ 		$.ajax({
+			url : "interviewUpdateAnswer.do",
+			data : {resume_data : $('#editor').children('div').children('div').children('div').children('iframe').contents().find('body').html()},
+			type : "post",
+			success : function(result){
+				if(result == "ok"){
+					alert("답변을 성공적으로 등록하셨습니다.");
+					location.href = "interviewDetail.do";
+				} else {
+					alert("답변 등록에 실패하셨습니다.");
+					location.href = "interviewDetail.do";
+					
+				}
+			}
+		});
+	}
+	</script>
 </body>
 </html>

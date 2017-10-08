@@ -14,5 +14,5 @@ public interface InterviewService {
 	int deleteInterview(String id);
 	int updateInterview(Interview i);
 	String selectCompanyName(Interview i);
-
+	int updateInterviewAnswer(Interview i);
 }

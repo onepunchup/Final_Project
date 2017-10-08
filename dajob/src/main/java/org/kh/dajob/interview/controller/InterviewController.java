@@ -13,6 +13,7 @@ import org.kh.dajob.interview.model.vo.Interview;
 import org.kh.dajob.member.model.service.MemberService;
 import org.kh.dajob.member.model.vo.*;
 import org.kh.dajob.workhere.model.service.WorkhereService;
+import org.kh.dajob.workhere.model.vo.Workhere;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -148,5 +149,15 @@ public class InterviewController {
 		}
 		
 		return model;
+	}
+	
+	@RequestMapping(value = "interviewUpdateAnswer.do")
+	public String jobSearch(@RequestParam("interview_no") String interview_no,HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		Interview i = interviewService.selectInterview(interview_no);
+		String answer= request.getParameter("answer");
+		i.setInterview_answer(answer);
+		model.addAttribute("interviewanswer",interviewService.updateInterviewAnswer(i));
+		return "interview/interviewdetail";
 	}
 }

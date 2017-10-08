@@ -56,4 +56,8 @@ public class InterviewDao {
 		return sqlSession.selectOne("Interview.selectCompanyName",i);
 	}
 
+	public int updateInterviewAnswer(Interview i) {
+		return sqlSession.update("Interview.updateInterviewAnswer",i);
+	}
+
 }

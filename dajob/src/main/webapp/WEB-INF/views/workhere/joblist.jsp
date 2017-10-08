@@ -163,9 +163,9 @@
                             </c:url>
                             <li><a href="${workhereRt}">&raquo;</a></li>
                             </c:if>
-                            <c:if test="${member.member_type_code eq 'A'}">
+                            <c:if test="${member.member_type_code eq 'C'}">
                             &nbsp;&nbsp; &nbsp;
-                            <button class="btn btn-primary" id="insertBtn" type="button" onclick="javascript:location.href='ninsertView.do';">글쓰기</button>
+                            <button class="btn btn-primary" id="insertBtn" type="button" onclick="javascript:location.href='workboardInsertview.do';">글쓰기</button>
                             </c:if>
                         </ul>
 							</td>

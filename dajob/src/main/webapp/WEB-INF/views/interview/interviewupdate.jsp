@@ -66,7 +66,6 @@
 		</div>
 		<!--./Container-->
 	</header>
-	<div>
 		<div class="panel panel-default">
 			<div class="panel-body article">
 				<form method="post" action="interviewUpdate.do">
@@ -83,7 +82,8 @@
 									<label>면접 상태</label>
 									<input type="hidden" id="interview_status" name="interview_status" value=""> 
 									<select class="form-control is-valid" autofocus="${interview.interview_status }" id="IVstatus" name="IVstatus">
-										<option value="H" selected>대기</option>
+										<option>상태선택</option>
+										<option value="H">대기</option>
 										<option value="E">입장가능</option>
 										<option value="Q">종료</option>
 									</select>
@@ -123,7 +123,7 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	
 
 	<!--start footer-->
 	<c:import url="../footer.jsp" />
