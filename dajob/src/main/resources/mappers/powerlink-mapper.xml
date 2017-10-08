@@ -3,14 +3,16 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PowerLink">
- 
 	<resultMap id="resultPowerLink" type="PowerLink">
 		<id property="member_id" column="MEMBER_ID" />
 		<result property="powerlink_date" column="POWERLINK_DATE" />
 		<result property="powerlink_cnt" column="POWERLINK_CNT" />
 		<result property="powerlink_time" column="POWERLINK_TIME" />
+		<result property="year" column="YEAR" />
+		<result property="mon" column="MON" />
+		<result property="sum" column="SUM" />
+		<result property="percentage" column="PERCENTAGE" />
 	</resultMap>
-	
 	<select id="selectTodate" parameterType="string" resultType="_int">
 		SELECT count(*) FROM POWERLINK 
 		WHERE SUBSTR(TO_CHAR(POWERLINK_DATE, 'rr-mm-dd'), 1, 5) = SUBSTR(TO_CHAR(SYSDATE, 'rr-mm-dd'), 1, 5) 
@@ -30,6 +32,17 @@
 	<select id="selectId" resultType="String" resultMap="resultPowerLink">
 		select * from (select * from powerlink where member_id = #{member_id} 
 		order by POWERLINK_DATE desc) where rownum = 1
+	</select>
+	
+	<select id="selectPowerLinkAll" resultType="arraylist" resultMap="resultPowerLink">
+		SELECT * FROM POWERLINK WHERE POWERLINK_TIME > 0
+	</select>
+	
+	<select id="selectPercentage" resultType="arraylist" resultMap="resultPowerLink">
+		<![CDATA[
+		SELECT * FROM VW_PERCENTAGELIST
+		WHERE ROWNUM < 6
+		]]>
 	</select>
 	
 </mapper>

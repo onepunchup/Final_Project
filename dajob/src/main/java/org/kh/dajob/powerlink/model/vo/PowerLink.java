@@ -10,6 +10,35 @@ public class PowerLink implements Serializable{
 	private Date powerlink_date;
 	private int powerlink_cnt;
 	private int powerlink_time;
+	private String year;
+	private String mon;
+	private int sum;
+	private int percentage;
+	
+	public int getSum() {
+		return sum;
+	}
+	public void setSum(int sum) {
+		this.sum = sum;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	public String getMon() {
+		return mon;
+	}
+	public void setMon(String mon) {
+		this.mon = mon;
+	}
+	public int getPercentage() {
+		return percentage;
+	}
+	public void setPercentage(int percentage) {
+		this.percentage = percentage;
+	}
 	public String getMember_id() {
 		return member_id;
 	}
@@ -34,7 +63,10 @@ public class PowerLink implements Serializable{
 	public void setPowerlink_time(int powerlink_time) {
 		this.powerlink_time = powerlink_time;
 	}
+	@Override
+	public String toString() {
+		return "PowerLink [member_id=" + member_id + ", powerlink_date=" + powerlink_date + ", powerlink_cnt="
+				+ powerlink_cnt + ", powerlink_time=" + powerlink_time + "]";
+	}
 	
-	
-
 }

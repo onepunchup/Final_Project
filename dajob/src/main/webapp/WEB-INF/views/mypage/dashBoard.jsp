@@ -112,7 +112,7 @@
                         <c:forEach var="m" items="${ requestScope.mon_profitArr }">
 				 			<tr>
                            		 <td>${ m.mon } 月  </td>
-                            	 <td>${ m.mon_profit }</td>
+                            	 <td><fmt:formatNumber value="${ m.mon_profit }" pattern="###,###,###,###"/>원</td>
                        		</tr>
 						 </c:forEach>
                         </tbody>
@@ -131,11 +131,11 @@
 							<div class="comment-body">
                             	<table class="table table-striped table-hover">
                             	<tr>
-									<th>Month</th><th>Job Infomation</th>
+									<th>Month</th><th>Job Infomation</th><th>Cumulative Job Infomation</th>
 								</tr>
                         <thead>
                         <tr>
-                            <th colspan="2"></th>
+                            <th colspan="3"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -148,6 +148,7 @@
                            		 <td>${ m2.mon } </td>
                            		</c:if>
                             	 <td>${ m2.mon_count }</td>
+                            	 <td>${ m2.count_sum }</td>
                        		</tr>
 						 </c:forEach>
                         </tbody>
@@ -276,6 +277,7 @@
 			    });
 
 			    chart3.render();
+			    $('a.canvasjs-chart-credit').remove();
 		}
 	</script>
 	

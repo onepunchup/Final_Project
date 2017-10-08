@@ -28,6 +28,26 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <style>
+     thead th{
+     	text-align:center;
+     }
+     .table tbody tr{
+     	text-align:center;
+     	height:55px;
+     }
+     .table tbody tr td{
+     	text-align:center;
+     	padding-top: 20px;
+     }
+     .table tbody tr a{
+     	color: #eff6fc;
+     }
+     .table tbody tr a:hover{
+     	color: #ffbbb2;
+     }
+    </style>
 </head>
 <body class="home">
 <!--Start Header-->
@@ -107,7 +127,7 @@
                             </div>
                             <h3><b>기업 구직 정보</b></h3>
                             <p>기업 구직 정보를 한 눈에!! <br>이곳에 들러 기업에서 원하는 구직 정보를 한 눈에 확인 하시고, 빠른 구직을 준비하실 수 있습니다!!</p>
-                            <p align="center"><button type="button" class="btn btn-sm btn-default" onclick="javascript:location.href='index.do';">Work Here</button></p>
+                            <p align="center"><button type="button" class="btn btn-sm btn-default" onclick="javascript:location.href='jobList.do';">Work Here</button></p>
                         </div>
                     </div>
                     <div class=" col-lg-4 col-sm-4 ">
@@ -121,18 +141,14 @@
                         </div>
                     </div>
             </div>
-            <div class="row sub_content">
-					
-				</div>
         </div>
     </section>
 		<!--end info service-->
     <section class="parallax parallax-1">
-        <div class="container">
             <!--<h2 class="center">Testimonials</h2>-->
             <div class="row">
                 <div id="parallax-testimonial-carousel" class="parallax-testimonial carousel">
-                  		<div class="col-md-7">
+                  		<div class="col-md-8">
 							<div class="dividerHeading">
 								<h4><font color="white">Recent Find Worker (PowerLink)</font></h4>
 							</div>
@@ -140,56 +156,47 @@
 							<div class="col-lg-12 col-md-12 col-sm-12">
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Name</th>
-                            <th>Year</th>
-                            <th>Rating</th>
-                            <th>Votes</th>
-                        </tr>
-                        </thead>
+					      <tr>
+					      	<th>회사 이름</th>
+					        <th>제목</th>
+					        <th>근무지</th>
+					        <th>직무</th>
+					        <th>필요기술</th>
+					      </tr>
+					    </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>The Shawshank Redemption</td>
-                            <td>1994</td>
-                            <td>9.2</td>
-                            <td>923,629</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>The Godfather</td>
-                            <td>1972</td>
-                            <td>9.2</td>
-                            <td>663,133</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>The Godfather: Part II</td>
-                            <td>1974</td>
-                            <td>9.0</td>
-                            <td>427,132</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Pulp Fiction</td>
-                            <td>1994</td>
-                            <td>8.9</td>
-                            <td>719,280</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>The Good, the Bad and the Ugly</td>
-                            <td>1966</td>
-                            <td>8.9</td>
-                            <td>218,887</td>
-                        </tr>
+                        <c:forEach var="workhere" items="${workPowerLink}">
+						      <tr>
+						      	<c:url var="workdetail" value="/workhereDetail.do">
+						        	<c:param name="workhere_no" value="${workhere.work_no}"/>
+						        </c:url>
+						        <td>${workhere.company_name }
+						        <c:forEach var="comtype" items="${comtype}">
+						        <c:if test="${workhere.company_type eq comtype.company_type}">
+						        (${comtype.company_tname})
+						        </c:if></c:forEach></td>
+						        <td><a href="${workdetail}">${workhere.work_title}</a></td>
+						        
+						        <td>${fn:substring(workhere.work_workplace,0,2)}</td>
+						        <c:forEach var="job" items="${joblist}">
+						        <c:if test="${ job.job_code eq workhere.work_job}">
+						        <td>${job.job_name}</td>
+						        </c:if></c:forEach>
+						        <c:forEach var="skill" items="${skilllist}">
+						        <c:if test="${ skill.skill_code eq workhere.work_skill}">
+						        <td>${skill.skill_name}</td>
+						        </c:if></c:forEach>
+						      </tr>
+						      </c:forEach>
+						      <tr>
+						      	<td colspan="5"></td>
+						      </tr>
                         </tbody>
                     </table>
                 </div>
 							</div>
 						</div>
-						<div class="col-md-5">
+						<div class="col-md-4">
 							<!-- TESTIMONIALS -->
 					<div class="clearfix">
 						<div class="dividerHeading">
@@ -236,21 +243,19 @@
 				</div>
 						</div>
                     </div>
-            	</div>
+            	<!-- </div> -->
     	</section>
     </section>
     <!--end wrapper-->
 <c:import url="./footer.jsp"/>
 
-<c:if test="${empty member}">
-        <input type="hidden" value='비회원' id='chat_id' />
-    </c:if>
     <c:if test="${!empty member}">
         <input type="hidden" value='${ member.member_id }' id='chat_id' />
+         <!-- Start Style Switcher -->
+ 			<div class="switcher"></div>
+ 		<!-- End Style Switcher -->
     </c:if>
- <!-- Start Style Switcher -->
- <div class="switcher"></div>
- <!-- End Style Switcher -->
+
 <script type="text/javascript">
 $(function(){
 	$(".carousel-inner").children(".item:first").addClass("active");

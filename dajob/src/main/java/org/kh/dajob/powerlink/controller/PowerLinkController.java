@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,8 +34,10 @@ public class PowerLinkController {
 		Member m = (Member)session.getAttribute("member");
 		String memberId = m.getMember_id();
 		PowerLink pl = powerlinkService.selectId(memberId);
+		ArrayList<PowerLink> list = powerlinkService.selectPercentage();
 		if(pl != null){
 			request.setAttribute("powerlink", pl);
+			request.setAttribute("list", list);
 		}else{
 			
 		}
