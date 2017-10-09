@@ -35,9 +35,11 @@ public class PowerLinkController {
 		String memberId = m.getMember_id();
 		PowerLink pl = powerlinkService.selectId(memberId);
 		ArrayList<PowerLink> list = powerlinkService.selectPercentage();
+		ArrayList<PowerLink> list2 = powerlinkService.selectMyPw(memberId);
 		if(pl != null){
 			request.setAttribute("powerlink", pl);
 			request.setAttribute("list", list);
+			request.setAttribute("list2", list2);
 		}else{
 			
 		}

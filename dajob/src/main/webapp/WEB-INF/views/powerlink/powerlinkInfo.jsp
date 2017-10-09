@@ -113,9 +113,9 @@
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-4 ">
 							<div class="dividerHeading">
-								<h4><span>PowerLink 신청현황</span></h4>
+								<h4><span>현재까지의 PowerLink 신청현황</span></h4>
 							</div>
-							<p>Nunc et magna nisi. lore Aliquam at erat in lorem purus aliquet mollis. Fusce elementum velit vel dolor iaculis. </p>
+							<p>이용자들의 최근 5개월동안 PowerLink 이용현황. </p>
 							<ul class="progress-skill-bar">
 								<c:forEach var="list" items="${ requestScope.list }">
 								<li>
@@ -123,8 +123,28 @@
 									<div class="progress_skill">
 										<div class="bar" data-value="${ list.percentage }" role="progressbar" data-height="100">
 											<%-- ${list.year }年 --%> 
-											<div class="percentage" style="width: 50px; height: 100%; margin-left:100%; color: gray;">
-												${list.mon }月
+											<div class="percentage" style="width: 120px; height: 100%; margin-left:100%; color: gray;">
+												${list.year }年 ${list.mon }月
+											</div>
+										</div>
+									</div>
+								</li>
+								</c:forEach>
+							</ul>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4 ">
+							<div class="dividerHeading">
+								<h4><span>My PowerLink 신청현황</span></h4>
+							</div>
+							<p>${member.member_name}님의 최근 5개월동안의 PowerLink 이용현황. </p>
+							<ul class="progress-skill-bar">
+								<c:forEach var="list2" items="${ requestScope.list2 }">
+								<li>
+									<span class="lable">${list2.count } 번</span>
+									<div class="progress_skill">
+										<div class="bar" data-value="${ list2.count * 10 }" role="progressbar" data-height="100">
+											<div class="percentage" style="width: 120px; height: 100%; margin-left:100%; color: gray;">
+												${list2.year }年 ${list2.mon }月
 											</div>
 										</div>
 									</div>
@@ -133,13 +153,10 @@
 							</ul>
 						</div>
 				</div>
-				
 			</div>
-			
 		</section>
 		</section>
-					
-        <c:import url="../footer.jsp"/>
+  <c:import url="../footer.jsp"/>
 <script type="text/javascript">
 	function powerlinkPay(){
 		var payment = document.getElementById("powerlinkPayment");

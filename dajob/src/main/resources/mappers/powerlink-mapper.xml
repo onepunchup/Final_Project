@@ -12,6 +12,7 @@
 		<result property="mon" column="MON" />
 		<result property="sum" column="SUM" />
 		<result property="percentage" column="PERCENTAGE" />
+		<result property="count" column="count" />
 	</resultMap>
 	<select id="selectTodate" parameterType="string" resultType="_int">
 		SELECT count(*) FROM POWERLINK 
@@ -44,5 +45,11 @@
 		WHERE ROWNUM < 6
 		]]>
 	</select>
-	
+	<select id="selectMyPowerLink" resultType="arraylist" resultMap="resultPowerLink">
+		SELECT SUBSTR(TO_CHAR(POWERLINK_DATE), 1, 2) "YEAR", SUBSTR(TO_CHAR(POWERLINK_DATE), 4, 2) "MON", 
+				SUM(POWERLINK_CNT) "COUNT" FROM POWERLINK 
+		WHERE MEMBER_ID = #{memberId} 
+		GROUP BY SUBSTR(TO_CHAR(POWERLINK_DATE), 1, 2),SUBSTR(TO_CHAR(POWERLINK_DATE), 4, 2) 
+		ORDER BY 1 DESC, 2 DESC 
+	</select>
 </mapper>

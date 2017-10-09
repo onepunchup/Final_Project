@@ -32,4 +32,9 @@ public class PowerLinkServiceImpl implements PowerLinkService {
 		return powerlinkDao.selectPercentage();
 	}
 
+	@Override
+	public ArrayList<PowerLink> selectMyPw(String memberId) {
+		return powerlinkDao.selectMyPw(memberId);
+	}
+
 }

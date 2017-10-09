@@ -2,6 +2,7 @@ package org.kh.dajob.powerlink.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.kh.dajob.powerlink.model.vo.PowerLink;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,11 @@ public class PowerLinkDao {
 
 	public ArrayList<PowerLink> selectPercentage() {
 		return new ArrayList<PowerLink>(sqlSession.selectList("PowerLink.selectPercentage"));
+	}
+
+	public ArrayList<PowerLink> selectMyPw(String memberId) {
+		RowBounds row = new RowBounds(0, 5);
+		return new ArrayList<PowerLink>(sqlSession.selectList("PowerLink.selectMyPowerLink", memberId, row));
 	}
 	
 }
