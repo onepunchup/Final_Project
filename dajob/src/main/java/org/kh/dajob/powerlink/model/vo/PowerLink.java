@@ -15,7 +15,14 @@ public class PowerLink implements Serializable{
 	private int sum;
 	private int percentage;
 	private int count;
+	private String company_name;
 	
+	public String getCompany_name() {
+		return company_name;
+	}
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
+	}
 	public int getCount() {
 		return count;
 	}

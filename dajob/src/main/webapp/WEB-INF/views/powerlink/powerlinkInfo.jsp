@@ -136,7 +136,7 @@
 							<div class="dividerHeading">
 								<h4><span>My PowerLink 신청현황</span></h4>
 							</div>
-							<p>${member.member_name}님의 최근 5개월동안의 PowerLink 이용현황. </p>
+							<p>${pl.company_name}의 최근 5개월동안의 PowerLink 이용현황. </p>
 							<ul class="progress-skill-bar">
 								<c:forEach var="list2" items="${ requestScope.list2 }">
 								<li>

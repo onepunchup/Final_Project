@@ -31,7 +31,9 @@
 	</update>
 	
 	<select id="selectId" resultType="String" resultMap="resultPowerLink">
-		select * from (select * from powerlink where member_id = #{member_id} 
+		select member_id, powerlink_date, powerlink_cnt, powerlink_time, company_name 
+		from (select * from powerlink join member_company using(member_id) 
+		where member_id = #{memberId} 
 		order by POWERLINK_DATE desc) where rownum = 1
 	</select>
 	
@@ -46,10 +48,11 @@
 		]]>
 	</select>
 	<select id="selectMyPowerLink" resultType="arraylist" resultMap="resultPowerLink">
-		SELECT SUBSTR(TO_CHAR(POWERLINK_DATE), 1, 2) "YEAR", SUBSTR(TO_CHAR(POWERLINK_DATE), 4, 2) "MON", 
+		SELECT COMPANY_NAME, SUBSTR(TO_CHAR(POWERLINK_DATE), 1, 2) "YEAR", SUBSTR(TO_CHAR(POWERLINK_DATE), 4, 2) "MON", 
 				SUM(POWERLINK_CNT) "COUNT" FROM POWERLINK 
-		WHERE MEMBER_ID = #{memberId} 
-		GROUP BY SUBSTR(TO_CHAR(POWERLINK_DATE), 1, 2),SUBSTR(TO_CHAR(POWERLINK_DATE), 4, 2) 
-		ORDER BY 1 DESC, 2 DESC 
+		JOIN MEMBER_COMPANY USING (MEMBER_ID) 
+		WHERE MEMBER_ID = 'comp11' 
+		GROUP BY COMPANY_NAME, SUBSTR(TO_CHAR(POWERLINK_DATE), 1, 2),SUBSTR(TO_CHAR(POWERLINK_DATE), 4, 2) 
+		ORDER BY 2 DESC, 3 DESC 
 	</select>
 </mapper>
