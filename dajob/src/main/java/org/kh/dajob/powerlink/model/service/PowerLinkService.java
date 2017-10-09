@@ -9,5 +9,7 @@ public interface PowerLinkService {
 	PowerLink selectId(String memberId);
 	int updateCnt(String member_id);
 	ArrayList<PowerLink> selectPowerLinkAll();
+	ArrayList<PowerLink> selectPercentage();
+	ArrayList<PowerLink> selectMyPw(String memberId);
 
 }

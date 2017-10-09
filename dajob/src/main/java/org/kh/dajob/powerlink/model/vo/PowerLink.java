@@ -10,6 +10,49 @@ public class PowerLink implements Serializable{
 	private Date powerlink_date;
 	private int powerlink_cnt;
 	private int powerlink_time;
+	private String year;
+	private String mon;
+	private int sum;
+	private int percentage;
+	private int count;
+	private String company_name;
+	
+	public String getCompany_name() {
+		return company_name;
+	}
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public int getSum() {
+		return sum;
+	}
+	public void setSum(int sum) {
+		this.sum = sum;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	public String getMon() {
+		return mon;
+	}
+	public void setMon(String mon) {
+		this.mon = mon;
+	}
+	public int getPercentage() {
+		return percentage;
+	}
+	public void setPercentage(int percentage) {
+		this.percentage = percentage;
+	}
 	public String getMember_id() {
 		return member_id;
 	}

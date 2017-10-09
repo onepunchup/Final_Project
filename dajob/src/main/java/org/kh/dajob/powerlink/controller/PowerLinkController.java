@@ -1,6 +1,10 @@
 package org.kh.dajob.powerlink.controller;
 
 import java.io.*;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,8 +34,12 @@ public class PowerLinkController {
 		Member m = (Member)session.getAttribute("member");
 		String memberId = m.getMember_id();
 		PowerLink pl = powerlinkService.selectId(memberId);
+		ArrayList<PowerLink> list = powerlinkService.selectPercentage();
+		ArrayList<PowerLink> list2 = powerlinkService.selectMyPw(memberId);
 		if(pl != null){
 			request.setAttribute("powerlink", pl);
+			request.setAttribute("list", list);
+			request.setAttribute("list2", list2);
 		}else{
 			
 		}

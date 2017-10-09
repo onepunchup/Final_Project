@@ -108,13 +108,12 @@
 				                    </div>
 			                    <div class="col-sm-6">
 			                        <ul class="list-unstyled">
-			                            <li><a><span class="social fa fa-envelope-o"></span> : ${workhere.company_fax }  </a>
+			                        	<li><a><span class="social fa fa-phone"></span> : ${workhere.company_tel}</a>
 			                            </li>
-			                            <li><a><span class="social fa fa-phone"></span> : ${workhere.company_tel}</a>
+			                            <li><a><span class="social fa fa-fax"></span> : ${workhere.company_fax }  </a>
 			                            </li>
 			                            <li>
-			                            
-			                            <a><span class="social fa fa-location-arrow"></span> : ${workhere.work_workplace }</a>
+			                            <a><span class="social fa fa-map-marker"></span> : ${workhere.work_workplace }</a>
 			                            </li>
 			                        </ul>
 			                    </div><!-- social 1st col end-->		                    
@@ -143,7 +142,7 @@
         <div class="col-md-8 mainleft">
             <div id="statement" class="row mobmid">
                 <div class="col-sm-1">
-                    <span class="secicon fa fa-user"></span>
+                    <span class="secicon fa fa-user" style="font-size:15pt;"></span>
                 </div><!--icon end-->
 
                 <div class="col-sm-11">
@@ -162,12 +161,12 @@
         <div class="col-md-4 mainright">
             <div class="row">
                 <div class="col-sm-1 col-md-2 mobmid">
-                    <span class="secicon fa fa-magic"></span>
+                    <span class="secicon fa fa-magic" style="font-size:15pt;"></span>
                 </div><!--icon end-->
 
                 <div class="col-sm-11 col-md-10">
-                    <h3 >필요한 기술 </h3>
-                    <h4><span class="glyphicon glyphicon-star">${wSkill}</span></h4>
+                    <h2 style="margin:-5px 0 0 -20px;">필요한 기술 </h2>
+                    <span class="glyphicon glyphicon-star" style="font-size:12pt; margin-top: 15px;">${wSkill}</span>
                     <%-- <c:forEach var="skill" items="${skill}">
                     <h4><span class="glyphicon glyphicon-star">${skill}</span></h4>
                     </c:forEach> --%>
@@ -179,12 +178,21 @@
 
             <div class="row mobmid">
                 <div class="col-sm-1 col-md-2">
-                    <span class="secicon fa fa-trophy"></span>
+                    <span class="secicon fa fa-trophy" style="font-size:15pt;"></span>
                 </div><!--icon end-->
 
                 <div class="col-sm-11 col-md-10 ">
-                    <h3>복지</h3>
-                    <p>${workhere.company_welfare } </p>
+                    <h2 style="margin:-5px 0 0 -20px;">복 지</h2>
+                    <c:if test="${empty workhere.company_welfare}">
+                    <p>제공되는 복지가 없습니다.</p>
+                    </c:if>
+                    <c:if test="${!empty workhere.company_welfare}">
+                    <ul style="line-height:2em; margin-top: 15px;">
+                    <c:forTokens var="wel" items="${workhere.company_welfare}" delims=",">
+                    <li style="font-size:12pt;"><i class="fa fa-life-saver"></i>&nbsp;&nbsp;${wel}</li>
+                    </c:forTokens>
+                    </ul>
+                    </c:if>
                 </div><!--awards end-->
 
             </div>

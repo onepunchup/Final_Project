@@ -27,6 +27,10 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
        .promo_box .pb_action a.btn{
        float: none;
        }
@@ -53,21 +57,23 @@
             </div> <!--./row-->
         </div> <!--./Container-->
         </header>
-        
-        <div class="row sub_content">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="promo_box">
-                            <div class="col-sm-12">
-                                <div class="promo_content">
-                                    <h1 align="center" style="font-weight: bolder;">POWERLINK</h1>
-                                    <p style="font-size: 15pt; line-height:35px;" align="center">여러분은 이제, 직접 일일이 구직자를 찾아 방황하실 필요가 없습니다!<br>
-                                    단 돈 60만원에 상위 랭크로 갱신되는 여러분의 구인글을 만나보세요!!<br>
-                                    여러분께서 구직목록을 직접 재작성하실 필요가 없이 PowerLink를 등록<br>하시면 별도 Premium Service로
-                                    5일간 여러분의 최신 구인글 목록을 관리해<br>드립니다.  단, 돈 60만원에, DAJOB 만의 멋진 서비스를 만나 보세요!<br>
-                                    <font style="font-size: 10pt;"><b>※</b> 함께하시는 기업 담당자 분들께는 저희 사이트의 다이얼로그 책자도 매 달 1개 분씩 배달해드립니다.</font></p>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
+        <section class="wrapper">
+		<section class="content">
+			<div class="container">
+				<div class="row sub_content">
+					<div class="col-lg-8 col-md-8 col-sm-8">
+						<div class="dividerHeading">
+							<h4><span>PowerLink</span></h4>
+							<section class="promo_box">
+							<p style="font-size: 15pt; line-height:35px;" align="center">
+								여러분은 이제, 직접 일일이 구직자를 찾아 방황하실 필요가 없습니다!<br>
+                           	        단 돈 60만원에 상위 랭크로 갱신되는 여러분의 구인글을 만나보세요!!<br>
+                    	       	여러분께서 구직목록을 직접 재작성하실 필요가 없이 PowerLink를 등록<br>하시면 별도 Premium Service로
+                                5일간 여러분의 최신 구인글 목록을 관리해<br>드립니다.  
+                        	        단, 돈 60만원에, DAJOB 만의 멋진 서비스를 만나 보세요!<br>
+                                <font style="font-size: 10pt;"><b>※</b> 함께하시는 기업 담당자 분들께는 저희 사이트의 다이얼로그 책자도 매 달 1개 분씩 배달해드립니다.</font>
+                            </p>
+                             <div class="col-sm-12">
                                 <div class="pb_action">
                                 <c:set var="pl" value="${ requestScope.powerlink }" />
                                 <c:if test="${pl.powerlink_time eq 0}">
@@ -97,15 +103,60 @@
 									<p align="center" style="line-height: 20pt;">
 										 ${todate} 부터 ${tomdate} 까지 신청합니다.<br>
                      	 					결제 금액은 60만원 입니다.<br>
-                     	 			<button onclick="pay()" style="border: 0; outline: 0; background-color: white;" >
+                     	 			<button onclick="pay()" style="padding: 0; border: 0; outline: 0; background-color: white;" >
                      	 				<a class="btn btn-small btn-default">결제하기</a>
                      	 			</button>
                      	 			</p>
 							</div>
-                        </div>
-                    </div>
-                </div>
-        <c:import url="../footer.jsp"/>
+							</section>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4 ">
+							<div class="dividerHeading">
+								<h4><span>현재까지의 PowerLink 신청현황</span></h4>
+							</div>
+							<p>이용자들의 최근 5개월동안 PowerLink 이용현황. </p>
+							<ul class="progress-skill-bar">
+								<c:forEach var="list" items="${ requestScope.list }">
+								<li>
+									<span class="lable">${list.percentage }%</span>
+									<div class="progress_skill">
+										<div class="bar" data-value="${ list.percentage }" role="progressbar" data-height="100">
+											<%-- ${list.year }年 --%> 
+											<div class="percentage" style="width: 120px; height: 100%; margin-left:100%; color: gray;">
+												${list.year }年 ${list.mon }月
+											</div>
+										</div>
+									</div>
+								</li>
+								</c:forEach>
+							</ul>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4 ">
+							<div class="dividerHeading">
+								<h4><span>My PowerLink 신청현황</span></h4>
+							</div>
+							<p>${pl.company_name}의 최근 5개월동안의 PowerLink 이용현황. </p>
+							<ul class="progress-skill-bar">
+								<c:forEach var="list2" items="${ requestScope.list2 }">
+								<li>
+									<span class="lable">${list2.count } 번</span>
+									<div class="progress_skill">
+										<div class="bar" data-value="${ list2.count * 10 }" role="progressbar" data-height="100">
+											<div class="percentage" style="width: 120px; height: 100%; margin-left:100%; color: gray;">
+												${list2.year }年 ${list2.mon }月
+											</div>
+										</div>
+									</div>
+								</li>
+								</c:forEach>
+							</ul>
+						</div>
+				</div>
+			</div>
+		</section>
+		</section>
+  <c:import url="../footer.jsp"/>
 <script type="text/javascript">
 	function powerlinkPay(){
 		var payment = document.getElementById("powerlinkPayment");
@@ -125,7 +176,7 @@
         	var IMP = window.IMP; // 생략가능
         	IMP.init('imp99940489'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
         });
-        
+        function pay(){
         IMP.request_pay({
             pg : 'uplus', // version 1.1.0부터 지원.
             pay_method : 'card',

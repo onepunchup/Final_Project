@@ -9,6 +9,11 @@
 		<result property="powerlink_date" column="POWERLINK_DATE" />
 		<result property="powerlink_cnt" column="POWERLINK_CNT" />
 		<result property="powerlink_time" column="POWERLINK_TIME" />
+		<result property="year" column="YEAR" />
+		<result property="mon" column="MON" />
+		<result property="sum" column="SUM" />
+		<result property="percentage" column="PERCENTAGE" />
+		<result property="count" column="count" />
 	</resultMap>
 	
 	<select id="selectTodate" parameterType="string" resultType="_int">
@@ -28,12 +33,28 @@
 	</update>
 	
 	<select id="selectId" resultType="String" resultMap="resultPowerLink">
-		select * from (select * from powerlink where member_id = #{member_id} 
+		select member_id, powerlink_date, powerlink_cnt, powerlink_time, company_name 
+		from (select * from powerlink join member_company using(member_id) 
+		where member_id = #{memberId} 
 		order by POWERLINK_DATE desc) where rownum = 1
 	</select>
 	
 	<select id="selectPowerLinkAll" resultType="arraylist" resultMap="resultPowerLink">
-	SELECT * FROM POWERLINK WHERE POWERLINK_TIME > 0
+		SELECT * FROM POWERLINK WHERE POWERLINK_TIME > 0
 	</select>
 	
+	<select id="selectPercentage" resultType="arraylist" resultMap="resultPowerLink">
+		<![CDATA[
+		SELECT * FROM VW_PERCENTAGELIST
+		WHERE ROWNUM < 6
+		]]>
+	</select>
+	<select id="selectMyPowerLink" resultType="arraylist" resultMap="resultPowerLink">
+		SELECT COMPANY_NAME, SUBSTR(TO_CHAR(POWERLINK_DATE), 1, 2) "YEAR", SUBSTR(TO_CHAR(POWERLINK_DATE), 4, 2) "MON", 
+				SUM(POWERLINK_CNT) "COUNT" FROM POWERLINK 
+		JOIN MEMBER_COMPANY USING (MEMBER_ID) 
+		WHERE MEMBER_ID = 'comp11' 
+		GROUP BY COMPANY_NAME, SUBSTR(TO_CHAR(POWERLINK_DATE), 1, 2),SUBSTR(TO_CHAR(POWERLINK_DATE), 4, 2) 
+		ORDER BY 2 DESC, 3 DESC 
+	</select>
 </mapper>

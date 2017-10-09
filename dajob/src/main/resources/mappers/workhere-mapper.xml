@@ -31,7 +31,7 @@
 	</resultMap>
 	
 	<select id="selectWorkhereList" resultType="arraylist" resultMap="resultWorkhere">
-		select * FROM VW_WORKHERE
+		select * FROM VW_WORKHERE WHERE WORK_ENDDATE >= SYSDATE
 	</select>
 	
 	<select id="selectPowerLinkList" resultType="arraylist" resultMap="resultWorkhere">
