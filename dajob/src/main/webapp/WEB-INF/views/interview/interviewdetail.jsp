@@ -268,24 +268,59 @@
  	</div>
  	<button id="join">join</button>
  	<div class="panel panel-default">
-			<div class="panel-body article">
+			<div class="panel-body article ">
 					<h4>답변작성하기</h4>
-					<input type="hidden" name="interview_no" value="${interview.interview_no}">
-					<div class="panel panel-default">
-					<h2>${interview.interview_question }</h2>
-					</div>
-					<form id="resumeContents">
-						<textarea cols="100" id="editor" name="answer" rows="10">${interviewanswer}</textarea>
-						<div style="margin-top : 20px;"><p align="center">
-							<button class="btn btn-success btn-md" type="button" onclick="insertResumeData()"><i class="fa fa-check-circle"></i> 등록하기</button>
-							<button type="button" class="btn btn-default" onclick="javascript:history.go(-1);">나가기</button>
-							</p>
-						</div>
-					</form>
-			</div>
+					<div class="col-md-12">
+			            <div id="statement" class="row mobmid">
+			                <div class="col-sm-12">
+			                    <h3><span class="secicon fa fa-question-circle"></span>  ${interview.company_name}기업의 질문</h3>
+			                </div><!--icon end-->
+			
+			                <div class="col-sm-12">
+			                    <h2><strong>${interview.interview_question }</strong></h2>
+			                </div>
+			            </div>
+		            <hr>
+		        	</div>
+		        	<c:if test="${member.member_id eq interview.interviewee }">
+		        	<c:if test="${empty interview.interview_answer}">
+		        	<div class="col-md-12">
+			            <div id="statement" class="row mobmid">
+			                <div class="col-sm-12">
+			                    <h3><span class="secicon fa fa-exclamation-circle"></span>  답변을 달아주세요.</h3>
+			                </div><!--icon end-->
+			                <div class="col-sm-12">
+			                    <form id="answerContents">
+									<input type="hidden" name="interview_no" value="${interview.interview_no}">
+									<textarea cols="100" class="answerMine" id="editor" name="editor" rows="10">${interview.interview_answer}</textarea>
+									<div style="margin-top : 20px;"><p align="center">
+										<button class="btn btn-success btn-sm" type="button" onclick="insertAnswerData();">등록하기</button>
+										<button type="button" class="btn btn-default btn-sm" onclick="javascript:history.go(-1);">나가기</button>
+										</p>
+									</div>
+									</form>
+			                </div>
+			            </div>
+		            <hr>
+		        	</div>
+		        	</c:if>
+		        	<c:if test="${!empty interview.interview_answer}">
+		        	<div class="col-md-12">
+			            <div id="statement" class="row mobmid">
+			            	<div class="col-sm-12">
+			                    <h3><span class="secicon fa fa-exclamation-circle"></span>  ${interview.interviewee}님이 작성한 답변</h3>
+			                </div><!--icon end-->
+			                <div class="col-sm-12">
+			                    <h2><strong>${interview.interview_answer}</strong></h2>
+			                </div><!--icon end-->
+			            </div>
+		            <hr>
+		        	</div>
+		        	</c:if>
+		        	</c:if>
+				</div>
 		</div>
 	</div>
-	
 	
 	<!--start footer-->
 	<c:import url="../footer.jsp"/>
@@ -307,19 +342,20 @@
 	
 	<!-- Answer등록 -->	
 	<script type="text/javascript">
-	function insertResumeData(){
+	function insertAnswerData(){
  		$.ajax({
 			url : "interviewUpdateAnswer.do",
-			data : {resume_data : $('#editor').children('div').children('div').children('div').children('iframe').contents().find('body').html()},
+			data : {
+				interview_no : "<c:out value='${interview.interview_no}'/>",
+				interview_answer : CKEDITOR.instances['editor'].getData()},
 			type : "post",
 			success : function(result){
 				if(result == "ok"){
 					alert("답변을 성공적으로 등록하셨습니다.");
-					location.href = "interviewDetail.do";
+					$('#answerContents').parent().append("<p>"+CKEDITOR.instances['editor'].getData()+"</p>");
+					$('#answerContents').remove();
 				} else {
 					alert("답변 등록에 실패하셨습니다.");
-					location.href = "interviewDetail.do";
-					
 				}
 			}
 		});

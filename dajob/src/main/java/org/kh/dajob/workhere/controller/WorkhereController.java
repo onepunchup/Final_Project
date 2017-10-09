@@ -5,6 +5,7 @@ import java.io.*;
 import javax.servlet.http.*;
 
 import org.kh.dajob.member.model.service.MemberService;
+import org.kh.dajob.powerlink.model.service.PowerLinkService;
 import org.kh.dajob.workJobAndSkill.model.service.WorkJobAndSkillService;
 import org.kh.dajob.workhere.model.service.WorkhereService;
 import org.kh.dajob.workhere.model.vo.Workhere;
@@ -39,12 +40,15 @@ public class WorkhereController {
 		if(request.getParameter("page") != null)
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		model.addAttribute("workherelist",workhereService.selectWorkhereList(currentPage, limit));
+		model.addAttribute("workAll",workhereService.selectWorkhereList());
 		model.addAttribute("joblist", workJobnSkillService.selectJobList());
 		model.addAttribute("skilllist", workJobnSkillService.selectSkillList());
 		model.addAttribute("comtype", memberService.selectCompanyList());
 		model.addAttribute("currentPage",currentPage);
 		model.addAttribute("maxPage",maxPage);
 		model.addAttribute("listCount", listCount);
+		model.addAttribute("powerlink", workhereService.selectPowerLinkList());
+		
 		
 		return "workhere/joblist";
 	}
@@ -106,7 +110,7 @@ public class WorkhereController {
 		model.addAttribute("skill", skill);
 		model.addAttribute("joblist", workJobnSkillService.selectJobList());
 		model.addAttribute("skilllist", workJobnSkillService.selectSkillList());
-		
+		model.addAttribute("all",memberService.selectMemberAll());
 		return "workhere/workheredetail";
 	}
 	

@@ -26,6 +26,7 @@
 	<c:set var="curPage" value="${currentPage}"/>
 	<c:set var="max" value="${maxPage}"/>
 	<c:set var="listCnt" value="${listCount}"/>
+	<c:set var="powerlink" value="${powerlink}"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,9 +34,11 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-       #map {
-        height: 400px;
-        width: 100%;
+    	table.powerlinkList a{
+       		color: #0a079e;
+       }
+       table.powerlinkList a:hover{
+       	color: #db0d47;
        }
     </style>
 </head>
@@ -96,7 +99,51 @@
                         </div>
                     </div>
                 </div>
-            
+   <!-- powerlink 공고 -->
+   <table class="table powerlinkList" >
+    <thead>
+      <tr>
+      	<th>PowerLink 회사</th>
+        <th>제목</th>
+        <th>근무지</th>
+        <th>직무</th>
+        <th>필요기술</th>
+        <th>마감일</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+    
+    
+    	 <c:forEach var="powerlink" items="${powerlink}">
+      <tr style="background-color: #fffeef; color:#44445b">
+      	<c:url var="workdetail" value="/workhereDetail.do">
+        	<c:param name="workhere_no" value="${powerlink.work_no}"/>
+        </c:url>
+        <td >[ <span style="color:#ff2b2b">추천 기업</span> ] ${powerlink.company_name }
+        <c:forEach var="comtype" items="${comtype}">
+        <c:if test="${powerlink.company_type eq comtype.company_type}">
+        (${comtype.company_tname})
+        </c:if></c:forEach></td>
+        <td><a href="${workdetail}">${powerlink.work_title }</a></td>
+        
+        <td>${powerlink.work_workplace }</td>
+        <c:forEach var="job" items="${joblist}">
+        <c:if test="${ job.job_code eq powerlink.work_job}">
+        <td>${job.job_name}</td>
+        </c:if></c:forEach>
+        <c:forEach var="skill" items="${skilllist}">
+        <c:if test="${ skill.skill_code eq powerlink.work_skill}">
+        <td>${skill.skill_name}</td>
+        </c:if></c:forEach>
+        <td>${powerlink.work_enddate }</td>
+      </tr>
+      </c:forEach>
+    </tbody>
+  </table>
+   
+   
+    <!-- 일반공고 -->        
   <table class="table table-hover">
     <thead>
       <tr>
@@ -108,7 +155,10 @@
         <th>마감일</th>
       </tr>
     </thead>
+    
     <tbody>
+    
+    
    		 <c:forEach var="workherelist" items="${workherelist}">
       <tr>
       	<c:url var="workdetail" value="/workhereDetail.do">

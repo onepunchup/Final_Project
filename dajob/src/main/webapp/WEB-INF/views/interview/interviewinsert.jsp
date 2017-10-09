@@ -59,6 +59,7 @@
                 <input type="hidden" name="work_no" value="${workhere.work_no}">
                 <input type="hidden" name="interviewer" value="${workhere.work_writer}">
                 <input type="hidden" name="interviewee" value="${member.member_id}">
+                <input type="hidden" name="password" value="${member.member_password}">
                 <input type="hidden" name="interview_status" value="H">
                     <div class="panel-body article">
                         <h4>${workhere.company_name} 인터뷰 신청하기</h4>

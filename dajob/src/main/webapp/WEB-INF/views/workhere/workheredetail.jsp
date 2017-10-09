@@ -34,6 +34,7 @@
 	<c:set var="skill" value="${skill}"/>
 	<c:set var="member" value="${member}"/>
 	<c:set var="comtype" value="${comtype}"/>
+	<c:set var="all" value="${all}"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -162,11 +163,35 @@
         SIDEBAR
         =========================== -->
         <div class="col-md-4 mainright">
+        <div class="row">
+        	<div class="col-sm-12 col-md-12">
+                    <h3>채용 담당자 소개 </h3>
+            		<c:forEach var="all" items="${all}">
+            			<c:if test="${all.member_id eq workhere.member_id}">
+            			<ul class="list-unstyled">
+			                            <li><img src= "/dajob/resources/images/userImage/${all.member_profile_img}"></li>
+			                            <li><h4>${all.member_name }</h4></li>
+			                            <li><a><span class="social fa fa-envelope-o"></span> : ${all.member_email }</a>
+			                            </li>
+			                            <li>
+			                            
+			                            <a><span class="social fa fa-phone"></span> : ${all.member_phone }</a>
+			                            </li>
+			                        </ul>
+            			</c:if>
+            		</c:forEach>
+					
+                </div><!--info end-->
+               </div>
+             <hr>
+             
             <div class="row">
                 <div class="col-sm-1 col-md-2 mobmid">
                     <span class="secicon fa fa-magic"></span>
                 </div><!--icon end-->
-
+                
+				
+                
                 <div class="col-sm-11 col-md-10">
                     <h3 >필요한 기술 </h3>
                     <h4><span class="glyphicon glyphicon-star">${wSkill}</span></h4>
@@ -210,20 +235,12 @@ function likeAdd(){
 		},
 		dataType : "text",
 		success : function(value) {
-			//alert("서블릿이 보낸 값 : " + data);
-			var regex = /^[A-Za-z0-9]{5,14}$/;
-			if ($('#member_id').val().length < 5) {
-				var str = "아이디는 5자 이상이어야 합니다.";
-				$('.idchk').html(str).css(s_fail);
-			} else if (!regex.test($('#member_id').val())) {
-				var str = "아이디는 영문자와 숫자만 가능합니다.";
-				$('.idchk').html(str).css(s_fail);
-			} else if (value === "ok") {
-				var str = "사용 가능한 아이디입니다.";
-				$('.idchk').html(str).css(s_success);
+			if(value == "ok"){
+				alert("선호 기업에 등록되었습니다.");
+			} else if(value == "no:1"){
+				alert("선호 기업에서 삭제되었습니다.");
 			} else {
-				var str = "이미 존재하는 아이디입니다. 다른 아이디로 정하십시오.";
-				$('.idchk').html(str).css(s_fail);
+				alert("에러!!: 관리자에게 문의 하세요!");
 			}
 		},
 		error : function(value) {

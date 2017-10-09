@@ -1,11 +1,13 @@
 package org.kh.dajob.interview.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.kh.dajob.interview.model.service.InterviewService;
@@ -131,14 +133,12 @@ public class InterviewController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		java.util.Date date = df.parse(request.getParameter("start")); 
 		Timestamp startT = new Timestamp(date.getTime());
-		System.out.println("start Time : "+startT);
 		
 		date = df.parse(request.getParameter("end"));
 		Timestamp endT = new Timestamp(date.getTime());
 		System.out.println("end Time : "+endT);
 		i.setInterview_start_date(startT);
 		i.setInterview_end_date(endT);
-		System.out.println("Request Interview Info : "+i);
 		
 		int result = interviewService.insertInterview(i);
 		if(result > 0) {
@@ -148,16 +148,80 @@ public class InterviewController {
 			model.setViewName("404-page");
 		}
 		
+		// mail기능
+		 String host = "smtp.naver.com"; // 사용하는 메일
+		 final String user = request.getParameter("interviewee");  // 보내는 사람 ID
+		 final String password  = request.getParameter("password"); // 보내는 사람 PassWord
+		 String to = request.getParameter("interviewer"); // 받는 사용자
+		 
+		 System.out.println("---------recv Data--------");
+		 System.out.println("recvID : "+ recvID);
+		 System.out.println("title : "+ title);
+		 System.out.println("content : "+ content);
+		 System.out.println("--------------------------");
+		 
+		  // Get the session object
+		  Properties props = new Properties();
+		  props.put("mail.smtp.host", host);
+		  props.put("mail.smtp.auth", "true");
+
+		  Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+		   protected PasswordAuthentication getPasswordAuthentication() {
+		    return new PasswordAuthentication(user, password);
+		   }
+		  });
+		  
+		  // Compose the message
+		  try {
+		   MimeMessage message = new MimeMessage(session);
+		   message.setFrom(new InternetAddress(user));
+		   message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+		   // sender Email Address
+		   message.setFrom("vxxoov@naver.com");
+		   
+		   // Subject
+		   message.setSubject("[DAJOB] "+title);
+		   
+		   // Text
+		   message.setText(content,"UTF-8","html");
+
+		   // send the message
+		   Transport.send(message);
+		   System.out.println("message sent successfully...");
+
+		  } catch (MessagingException e) {
+		   e.printStackTrace();
+		  }
+		
+		
 		return model;
 	}
 	
-	@RequestMapping(value = "interviewUpdateAnswer.do")
-	public String jobSearch(@RequestParam("interview_no") String interview_no,HttpSession session, Model model, HttpServletRequest request) throws IOException {
-		request.setCharacterEncoding("UTF-8");
+	@RequestMapping(value = "interviewUpdateAnswer.do", produces = "text/plain;charset=UTF-8")
+	public void interviewUpdateAnswer(
+			@RequestParam("interview_no") String interview_no,
+			@RequestParam("interview_answer") String answer,
+			HttpSession session, Model model, HttpServletResponse response) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		
 		Interview i = interviewService.selectInterview(interview_no);
-		String answer= request.getParameter("answer");
 		i.setInterview_answer(answer);
-		model.addAttribute("interviewanswer",interviewService.updateInterviewAnswer(i));
-		return "interview/interviewdetail";
+		int result = interviewService.updateInterviewAnswer(i);
+		
+		PrintWriter out = response.getWriter();
+		if(result > 0) {
+			out.append("ok");
+			out.flush();
+		} else {
+			out.append("no");
+			out.flush();
+		}
+		
+		out.close();
+		
 	}
+	
+	
+	
 }
