@@ -1,13 +1,16 @@
 package org.kh.dajob.interview.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.kh.dajob.EmailSend;
 import org.kh.dajob.interview.model.service.InterviewService;
 import org.kh.dajob.interview.model.vo.Interview;
 import org.kh.dajob.member.model.service.MemberService;
@@ -50,6 +53,7 @@ public class InterviewController {
 	
 	@RequestMapping(value = "interviewDetail.do")
 	public String interviewDetail(HttpSession session, HttpServletRequest request, Model model) throws IOException {
+		model.addAttribute("all", memberService.selectMemberAll());
 		model.addAttribute("interview", interviewService.selectInterview(request.getParameter("interview_no")));
 		return "interview/interviewdetail";
 	}
@@ -71,7 +75,7 @@ public class InterviewController {
 	public ModelAndView interviewUpdate(@RequestParam("interview_no") String interview_no, HttpServletRequest request,
 			ModelAndView mv) throws IOException, ParseException {
 		request.setCharacterEncoding("UTF-8");
-		
+		EmailSend emailSend = new EmailSend();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		java.util.Date date = null;
 		Timestamp startT = null;
@@ -95,9 +99,26 @@ public class InterviewController {
 		i.setInterview_start_date(startT);
 		i.setInterview_end_date(endT);
 		
+		String start=request.getParameter("start");
+		String end=request.getParameter("end");
+		String companyname= request.getParameter("companyname");
 		int result = interviewService.updateInterview(i);
+		System.out.println(start);
+		System.out.println(startT.toString());
+		String statues = request.getParameter("interview_status");
 		if(result > 0) {
 			mv.setViewName("redirect:interviewList.do");
+			if(!start.equals(startT.toString())||!end.equals(endT.toString())) {
+				emailSend.emailSend("sm9171@nate.com","[ "+companyname+ " ] " + "와 인터뷰 시간이 정해졌습니다.", "[ "+companyname+ " ] " +"회사와 "+  startT + "부터 "+ endT + "까지 인터뷰가 있을 예정입니다." + "확인부탁드립니다!");	
+			}
+			if(statues.charAt(0)=='E')
+			{
+				emailSend.emailSend("sm9171@nate.com", "[ "+companyname+ " ] "  + "와 인터뷰가 시작되었습니다.", "[ "+companyname+ " ] " +"회사와 "+  startT + "부터 "+ endT + "까지 인터뷰가 있습니다." + "확인부탁드립니다!");
+			}
+			if(statues.charAt(0)=='Q')
+				{
+				emailSend.emailSend("sm9171@nate.com", "[ "+companyname+ " ] "  + "와의 인터뷰가 종료되었습니다.", "[ "+companyname+ " ] " +"회사와 " + "인터뷰가 종료되었습니다.<br>수고하셨습니다. 좋은 결과 있기를 바라겠습니다.");
+				}
 		} else {
 			mv.addObject("msg", "인터뷰 데이터 수정 에러!!!");
 			mv.setViewName("404-page");
@@ -127,7 +148,8 @@ public class InterviewController {
 	
 	@RequestMapping(value = "interviewInsert.do", method = RequestMethod.POST)
 	public ModelAndView interviewInsert(Interview i, ModelAndView model, HttpServletRequest request) throws ParseException{
-		
+		String username = request.getParameter("username");//보내는사람이름
+		EmailSend emailSend = new EmailSend();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		java.util.Date date = df.parse(request.getParameter("start")); 
 		Timestamp startT = new Timestamp(date.getTime());
@@ -143,6 +165,7 @@ public class InterviewController {
 		int result = interviewService.insertInterview(i);
 		if(result > 0) {
 			model.setViewName("redirect:interviewList.do");
+			emailSend.emailSend("sm9171@nate.com","[ "+ username+" ] " + "님이 인터뷰를 신청하였습니다.", "<b>"+username+"</b>님께서 " +  startT + "부터 "+ endT + "까지 인터뷰를 신청하였습니다." + " 확인부탁드립니다!");
 		} else {
 			model.addObject("msg", "인터뷰 등록 실패!");
 			model.setViewName("404-page");
@@ -151,13 +174,27 @@ public class InterviewController {
 		return model;
 	}
 	
-	@RequestMapping(value = "interviewUpdateAnswer.do")
-	public String jobSearch(@RequestParam("interview_no") String interview_no,HttpSession session, Model model, HttpServletRequest request) throws IOException {
-		request.setCharacterEncoding("UTF-8");
+	@RequestMapping(value = "interviewUpdateAnswer.do", produces = "text/plain;charset=UTF-8")
+	public void interviewUpdateAnswer(
+			@RequestParam("interview_no") String interview_no,
+			@RequestParam("interview_answer") String answer,
+			HttpSession session, Model model, HttpServletResponse response) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		
 		Interview i = interviewService.selectInterview(interview_no);
-		String answer= request.getParameter("answer");
 		i.setInterview_answer(answer);
-		model.addAttribute("interviewanswer",interviewService.updateInterviewAnswer(i));
-		return "interview/interviewdetail";
+		int result = interviewService.updateInterviewAnswer(i);
+		
+		PrintWriter out = response.getWriter();
+		if(result > 0) {
+			out.append("ok");
+			out.flush();
+		} else {
+			out.append("no");
+			out.flush();
+		}
+		
+		out.close();
+		
 	}
 }

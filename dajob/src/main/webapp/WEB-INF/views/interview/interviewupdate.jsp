@@ -71,6 +71,7 @@
 				<form method="post" action="interviewUpdate.do">
 					<h4>화상채팅방 수정하기</h4>
 					<input type="hidden" name="interview_no" value="${interview.interview_no}">
+					<input type="hidden" name="companyname" value="${interview.company_name}">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="row">

@@ -137,12 +137,13 @@
 									</div>
 								<p>만약 사이트에 오류가 있을 경우, 이쪽으로 연락 주신다면 말씀하시는 사항에 대해 신속하게 대처해 드리겠습니다. 항상 좋은 하루 되시기 바랍니다. 감사합니다.</p>
 								<ul class="widget_info_contact">
-									<li><i class="fa fa-map-marker"></i> <p><strong>Address</strong>서울 강남구 테헤란로<br> 14길 6 남도빌딩 2F</p></li>
-									<li><i class="fa fa-user"></i> <p><strong>Phone</strong>: T) 1544-9970 <br>&nbsp; F) 070-8290-2889</p></li>
-									<li><i class="fa fa-envelope"></i> <p><strong>Email</strong>: <a href="#">firerain4@naver.com</a></p></li>
-									<li><i class="fa fa-globe"></i> <p><strong>Web</strong>: <a href="http://tour.pcs21.net/main/main.kh" data-placement="bottom" data-toggle="tooltip" title="http://tour.pcs21.net/main/main.kh">tour.pcs21.net/main</a></p></li>
+									<li><p><i class="fa fa-map-marker"></i> <strong>Address</strong><br>서울 강남구 테헤란로<br> 14길 6 남도빌딩 2F</p></li>
+									<li><p><i class="fa fa-user"></i> <strong>Phone</strong><br>T) 1544-9970 <br>F) 070-8290-2889</p></li>
+									<li><p><i class="fa fa-envelope"></i> <strong>Email</strong><br><a href="#">firerain4@naver.com</a></p></li>
+									<li><p><i class="fa fa-globe"></i> <strong>Web</strong><br><a href="http://tour.pcs21.net/main/main.kh" data-placement="bottom" data-toggle="tooltip" title="http://tour.pcs21.net/main/main.kh">tour.pcs21.net/main</a></p></li>
 								</ul>
-								
+								<br>
+								<br>
 							</div>
 							
 							<div class="widget_social">

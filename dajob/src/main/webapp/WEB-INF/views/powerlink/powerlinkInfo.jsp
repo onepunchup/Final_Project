@@ -27,10 +27,6 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-       #map {
-        height: 400px;
-        width: 100%;
-       }
        .promo_box .pb_action a.btn{
        float: none;
        }
@@ -181,7 +177,7 @@
             pg : 'uplus', // version 1.1.0부터 지원.
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : 'Power Loink 등록',
+            name : '[DAJOB] Power Link 가입',
             amount : 600000,
             buyer_email : '<c:out value="${member.member_email}" />',
             buyer_name : '<c:out value="${member.member_name}"/>',

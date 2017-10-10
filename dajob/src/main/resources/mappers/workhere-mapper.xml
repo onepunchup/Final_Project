@@ -28,6 +28,15 @@
 		<result property="company_welfare" column="COMPANY_WELFARE" />
 		<result property="company_start_date" column="COMPANY_START_DATE" />
 		<result property="company_end_date" column="COMPANY_END_DATE" />
+		
+		<result property="member_password" column="MEMBER_PASSWORD" />
+		<result property="member_type_code" column="MEMBER_TYPE_CODE" />
+		<result property="member_name" column="MEMBER_NAME" />
+		<result property="member_email" column="MEMBER_EMAIL" />
+		<result property="member_phone" column="MEMBER_PHONE" />
+		<result property="member_address" column="MEMBER_ADDRESS" />
+		<result property="member_sign_date" column="MEMBER_SIGN_DATE" />
+		<result property="member_profile_img" column="MEMBER_PROFILE_IMG" />
 	</resultMap>
 	
 	<select id="selectWorkhereList" resultType="arraylist" resultMap="resultWorkhere">

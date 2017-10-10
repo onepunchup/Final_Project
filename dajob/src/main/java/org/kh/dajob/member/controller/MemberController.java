@@ -540,7 +540,7 @@ public class MemberController {
 			
 		}
 		
-		return "mypage/resumeView";
+		return "mypage/resumeComp";
 	}
 	
 	@RequestMapping(value = "resumeUpdate.do")

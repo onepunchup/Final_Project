@@ -159,6 +159,22 @@
         SIDEBAR
         =========================== -->
         <div class="col-md-4 mainright">
+        <div class="row">
+        	<div class="col-sm-12 col-md-12">
+                    <h3>채용 담당자 소개 </h3>
+            			<ul class="list-unstyled">
+			                            <li><img src= "/dajob/resources/images/userImage/${workhere.member_profile_img}"></li>
+			                            <li><h4>${workhere.member_name }</h4></li>
+			                            <li><a><span class="social fa fa-envelope-o"></span> : ${workhere.member_email}</a>
+			                            </li>
+			                            <li>
+			                            <a><span class="social fa fa-phone"></span> : ${workhere.member_phone }</a>
+			                            </li>
+			                        </ul>
+                </div><!--info end-->
+               </div>
+             <hr>
+             
             <div class="row">
                 <div class="col-sm-1 col-md-2 mobmid">
                     <span class="secicon fa fa-magic" style="font-size:15pt;"></span>

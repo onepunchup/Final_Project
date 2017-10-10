@@ -74,20 +74,6 @@
 				
 			</div>
 		</section>
-		
-		<section class="promo_box">
-			<div class="container">
-				<div class="row">
-                    <div class="col-lg-9 col-md-9 col-sm-9 ">
-                        <div class="promo_content">
-                            <h3>Stylo is awesome responsive template, with clean design.</h3>
-                            <p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean commodo ligula eget dolor. </p>
-                        </div>
-                    </div>
-				</div>
-			</div>
-		</section>
-		
 	</section>
 	<!--end wrapper-->
 

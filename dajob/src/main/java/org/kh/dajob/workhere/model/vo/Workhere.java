@@ -31,7 +31,20 @@ public class Workhere implements Serializable{
 	private String company_fax;
 	private String company_welfare;
 	private Date company_date;
+	//member
+	private String member_password;
+	private String member_type_code;
+	private String member_name;
+	private String member_email;
+	private String member_phone;
+	private String member_address;
+	private Date member_sign_date;
+	private String member_profile_img;
 	
+	public Workhere() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Workhere( String work_title, String work_content, String work_job, String work_skill,
 			String work_career, String work_workplace, Timestamp work_startdate, Timestamp work_enddate,String work_no) {
 		super();
@@ -44,10 +57,6 @@ public class Workhere implements Serializable{
 		this.work_workplace = work_workplace;
 		this.work_startdate = work_startdate;
 		this.work_enddate = work_enddate;
-	}
-	public Workhere() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public String getWork_no() {
 		return work_no;
@@ -175,12 +184,63 @@ public class Workhere implements Serializable{
 	public void setCompany_date(Date company_date) {
 		this.company_date = company_date;
 	}
-	
+	public String getMember_password() {
+		return member_password;
+	}
+	public void setMember_password(String member_password) {
+		this.member_password = member_password;
+	}
+	public String getMember_type_code() {
+		return member_type_code;
+	}
+	public void setMember_type_code(String member_type_code) {
+		this.member_type_code = member_type_code;
+	}
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+	public String getMember_phone() {
+		return member_phone;
+	}
+	public void setMember_phone(String member_phone) {
+		this.member_phone = member_phone;
+	}
+	public String getMember_address() {
+		return member_address;
+	}
+	public void setMember_address(String member_address) {
+		this.member_address = member_address;
+	}
+	public Date getMember_sign_date() {
+		return member_sign_date;
+	}
+	public void setMember_sign_date(Date member_sign_date) {
+		this.member_sign_date = member_sign_date;
+	}
+	public String getMember_profile_img() {
+		return member_profile_img;
+	}
+	public void setMember_profile_img(String member_profile_img) {
+		this.member_profile_img = member_profile_img;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public Workhere(String work_no, String work_title, String work_content, String work_writer, Date work_date,
 			String work_job, String work_skill, String work_career, String work_workplace, Timestamp work_startdate,
 			Timestamp work_enddate, String member_id, String company_name, String company_type, int company_staff,
 			int company_capital, String company_code, String company_tel, String company_fax, String company_welfare,
-			Date company_date) {
+			Date company_date, String member_password, String member_type_code, String member_name, String member_email,
+			String member_phone, String member_address, Date member_sign_date, String member_profile_img) {
 		super();
 		this.work_no = work_no;
 		this.work_title = work_title;
@@ -203,8 +263,15 @@ public class Workhere implements Serializable{
 		this.company_fax = company_fax;
 		this.company_welfare = company_welfare;
 		this.company_date = company_date;
+		this.member_password = member_password;
+		this.member_type_code = member_type_code;
+		this.member_name = member_name;
+		this.member_email = member_email;
+		this.member_phone = member_phone;
+		this.member_address = member_address;
+		this.member_sign_date = member_sign_date;
+		this.member_profile_img = member_profile_img;
 	}
-	
 	@Override
 	public String toString() {
 		return "Workhere [work_no=" + work_no + ", work_title=" + work_title + ", work_content=" + work_content
@@ -214,6 +281,10 @@ public class Workhere implements Serializable{
 				+ ", company_name=" + company_name + ", company_type=" + company_type + ", company_staff="
 				+ company_staff + ", company_capital=" + company_capital + ", company_code=" + company_code
 				+ ", company_tel=" + company_tel + ", company_fax=" + company_fax + ", company_welfare="
-				+ company_welfare + ", company_date=" + company_date + "]";
+				+ company_welfare + ", company_date=" + company_date + ", member_password=" + member_password
+				+ ", member_type_code=" + member_type_code + ", member_name=" + member_name + ", member_email="
+				+ member_email + ", member_phone=" + member_phone + ", member_address=" + member_address
+				+ ", member_sign_date=" + member_sign_date + ", member_profile_img=" + member_profile_img + "]";
 	}
+	
 }
