@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.kh.dajob.EmailSend;
 import org.kh.dajob.interview.model.service.InterviewService;
 import org.kh.dajob.interview.model.vo.Interview;
 import org.kh.dajob.member.model.service.MemberService;
@@ -23,6 +24,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 @Controller
 public class InterviewController {
@@ -73,7 +82,7 @@ public class InterviewController {
 	public ModelAndView interviewUpdate(@RequestParam("interview_no") String interview_no, HttpServletRequest request,
 			ModelAndView mv) throws IOException, ParseException {
 		request.setCharacterEncoding("UTF-8");
-		
+		EmailSend emailSend = new EmailSend();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		java.util.Date date = null;
 		Timestamp startT = null;
@@ -97,9 +106,26 @@ public class InterviewController {
 		i.setInterview_start_date(startT);
 		i.setInterview_end_date(endT);
 		
+		String start=request.getParameter("start");
+		String end=request.getParameter("end");
+		String companyname= request.getParameter("companyname");
 		int result = interviewService.updateInterview(i);
+		System.out.println(start);
+		System.out.println(startT.toString());
+		String statues = request.getParameter("interview_status");
 		if(result > 0) {
 			mv.setViewName("redirect:interviewList.do");
+			if(!start.equals(startT.toString())||!end.equals(endT.toString())) {
+				emailSend.emailSend("sm9171@nate.com","[ "+companyname+ " ] " + "와 인터뷰 시간이 정해졌습니다.", "[ "+companyname+ " ] " +"회사와 "+  startT + "부터 "+ endT + "까지 인터뷰가 있을 예정입니다." + "확인부탁드립니다!");	
+			}
+			if(statues.charAt(0)=='E')
+			{
+				emailSend.emailSend("sm9171@nate.com", "[ "+companyname+ " ] "  + "와 인터뷰가 시작되었습니다.", "[ "+companyname+ " ] " +"회사와 "+  startT + "부터 "+ endT + "까지 인터뷰가 있습니다." + "확인부탁드립니다!");
+			}
+			if(statues.charAt(0)=='Q')
+				{
+				emailSend.emailSend("sm9171@nate.com", "[ "+companyname+ " ] "  + "와의 인터뷰가 종료되었습니다.", "[ "+companyname+ " ] " +"회사와 " + "인터뷰가 종료되었습니다.<br>수고하셨습니다. 좋은 결과 있기를 바라겠습니다.");
+				}
 		} else {
 			mv.addObject("msg", "인터뷰 데이터 수정 에러!!!");
 			mv.setViewName("404-page");
@@ -129,7 +155,7 @@ public class InterviewController {
 	
 	@RequestMapping(value = "interviewInsert.do", method = RequestMethod.POST)
 	public ModelAndView interviewInsert(Interview i, ModelAndView model, HttpServletRequest request) throws ParseException{
-		
+		EmailSend emailSend = new EmailSend();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		java.util.Date date = df.parse(request.getParameter("start")); 
 		Timestamp startT = new Timestamp(date.getTime());
@@ -139,61 +165,34 @@ public class InterviewController {
 		System.out.println("end Time : "+endT);
 		i.setInterview_start_date(startT);
 		i.setInterview_end_date(endT);
-		
 		int result = interviewService.insertInterview(i);
+		
+		
+		// mail기능
+		
+				 String host = request.getParameter("email"); // 사용하는 메일
+				 final String user = request.getParameter("interviewee");  // 보내는 사람 ID
+				 final String password  = request.getParameter("password"); // 보내는 사람 PassWord
+				 String to = request.getParameter("interviewer"); // 받는 사용자
+				 String recvID = request.getParameter("recvID");//보내는 사람 메일
+				 String username = request.getParameter("username");//보내는사람이름
+				 
+				 System.out.println("---------recv Data--------");
+				 System.out.println("recvID : "+ recvID);
+				 System.out.println("title : "+ username + "께서 인터뷰를 신청하였습니다.");
+				 System.out.println("content : "+ startT + "부터 "+ endT + "까지 인터뷰를 신청하였습니다");
+				 System.out.println("--------------------------");
+		
+		
+		
+		
 		if(result > 0) {
 			model.setViewName("redirect:interviewList.do");
+			emailSend.emailSend("sm9171@nate.com","[ "+ username+" ] " + "님이 인터뷰를 신청하였습니다.", "<b>"+username+"</b>님께서 " +  startT + "부터 "+ endT + "까지 인터뷰를 신청하였습니다." + " 확인부탁드립니다!");
 		} else {
 			model.addObject("msg", "인터뷰 등록 실패!");
 			model.setViewName("404-page");
 		}
-		
-		// mail기능
-		 String host = "smtp.naver.com"; // 사용하는 메일
-		 final String user = request.getParameter("interviewee");  // 보내는 사람 ID
-		 final String password  = request.getParameter("password"); // 보내는 사람 PassWord
-		 String to = request.getParameter("interviewer"); // 받는 사용자
-		 
-		 System.out.println("---------recv Data--------");
-		 System.out.println("recvID : "+ recvID);
-		 System.out.println("title : "+ title);
-		 System.out.println("content : "+ content);
-		 System.out.println("--------------------------");
-		 
-		  // Get the session object
-		  Properties props = new Properties();
-		  props.put("mail.smtp.host", host);
-		  props.put("mail.smtp.auth", "true");
-
-		  Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-		   protected PasswordAuthentication getPasswordAuthentication() {
-		    return new PasswordAuthentication(user, password);
-		   }
-		  });
-		  
-		  // Compose the message
-		  try {
-		   MimeMessage message = new MimeMessage(session);
-		   message.setFrom(new InternetAddress(user));
-		   message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-		   // sender Email Address
-		   message.setFrom("vxxoov@naver.com");
-		   
-		   // Subject
-		   message.setSubject("[DAJOB] "+title);
-		   
-		   // Text
-		   message.setText(content,"UTF-8","html");
-
-		   // send the message
-		   Transport.send(message);
-		   System.out.println("message sent successfully...");
-
-		  } catch (MessagingException e) {
-		   e.printStackTrace();
-		  }
-		
 		
 		return model;
 	}

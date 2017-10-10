@@ -19,6 +19,7 @@
 		<result property="member_id" column="MEMBER_ID" />
 		<result property="rnum" column="RNUM" />
 		<result property="company_name" column="COMPANY_NAME" />
+		
 	</resultMap>
 	
 	<resultMap id="resultLikeList" type="LikeList">

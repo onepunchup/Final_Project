@@ -34,7 +34,6 @@
 	<c:set var="skill" value="${skill}"/>
 	<c:set var="member" value="${member}"/>
 	<c:set var="comtype" value="${comtype}"/>
-	<c:set var="all" value="${all}"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -166,21 +165,15 @@
         <div class="row">
         	<div class="col-sm-12 col-md-12">
                     <h3>채용 담당자 소개 </h3>
-            		<c:forEach var="all" items="${all}">
-            			<c:if test="${all.member_id eq workhere.member_id}">
             			<ul class="list-unstyled">
-			                            <li><img src= "/dajob/resources/images/userImage/${all.member_profile_img}"></li>
-			                            <li><h4>${all.member_name }</h4></li>
-			                            <li><a><span class="social fa fa-envelope-o"></span> : ${all.member_email }</a>
+			                            <li><img src= "/dajob/resources/images/userImage/${workhere.member_profile_img}"></li>
+			                            <li><h4>${workhere.member_name }</h4></li>
+			                            <li><a><span class="social fa fa-envelope-o"></span> : ${workhere.member_email}</a>
 			                            </li>
 			                            <li>
-			                            
-			                            <a><span class="social fa fa-phone"></span> : ${all.member_phone }</a>
+			                            <a><span class="social fa fa-phone"></span> : ${workhere.member_phone }</a>
 			                            </li>
 			                        </ul>
-            			</c:if>
-            		</c:forEach>
-					
                 </div><!--info end-->
                </div>
              <hr>
