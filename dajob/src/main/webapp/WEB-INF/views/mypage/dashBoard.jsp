@@ -131,11 +131,11 @@
 							<div class="comment-body">
                             	<table class="table table-striped table-hover">
                             	<tr>
-									<th>Month</th><th>Job Infomation</th><th>Cumulative Job Infomation</th>
+									<th>Month</th><th>Job Infomation</th>
 								</tr>
                         <thead>
                         <tr>
-                            <th colspan="3"></th>
+                            <th colspan="2"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -148,7 +148,6 @@
                            		 <td>${ m2.mon } </td>
                            		</c:if>
                             	 <td>${ m2.mon_count }</td>
-                            	 <td>${ m2.count_sum }</td>
                        		</tr>
 						 </c:forEach>
                         </tbody>
@@ -277,7 +276,6 @@
 			    });
 
 			    chart3.render();
-			    $('a.canvasjs-chart-credit').remove();
 		}
 	</script>
 	
