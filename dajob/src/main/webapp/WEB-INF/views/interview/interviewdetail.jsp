@@ -82,23 +82,34 @@
 				<table class="table table-bordered">
 				  <tbody>
 				  <tr>
-				  	<td align="center"><video id="localVideo" autoplay></video></td>
-				  	<td align="center"><video id="remoteVideo" autoplay></video></td>
+				  <div>
+      <label for="channelIdInput">Interview-Room : ${interview.interview_no}</label><br>
+        <input type="text" id="channelIdInput" placeholder="Interview-Room ID를 입력하세요." value="">
+  </div>
+				  	<td align="center"><video class="video" id="localVideo" autoplay></video></td>
+				  	<td align="center"><video class="video" id="remoteVideo" autoplay></video></td>
 				  </tr>
 				    <tr>
-				    <c:forEach var="all" items="${all}">
+				      <td align="center" style="color: black;">[${interview.company_name}] ${interview.member_name}</td>
+				      <c:forEach var="all" items="${all}">
 					    <c:if test="${all.member_id eq interview.interviewee}">
 					    <td align="center" style="color: black;">${all.member_name}</td>
 					    </c:if>
 				     </c:forEach>
-				      <td align="center" style="color: black;">${interview.company_name}</td>
 				    </tr>
 				  </tbody>
 			    </table>
 				<div>
-					<button id="startButton">Start</button>
-					<button id="callButton">Call</button>
-					<button id="hangupButton">Hang Up</button>
+				<p align="center">
+					<c:if test="${sessionScope.member.member_type_code eq 'C'}">
+					<button id="createChannelButton">인터뷰 시작</button>
+					<button id="connectChannelButton" disabled>Join</button>
+					</c:if>
+					<c:if test="${sessionScope.member.member_type_code eq 'U'}">
+					<button id="createChannelButton" disabled>인터뷰 시작</button>
+					<button id="connectChannelButton">Join</button>
+					</c:if>
+					</p>
 				</div>
 				<br>
 			</div>
@@ -114,12 +125,12 @@
 			                </div><!--icon end-->
 			
 			                <div class="col-sm-12">
-			                    <h2><strong>${interview.interview_question }</strong></h2>
+			                    <h2><strong>${interview.interview_question}</strong></h2>
 			                </div>
 			            </div>
 		            <hr>
 		        	</div>
-		        	<c:if test="${member.member_id eq interview.interviewee }">
+		        	<c:if test="${member.member_id eq interview.interviewee}">
 		        	<c:if test="${empty interview.interview_answer}">
 		        	<div class="col-md-12">
 			            <div id="statement" class="row mobmid">
@@ -175,11 +186,16 @@
 	}
 	</script>
 		        	</c:if>
+		        	</c:if>
 		        	<c:if test="${!empty interview.interview_answer}">
 		        	<div class="col-md-12">
 			            <div id="statement" class="row mobmid">
 			            	<div class="col-sm-12">
-			                    <h3><span class="secicon fa fa-exclamation-circle"></span>  ${interview.interviewee}님이 작성한 답변</h3>
+			            	<c:forEach var="all" items="${all}">
+					    <c:if test="${all.member_id eq interview.interviewee}">
+					    <h3><span class="secicon fa fa-exclamation-circle"></span>  ${all.member_name} 님이 작성한 답변</h3>
+					    </c:if>
+				     </c:forEach>
 			                </div><!--icon end-->
 			                <div class="col-sm-12">
 			                    <h2><strong>${interview.interview_answer}</strong></h2>
@@ -187,7 +203,6 @@
 			            </div>
 		            <hr>
 		        	</div>
-		        	</c:if>
 		        	</c:if>
 				</div>
 		</div>
@@ -198,8 +213,38 @@
 	<!--start footer-->
 	<c:import url="../footer.jsp" />
 	<!--end footer-->
-	
-	<script src="<c:url value='/resources/api/webRTC/src/js/lib/ga.js'/>"></script>
-	
+				 
+    <script src="http://www.playrtc.com/sdk/js/playrtc.min.js"></script>
+    <script>
+    app = new PlayRTC({
+            projectKey: '60ba608a-e228-4530-8711-fa38004719c1',
+            localVideoTarget: 'localVideo',
+      remoteVideoTarget: 'remoteVideo'
+    });
+
+    app.on('connectChannel', function(channelId) {
+      document.getElementById('channelIdInput').value = channelId;
+    });
+
+    document.getElementById('createChannelButton').onclick = function(event) {
+      app.createChannel();
+      return false;
+    };
+
+    document.getElementById('connectChannelButton').onclick = function(event) {
+      var channelId = document.getElementById('channelIdInput').value;
+            if (!channelId) { return; }
+      app.connectChannel(channelId);
+      return false;
+    };
+  </script>
+  <!-- <script type="text/javascript">
+       var url = document.URL;
+       var arrUrl = url.split("//");
+       var protocol = document.location.protocol;
+       if("http:" == protocol){
+           window.location.replace("https://" + arrUrl[1]);
+       }
+</script> -->
 </body>
 </html>

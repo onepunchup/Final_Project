@@ -92,7 +92,7 @@ CREATE TABLE MEMBER_USER(
        MEMBER_ID VARCHAR2(30) NOT NULL UNIQUE,    /* 아이디 */
        GENDER VARCHAR2(3),       /* 성별 */       
 	     BIRTHDAY DATE NOT NULL, /* 생년월일 */
-	     RESUME_DATA VARCHAR2(3000), /* 이력서 */
+	     RESUME_DATA VARCHAR2(4000), /* 이력서 */
        RESUMEFILE1 VARCHAR2(50) DEFAULT NULL,   /* 첨부파일1 */
        RESUMEFILE2 VARCHAR2(50) DEFAULT NULL,   /* 첨부파일2 */
        RESUMEFILE3 VARCHAR2(50) DEFAULT NULL,   /* 첨부파일3 */
@@ -426,7 +426,7 @@ CREATE TABLE SAL_AVG(
        SAL_MAX NUMBER
 );
 
----------- 관리자 대시보드 구현 중 70% ------------
+---------- 관리자 대시보드 구현 ------------
 -- 현재 회원 가입자 수
 --select count(*) from member;
 -- 회원 별 가입자 수
@@ -686,6 +686,12 @@ INSERT INTO POWERLINK VALUES('comp22',TO_DATE('2017-10-04','RRRR-MM-DD'),1,15);
 INSERT INTO POWERLINK VALUES('comp33',TO_DATE('2017-08-21','RRRR-MM-DD'),2,0);
 INSERT INTO POWERLINK VALUES('comp33',TO_DATE('2017-09-11','RRRR-MM-DD'),3,0);
 INSERT INTO POWERLINK VALUES('comp33',TO_DATE('2017-10-01','RRRR-MM-DD'),1,3);
+INSERT INTO POWERLINK VALUES('comp11', to_date('17/07/11'), 3, 0);
+INSERT INTO POWERLINK VALUES('comp22', to_date('17/06/12'), 3, 0);
+INSERT INTO POWERLINK VALUES('comp33', to_date('17/07/13'), 3, 0);
+INSERT INTO POWERLINK VALUES('comp11', to_date('17/06/11'), 3, 0);
+INSERT INTO POWERLINK VALUES('comp33', to_date('17/07/20'), 3, 0);
+INSERT INTO POWERLINK VALUES('comp22', to_date('17/06/23'), 3, 0);
 
 INSERT INTO SAL_AVG VALUES(1,2000,2200);
 INSERT INTO SAL_AVG VALUES(3,2200,2400);
@@ -741,6 +747,21 @@ INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1709010150','RRMMDDHH24MI'),'RRMMD
 INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1709050505','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[JAVA] 자바 개발 가능하신 분','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1709050505','RRMMDDHH24MI'),'2','1','경력','대구시 OO구',DEFAULT,DEFAULT)
 INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1709101520','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 스프링 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1709101520','RRMMDDHH24MI'),'2','3','신입','서울시 강남구',DEFAULT,DEFAULT)
 INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1709111520','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 웹 어플 구현 가능자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1709111520','RRMMDDHH24MI'),'2','3','신입','서울시 강남구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1706141030','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[JAVA] 웹 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1706141030','RRMMDDHH24MI'),'1','1','신입','서울시 강남구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1706150930','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[DB] 웹 퍼블리셔 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1706150930','RRMMDDHH24MI'),'2','2','경력','부산시 서면',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1706171025','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 스프링 가능한 웹 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1706171025','RRMMDDHH24MI'),'1','3','신입','울산시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1705051200','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[C++] APP IO 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1705051200','RRMMDDHH24MI'),'2','4','신입','서울시 서초구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1705101025','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 스프링 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1705101025','RRMMDDHH24MI'),'1','3','신입','울산시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1705111200','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[C++] IOT 웹 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1705111200','RRMMDDHH24MI'),'2','4','신입','서울시 서초구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1705111530','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 스프링 실력자 급구','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1705111530','RRMMDDHH24MI'),'1','3','신입','부산시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1705121200','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[C/C++] C언어 가능자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1705121200','RRMMDDHH24MI'),'2','4','신입','부산시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1705121335','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 스프링 경험자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1705121335','RRMMDDHH24MI'),'1','3','신입','대구시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1705150530','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[C/C++] C 코딩 가능자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1705150530','RRMMDDHH24MI'),'2','4','신입','서울시 서초구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1705161125','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[JAVA] MVC 패턴 숙련자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp33',TO_DATE('1705161125','RRMMDDHH24MI'),'3','1','경력','대전시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1706010150','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 숙련된 디자이너 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp33',TO_DATE('1706010150','RRMMDDHH24MI'),'3','3','경력','대전시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1706050505','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[JAVA] 자바 개발 가능하신 분','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp11',TO_DATE('1706050505','RRMMDDHH24MI'),'2','1','경력','대구시 OO구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1706101520','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 스프링 개발자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1706101520','RRMMDDHH24MI'),'2','3','신입','서울시 강남구',DEFAULT,DEFAULT)
+INTO WORK_BOARD VALUES('WO'||TO_CHAR(TO_DATE('1706111520','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'[SPRING] 웹 어플 구현 가능자 모집','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.','comp22',TO_DATE('1706111520','RRMMDDHH24MI'),'2','3','신입','서울시 강남구',DEFAULT,DEFAULT)
 SELECT * FROM DUAL;
 
 UPDATE WORK_BOARD SET WORK_CONTENT = '· 신규 제품 개발 및 기존 제품 기능 향상<br> · 전반적인 개발 활동 참여(디자인, 코딩, 온라인 및 오프라인 고객 설치/배포)<br>전반적인 기능을 가진 웹 어플리케이션 개발 : <br> · 백엔드 서비스<br> · 웹 서비스, REST API <br> · 마이크로 서비스 등
@@ -849,6 +870,113 @@ UPDATE WORK_BOARD SET WORK_CONTENT = '아프리카TV 안드로이드, 아이폰 
 
 '
 WHERE WORK_NO = 'WO170911152001';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '· 신규 제품 개발 및 기존 제품 기능 향상<br> · 전반적인 개발 활동 참여(디자인, 코딩, 온라인 및 오프라인 고객 설치/배포)<br>전반적인 기능을 가진 웹 어플리케이션 개발 : <br> · 백엔드 서비스<br> · 웹 서비스, REST API <br> · 마이크로 서비스 등
+<br><br>[필수 사항]<br> · 2년 이상의 Node.js 개발 경험<br> · 3년 이상의 웹개발 경험 및 관련된 기술<br> 소유(REST API, Redux, ES6, React, HTML5, LESS/SASS)<br> · 학력 : 학사 이상<br> · 성별, 나이 무관
+<br><br>[우대 사항]<br> · NoSQL(MongoDB 등), SQL 경험자<br> · 웹설계, 코딩, 테스팅 등의 전반적인 웹개발 프로젝트 참여<br> · 개발팀장 경험 및 문제 해결에 적극적인 마인드를 가진 자<br> · AWS 경험자<br> · 영어 가능자
+' 
+WHERE WORK_NO = 'WO170614103001';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '- 웹/모바일사이트 UI운영, 구축 및 최적화<br> - HTML/CSS/javasript 등에 대한 내부 표준안 마련
+<br><br>[자격조건]<br> - 마크업 개발 2년 이상 경력자<br> - HTML/CSS/CSS3 등의 하드코딩 가능자<br> - 웹표준/웹접근성에 대한 이해도 보유자<br> - Javascript/jQuery 활용 가능자<br> - Cross-browsing 이슈 및 성능문제의 진단, 개선 능력 보유자<br> - 작업 기여도가 명시된 사이트 포트폴리오 제출 필수
+<br><br>[우대 사항]<br> - 컴퓨터공학 및 전산관련학 전공자<br> - 커머스UI 유경험자<br> - 포토샵, 스케치등 그래픽 활용 툴 가능자<br> - 웹접근성, 웹표준 프로젝트 경험자<br> - 새로운 기술, 트렌드에 대한 관심과 실행력 보유자<br> - 밝고 긍정적인 마인드 보유자<br> - 보훈대상자(국가유공자)는 관련 법률에 의거 우대
+
+'
+WHERE WORK_NO = 'WO170615093001';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '- 자바, 스프링 등의 프로그래밍 경험<br> - Java, JSP, Javascript, HTML 기반의 앱 개발
+<br><br>[우대 사항]<br> - SNS, 메신저, 그룹웨어 개발 경험자<br> - 전산과, 컴퓨터공학과 등 전산 관련학과 졸업/졸업예정<br> - 전자정부프레임워크, Spring 사용경험<br> - AJAX, JSON, JQuery 사용경험<br> - Oracle, MySQL 등의 DBMS에 대한 이해<br> - 웹 메일 시스템에 대한 이해<br>
+'
+WHERE WORK_NO = 'WO170617102501';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '- 업무시스템 신규 프로젝트 및 유지 보수<br> - PC 및 모바일 홈페이지 유지보수(부가: 모바일 앱)
+<br><br>[자격조건]<br> - 학력 : 학력무관<br> - 경력 : 경력1년 이상
+<br><br>[우대 사항]<br> - 필수 개발 스킬 : asp.net, C#, MSSQL, HTML, Javascript, JQuery<br> - 우대 개발 스킬 : 안드로이드, IOS, 모바일 앱, ORACLE, MYSQL
+
+'
+WHERE WORK_NO = 'WO170505120001';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '- 웹상트 구축/유지보수 개발<br> - JAVA Spring프레임워크 개발<br> - 정규직<br> *서초동 본사 근무
+<br><br>[자격/기술요건]<br> - JAVA/JSP 웹개발 경력 3년 이상<br> - Javascript/jQuery 능숙자<br> - 형상관리 사용 경험자(SVN/Git)<br> - SQL 작성/ Procedure 가능자<br> - 쇼핑몰 구축 / 유지보수 경험자<br> - 학력 : 초대졸 이상(2,3년)<br> - 경력 : 3년 이상<br> - 성별 : 무관
+<br><br>[우대 사항]<br> - 전산관련학과 전공자<br> - 주도적이고 의사소통이 뛰어난 분<br> - LINUX기반 OS에 이해가 있는 분
+
+'
+WHERE WORK_NO = 'WO170510102501';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '서버 backend 개발<br> - 아키텍쳐 설계 및 구현<br> - 센서 데이터 수집/관리<br> - IOT 디바이스 배포/관리<br> - OpenApi 개발
+<br><br>[필수 사항]<br> - 4년차 이상 서버 경험자<br> - Language<br> Main : Java or C#<br> Sub : Python, Javascript(Node.js), Ruby<br> - DB : RDMS(Postgresql) 및 Redis, MongoDB에 대한 이해<br> - Framework : Django, RubyonRails, Socket.io, Express.js 등에 대한 경험<br> - AWS Cloud : EC2, RDS, S3, Cloudfront, Route53 등에 대한 이해<br> - REST API 설계와 개발 경험<br> - 기타 : Linux, Git 사용 경험
+<br><br>[우대 사항]<br> - AWS 등 클라우드를 이용한 글로벌 서비스 서버 개발자 우대<br> - 1년이상의 대용량 웹/앱 트래픽 수집 및 적재, 처리 가능한 아키텍쳐 설계 및 시스템 구축 경험
+
+'
+WHERE WORK_NO = 'WO170511120001';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '[자격요건]<br> - 인간성 좋고 성실하신 분<br> - 부서간 협업을 잘하고 긍정적이신 분<br> - 개발을 즐기고 오래 같이 하실분<br> - 적극적으로 업무에 대응하시는 분<br> - Java/Jsp/Spring등 대형사이트 구축/운영 경력자<br> - JQuery 활용 능숙자 우대<br> - 모바일웹 개발 경험자 우대
+<br><br>[경력]<br> - 개발 경력 5년이상 경력자(대리,과장급)<br><br>[근무지]<br> - 2호선 성수역 도보 1분 이내(25명 근무중)
+'
+WHERE WORK_NO = 'WO170511153001';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '주요업무<br> 2개월 ~ 6개월 사이의 기간동안 인턴으로 일하여 연구 개발하고, 상대적으로 리스크가 적은 프로젝트를 함께 합니다.<br>
+더불어 실제 게임회사에서 어떻게 일을 하고 있는지 경험하며 실무 경험을 쌓을 수 있습니다.<br>
+지금까지 슈퍼 인턴과 진행한 프로젝트나 앞으로 진행할 프로젝트는 다음과 같습니다.
+<br>- IRC, Zulip 챗봇 개발 : <br> Python을 사용하여 빌드서버 API 호출, Jire, Confluence 등 서비스 Integration, 주사위 굴리기 등<br>
+업무에 필요하거나 소소한 재미를 주는 챗봇을 개발했습니다.<br>
+<br>- SaltStack을 활용한 솔루션 배포 관리 연구 개발<br> SaltStack을 활용하여 솔루션을 배포 및 관리하는 솔루션을 개발하였습니다.<br>
+현재 AxE 및 포인트블랭크의 로그 적재 솔루션에 적용되어 배포 및 관리를 진행하고 있습니다.<br>
+<br> - 게임 데이터 분석 : <br>
+사업 및 게임 운영에 필요한 데이터를 고민하고, 이를 바탕으로 필요한 집계 작업을 수행합니다.<br>
+SparkSQL을 활용하여 AxE 및 포인트 블랭크 : 스트라이크에 필요한 분석을 수행하고 있습니다.<br>
+<br> - 머신러닝 : 게임에 머신러닝을 적용할 방안을 연구합니다.<br>
+<br> - 지원자격<br> CS 학부 2년 이상 이수, 혹은 그에 상응하는 역량을 갖췄다고 생각하는 사람<br>
+<br> - 우대사항<br> 끈기있게 문제를 해결하는 사람
+'
+WHERE WORK_NO = 'WO170512120001';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '웹기반 업무시스템 및 웹UI 개발
+<br><br>[자격 요건]<br> - Spring/iBatis 기반의 Java Web Application 개발 가능자<br> - JQuery/Javascript/html5/Css등 웹UI 개발 가능자<br> - RDBMS(Postgresql, Oracle)기반의 스키마 설계 및 프로시저 가능자<br> - GitHub/Maven Module/Jenkins 경험자<br> - 개발 업무 협의 및 분석/설계 가능자
+'
+WHERE WORK_NO = 'WO170512133501';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = 'S/W연구개발 프로그래머 C언어계열
+<br><br>[우대 사항]<br> - 문서작성 우수자<br> - 컴퓨터활용능력 우수자<br> - CNC, 산업용 제어기 시스템 프로그래밍 경험자<br> - OpenGL, DirectX 개발 경험자<br> - 수학적 이해도 높으신 분<br> - 라이브러리를 이용한 제어 프로그램 제작 경험<br> - 리눅스 기반 프로그래밍 경험자<br> - QT, Perl경험자<br> - 3D프린터 개발(SW) 경험이 있거나 관심이 있으신 분
+<br><br>[필수 사항]<br> - C, C++, C#, MFC등의 C계열 기반 프로그래밍 경험<br> - 학력 : 무관<br> - 경력 : 신입/경력 2년<br> - 성별 : 무관
+
+'
+WHERE WORK_NO = 'WO170515053001';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = 'UI/UX 디자인<br> - 웹/앱 UI/UX 디자인<br> - 퍼블리싱
+<br><br>[우대 사항]<br> - 디자인 전공자<br> - CI 및 어플리케이션 디자인 경험<br> - BI 및 어플리케이션 디자인 경험
+<br><br>[자격 조건]<br> - 사용자의 행동패턴을 이해하고 원하는 방향으로 유도할 수 있는 UI/UX 디자인 역량 보유<br> - 디바이스의 차이를 이해하고 통일된 UI/UX를 이끌어내는 역량 보유<br> - UI/UX 디자인 경력 5년 이상
+
+'
+WHERE WORK_NO = 'WO170516112501';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '- 웹 프로모션 디자인<br> - 디지털 광고 배너 디자인<br> - 뉴미디어 채널/ 콘텐츠 디자인(블로그, 페이스북 등)<br> - 홈페이지 제작(PC/모바일)<br> - HTML 코딩 등
+<br><br>[우대 사항]<br> - 광고대행사 경험 우대<br> - HTML 및 코딩 가능자(기본조건)<br> - 웹 표준코딩/워드프레스 가능자(추가우대)
+<br><br>[자격 조건]<br> - 학력 : 무관<br> - 경력 : 1년 이상<br> - 트렌디한 디자인 센스를 겸비한 분
+
+'
+WHERE WORK_NO = 'WO170601015001';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '그루비 솔루션 개발
+<br><br>[우대 사항]<br> - MongoDB 등 NoSQL DB 관련 지식 또는 경험<br> - AWS(Amazon Web Service) 관련 지식 또는 경험
+<br><br>[자격 조건]<br> - 3년 이상 JAVA프로그래밍 有경험자(개발 경력 3년차 이상)<br> - JAVA프레임웍(Spring) 기반 개발 경험자<br> - Javascript, Jquery, Json, XML 개발 경험자
+
+'
+WHERE WORK_NO = 'WO170605050501';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '웹개발<br> - Java/Spring/Mybatis/Struts/JSTL을 활용한 BackEndAPI 개발
+<br><br>[공통 사항]<br> - 학력 : 전문대졸 이상<br> - 경력 : 3년 이상
+<br><br>[우대 사항]<br> - 경력 5년 이상<br> - SQL 쿼리 능숙자<br> - Node JS 개발 경험자<br> - Python 개발 경험자<br> - MySql/PostgreSQL DB 경험자
+
+'
+WHERE WORK_NO = 'WO170610152001';
+
+UPDATE WORK_BOARD SET WORK_CONTENT = '아프리카TV 안드로이드, 아이폰 모바일앱 개발
+<br><br>[자격 사항]<br> - Java/Kotlin/C/C++ 중 한 가지 이상 필수(안드로이드 지원자에 한함)<br> - Objective-C/Swift/C/C++ 중 한 가지 이상 필수(아이폰 지원자에 한함)<br> - 최소 2년 이상의 안드로이드 또는 아이폰 앱 개발경험 필수<br> - 객체지향 설계 및 개발이 가능한자<br> - 미래지향적이고 유연한 사고를 추구하는 개발자<br> - 아프리카TV 서비스에 대한 관심이 많은 자
+<br><br>[우대 사항]<br> - 플레이스토어 또는 앱스토어 런칭 유경험자<br> - 멀티미디어/SNS/메신저 관련 프로젝트 유경험자<br> - 형상관리(svn, git) 경험, 단위 테스트 모듈 작성 경험자<br> - 오픈소스를 활용한 개발 경험자
+
+'
+WHERE WORK_NO = 'WO170611152001';
 
 --INTERVIEW 샘플데이터
 INSERT INTO INTERVIEW VALUES('IN'||TO_CHAR(TO_DATE('1707141030','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'comp11','user11','당신의 미래 가치관에 대해서 10000자로 서술하시오.',NULL,TO_DATE('1707141030','RRMMDDHH24MI'),TO_DATE('1707141130','RRMMDDHH24MI'),'H','WO170714103001');

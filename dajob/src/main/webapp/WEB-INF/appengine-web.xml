@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+  <application>my-project-1502247593783</application><!-- unused for Cloud SDK based tooling -->
+  <version>311873418669</version><!-- unused for Cloud SDK based tooling -->
+  <threadsafe>true</threadsafe>
+</appengine-web-app>
