@@ -123,10 +123,10 @@
 				 <div id="chartContainer2" style="height: 370px; width: 50%; padding-left: 50%;">
 				 </div>
 				 <div class="dividerHeading">
-					<h4><span>월별 구인정보 신청횟수</span></h4>
+					<h4><span>월별 구인정보 등록횟수</span></h4>
 				 </div>
 				 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top: 10px; height: 370px; width: 50%;">
-						<h1>월별 신청 횟수</h1>
+						<h1>월별 등록 횟수</h1>
 						<div class="comment-container" style="margin-left:0;">
 							<div class="comment-body">
                             	<table class="table table-striped table-hover">
@@ -230,8 +230,8 @@
 					{ y: Number(monProfitList[0]), label: monList[0] },
 					{ y: Number(monProfitList[1]),  label: monList[1] },
 					{ y: Number(monProfitList[2]),  label: monList[2] },
-					{ y: Number(monProfitList[3]),  label: monList[3] }/* ,
-					{ y: Number(monProfitList[4]),  label: monList[4] } */
+					{ y: Number(monProfitList[3]),  label: monList[3] },
+					{ y: Number(monProfitList[4]),  label: monList[4] }
 				]
 			}]
 		});
@@ -256,9 +256,9 @@
 			        dataPoints: [
 			        { x: Number(monApplyList[0]), y: Number(applyCountList[0]) },
 					{ x: Number(monApplyList[1]), y: Number(applyCountList[1]) },
-					{ x: Number(monApplyList[2]), y: Number(applyCountList[2]) }/* ,
+					{ x: Number(monApplyList[2]), y: Number(applyCountList[2]) },
 					{ x: Number(monApplyList[3]), y: Number(applyCountList[3]) },
-					{ x: Number(monApplyList[4]), y: Number(applyCountList[4]) } */
+					{ x: Number(monApplyList[4]), y: Number(applyCountList[4]) }
 					]
 			      },
 			      {        
@@ -266,9 +266,9 @@
 			        dataPoints: [
 			        { x: Number(monApplyList[0]), y: Number(countSumList[0]) },
 			        { x: Number(monApplyList[1]), y: Number(countSumList[1]) },
-			        { x: Number(monApplyList[2]), y: Number(countSumList[2]) }/* ,
+			        { x: Number(monApplyList[2]), y: Number(countSumList[2]) },
 			        { x: Number(monApplyList[3]), y: Number(countSumList[3]) },
-			        { x: Number(monApplyList[4]), y: Number(countSumList[4]) } */
+			        { x: Number(monApplyList[4]), y: Number(countSumList[4]) }
 			        ]
 			      }
 			        
@@ -276,6 +276,7 @@
 			    });
 
 			    chart3.render();
+			    $('a.canvasjs-chart-credit').remove();
 		}
 	</script>
 	
