@@ -164,8 +164,7 @@
 			                    <p>자신의 프로필을 자유롭게 꾸며보세요,</p>
 			                    <p>자신의 <b>경력</b>, <b>학력</b>, <b>프로젝트 참여</b> 등과 같은 자신의 정보를 사진과 함께 자유롭게 만들어 보세요!<br>
 			                   		이력서에 관한 <b>첨부파일</b>을 우측 파일첨부란에 첨부가능합니다!</p>    
-				                <button class="btn btn-primary btn-sm" type="button" href='#ex-modal' 
-				                data-toggle='modal' data-target='#ex-modal' onclick="exView()">예제보기</button>
+				                <button class="btn btn-primary btn-sm" type="button" href="#" id="pop">예제보기</button>
 			                </div>
 			            </div>
 			            <hr>
@@ -264,7 +263,7 @@
 		            
 		            <hr>
 		
-		            <div class="row mobmid">
+		            <%-- <div class="row mobmid">
 		                <div class="col-sm-1 col-md-2">
 		                </div><!--icon end-->
 			          	<div class="col-sm-11 col-md-10" style="padding-left:0;">
@@ -278,6 +277,30 @@
 			                        	<c:param name="workhere_no" value="${likeList.work_no}"/>
 			                        </c:url>
 			                        <p class="sub"><a href="${workhere}">자세히 보기</a></p>
+			                    </div>
+			                    </c:forEach>
+			                </c:if><c:if test="${ empty likeList }">
+		                			<p style="margin-top:50px; margin-bottom:50px;" align="center">
+		                			선호하는 <b style="color:#00bdd2">기업</b>이 없습니다.
+		                			<br><br><a href="likeCompList.do"><button class="btn btn-info btn-xs" type="button">선호기업 등록</button></a>
+		                			</p>
+		                	</c:if>
+			        	</div><!--awards end-->
+		            </div> --%>
+		            <div class="row mobmid">
+		                <div class="col-sm-1 col-md-2">
+		                </div><!--icon end-->
+			          	<div class="col-sm-11 col-md-10" style="padding-left:0;">
+							<h3 style="margin-bottom:20px;"><span class="secicon fa fa-star"></span>&nbsp;&nbsp; 선호 기업 리스트</h3>
+							<c:if test="${ !empty likeList }">			                    
+			                    <c:forEach items="${ likeList }" var="likeList" varStatus="vs">
+			                    <div class="award">
+			                        <h4>${likeList.company_name}</h4>
+			                        <p>&nbsp;&nbsp; : ${likeList.work_title}</p>
+			                        <c:url var="workhere" value="/workhereDetail.do">
+			                        	<c:param name="workhere_no" value="${likeList.work_no}"/>
+			                        </c:url>
+			                        <p class="sub"><a href="${workhere}">&nbsp;&nbsp;&nbsp;자세히 보기</a></p>
 			                    </div>
 			                    </c:forEach>
 			                </c:if><c:if test="${ empty likeList }">
@@ -465,57 +488,25 @@
 	
 	<!-- modal script -->
 	<script type="text/javascript">
-    function exView() {
-     var text = document.getElementById("resumeData").value;
-     document.getElementById("ex").innerHTML = text;
-    }
+		$("#pop").on("click", function() {
+			   $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+		});
  	</script>
 	
-<!-- ex-modal -->	
-<div class="modal fade" id="ex-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-<!-- 			<div class="modal-header">
-				<p class="modal-title" id="myModalLabel" align="center">예제입니다.</p>
-			</div> -->
-			<div class="modal-body">
-				<button type="button" class="close" data-dismiss="modal" style="margin : 20">×</button>
-				<div id="ex">
-			 	</div>
-				<script type="text/javascript">
-				</script>
-			</div>
-
-			<!-- <div class="modal-footer">
-			</div> -->
-
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- Modal End -->
-
-<!-- modal -->	
-<div class="modal fade" id="miri-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-<!-- 			<div class="modal-header">
-				<p class="modal-title" id="myModalLabel" align="center">예제입니다.</p>
-			</div> -->
-			<div class="modal-body">
-				<button type="button" class="close" data-dismiss="modal" style="margin : 20">×</button>
-				<div id="ex">
-			 	</div>
-				<script type="text/javascript">
-				</script>
-			</div>
-
-			<!-- <div class="modal-footer">
-			</div> -->
-
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- Modal End -->
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding-right:14%; text-align:center;">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 500px; height: 700px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">- 이력서 예제 -</h4>
+      </div>
+      <div class="modal-body">
+        <img src="/dajob/resources/images/exresume2.JPG" id="imagepreview" style="width: 400px; height: 300px;">
+        <img src="/dajob/resources/images/exresume.JPG" id="imagepreview" style="width: 400px; height: 300px;" >
+      </div>
+    </div>
+  </div>
+</div>
 	
 </body>
 </html>

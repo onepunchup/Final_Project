@@ -340,7 +340,7 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
-	var serverIP = '<%=svrIP %>:4080';
+	var serverIP = '<%=svrIP %>';
 	//console.log(serverIP);
     var textarea = document.getElementById("messageWindow");
     var webSocket = new WebSocket('ws://'+serverIP+'/dajob/broadcasting');

@@ -528,8 +528,8 @@ INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user11','pass11','U','유정훈','jeonghun@iei.or.kr',
 '010-1111-2222','22020,서울시,강남구 역삼동',SYSDATE,'user11/yjh.jpg');
-INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
-VALUES('user11','M',SYSDATE,NULL,NULL,NULL);
+INSERT INTO MEMBER_USER(MEMBER_ID,GENDER,BIRTHDAY,RESUME_DATA,RESUMEFILE1,RESUMEFILE2,RESUMEFILE3)
+VALUES('user11','M',SYSDATE,'<p style="text-align:center"><em><strong><big><span style="font-size:26px">- 경력 사항</span></big></strong></em></p><p><span style="font-size:16px"><strong>Carnegie Mellon University</strong></span></p><p>웹엔지니어(UX/UI), 로보틱스 연구소(Robotics Institute)<br>2008년 1월 - 2009년 4월 (1년 4개월)<br>피츠버그, PA, USA</p><p>• UX/UI, Contextual Design을 활용한 로보틱스 연구소 웹개발 프로젝트(RI연구포털, CMS) 참여 및 개발</p><p><span style="font-size:16px"><strong>Tesco PLC</strong></span></p><p>팀장, 통신상품, 뉴미디어/모바일, IT전략기획<br>2009년 8월 - 2012년 5월 (2년 10개월)<br>서울, 대한민국</p><p>[통신상품 - 신유통 서비스]<br>• 국내 통신사(KT, LGU+) 통신상품을 전국 80여개 홈플러스 점포내 대리점/B2B 운영 및 영업 전략 수립/실행<br>• 통신사와의 통신 정책 및 마케팅 지원을 위한 협상 및 판매 인력의 인센티브 관리 및 운영<br><br>[뉴미디어 - 전략기획]<br>• 온라인 종합몰과 지역 점포를 연계한 모바일 통합 서비스 및 시스템 통합 기획 (QR,상품권, 멤버십, 전단지/쿠폰);<br>• SNS서비스(홈플러스 블로그)를 통한 고객 긍정 바이럴(Viral) 콘텐츠 확산, 고객유입 및 판매 활성화 전략 수행<br><br>[IT전략기획 - IT;OM]<br>• 중/장기 IT전략 수립 및 신규 기술(모바일/T-Com/스마트아카데미)을 활용한 전사 Innovation BM도출 및 실행<br>• Payment Card Industry (PCI) Data Security Standard 인증을 위한 이행 점검 및 인증을 위한 UK 협업</p><p><br></p><hr><h2 style="font-style:italic; text-align:center"><strong><big><span style="font-size:26px">- 참여프로젝트</span></big></strong></h2><h2 style="font-style:italic; text-align:center"><img alt="" data-cke-saved-src="/dajob/resources/images/resumeimg/DAJAB.JPG" src="/dajob/resources/images/resumeimg/DAJAB.JPG" style="font-size:13px; height:220px; width:400px"><span style="font-size:13px">;</span></h2><p style="text-align:center"><strong>1. DaJob</strong></p><p style="text-align:center">: 자신이 원하는 업무를 바로(Direct) 찾아서 지원부터 면접까지 한번에 지원할 수 있는 서비스를 제공.</p><p style="text-align:center"><br></p><p style="text-align:center"><img alt="" data-cke-saved-src="/dajob/resources/images/resumeimg/yolo.JPG" src="/dajob/resources/images/resumeimg/yolo.JPG" style="height:220px; width:400px"></p><p style="text-align:center"><strong>2. YOLO</strong></p><p style="text-align:center">: 여행자들에게 사람의 의도나 편집이 전혀 개입하지 않은 공정한 여행 정보를 제공하고자 하며, 이를 통해 최신여행트랜드와 유용한 정보들을 서로 공유할 수 있는 사이트 제공.</p><p style="text-align:center"><br></p>','포토폴리오_유정훈.pptx','경력기술서_유정훈.docx','이력서_유정훈.hwp');
 INSERT INTO MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_TYPE_CODE,MEMBER_NAME,MEMBER_EMAIL,
 MEMBER_PHONE,MEMBER_ADDRESS,MEMBER_SIGN_DATE,MEMBER_PROFILE_IMG)
 VALUES('user22','pass22','U','나상민','sm9171@iei.or.kr',
@@ -634,6 +634,8 @@ INSERT ALL
 	VALUES ('user11','CE170101010010',SYSDATE)
    INTO USER_CERT(MEMBER_ID, CERT_NO, CERT_DATE)
 	VALUES ('user11','CE170101010011',SYSDATE)
+   INTO USER_CERT(MEMBER_ID, CERT_NO, CERT_DATE)
+	VALUES ('user11','CE170101010002',SYSDATE)
    INTO USER_CERT(MEMBER_ID, CERT_NO, CERT_DATE)
 	VALUES ('user22','CE170101010007',SYSDATE)
    INTO USER_CERT(MEMBER_ID, CERT_NO, CERT_DATE)
@@ -852,6 +854,14 @@ WHERE WORK_NO = 'WO170911152001';
 
 --INTERVIEW 샘플데이터
 INSERT INTO INTERVIEW VALUES('IN'||TO_CHAR(TO_DATE('1707141030','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'comp11','user11','당신의 미래 가치관에 대해서 10000자로 서술하시오.',NULL,TO_DATE('1707141030','RRMMDDHH24MI'),TO_DATE('1707141130','RRMMDDHH24MI'),'H','WO170714103001');
+
+commit;
+
+
+-- LIKELIST 샘플데이터
+INSERT INTO LIKELIST VALUES('user11','WO170816112501');
+INSERT INTO LIKELIST VALUES('user11','WO170811120001');
+INSERT INTO LIKELIST VALUES('user11','WO170815053001');
 
 commit;
 -----------------------------------------------

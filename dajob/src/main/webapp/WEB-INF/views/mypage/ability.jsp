@@ -127,7 +127,7 @@
 						</div>
 					</div>
 					<div class="col-lg-6 col-sm-6">
-                        <div class="promo_box" style="margin-top:10%">
+                        <div class="promo_box" style="margin-top:0%">
                             <div class="col-sm-9">
                                 <div class="promo_content">
                                     <h3 style="width: 140%;">취득 자격증 기준 <b style="color:#03adde">${ user.member_name }</b>님의 전문 능력 : 
@@ -193,7 +193,7 @@
 			              		 <blockquote class="default">
 		              		 		<h2 style="margin:0; padding:0;">
 			              		 		<p align="center"><i class="fa fa-street-view" style="color:black;"></i>&nbsp;&nbsp;현재 내 위치</p>
-		              		 		</h2><font style="font-size: 15pt; line-height: 20pt;">
+		              		 		</h2><!-- <font style="font-size: 15pt; line-height: 20pt;"> -->
 				              		 		<c:if test="${ countCert.cert_count <= 3 }">
 				              		 			<br> <p align="center">현재 당신의 위치는 <b style="color:green;">하위연봉</b>입니다. </p>
 				              		 			<br><span class="dropcap_block" style="background-color: black;">연</span>봉 계산 기준 ${member.member_name}님이 받을 수 있는 급여는 2000 ~ 2400만원이며,
