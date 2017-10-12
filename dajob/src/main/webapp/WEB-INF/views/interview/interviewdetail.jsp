@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.net.InetAddress"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -9,6 +9,10 @@
 <html class="no-js" lang="ko">
 <!--<![endif]-->
 <head>
+<%
+InetAddress inet = InetAddress.getLocalHost();
+String svrIP = inet.getHostAddress();
+%>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -18,19 +22,18 @@
 
 <title>DA JOB : find Direct your job</title>
 <link rel="shortcut icon" type="image/x-icon"
-	href="/dajob/resources/images/sitelogo2_fix.png" />
+	href="//<%=svrIP %>:8443/dajob/resources/images/sitelogo2_fix.png" />
 <!-- CSS FILES -->
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/bootstrap.min.css'/>" />
-<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
+<link rel="stylesheet" href="//<%=svrIP %>:8443/dajob/resources/css/style.css">
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/style.css'/>" media="screen"
+	href="//<%=svrIP %>:8443/dajob/resources/css/style.css" media="screen"
 	data-name="skins">
-
 <link rel="stylesheet"
-	href="<c:url value='/resources/css/font-awesome.css'/>" />
+	href="//<%=svrIP %>:8443/dajob/resources/css/font-awesome.css" />
 <link rel="stylesheet"
-	href="<c:url value='/resources/css/animate.css'/>" />
+	href="//<%=svrIP %>:8443/dajob/resources/css/animate.css" />
 <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700"
 	rel="stylesheet" type="text/css">
 	
@@ -38,7 +41,7 @@
 	href="<c:url value='/resources/api/webRTC/src/css/main.css?ver=1'/>" />
 <link rel="stylesheet"
 	href="<c:url value='/resources/api/webRTC/src/css/main2.css?ver=1'/>" />
-	
+<script src="https://use.fontawesome.com/10856c839d.js"></script>
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -85,9 +88,15 @@
 				  <div>
       <label for="channelIdInput">Interview-Room : ${interview.interview_no}</label><br>
         <input type="text" id="channelIdInput" placeholder="Interview-Room ID를 입력하세요." value="">
-  </div>
-				  	<td align="center"><video class="video" id="localVideo" autoplay></video></td>
+  </div>			
+  					<c:if test="${sessionScope.member.member_type_code eq 'C'}">
+					<td align="center"><video class="video" id="localVideo" autoplay></video></td>
 				  	<td align="center"><video class="video" id="remoteVideo" autoplay></video></td>
+					</c:if>
+					<c:if test="${sessionScope.member.member_type_code eq 'U'}">
+					<td align="center"><video class="video" id="remoteVideo" autoplay></video></td>
+					<td align="center"><video class="video" id="localVideo" autoplay></video></td>
+					</c:if>
 				  </tr>
 				    <tr>
 				      <td align="center" style="color: black;">[${interview.company_name}] ${interview.member_name}</td>
@@ -228,6 +237,7 @@
 
     document.getElementById('createChannelButton').onclick = function(event) {
       app.createChannel();
+      $('#createChannelButton').attr('disabled',true);
       return false;
     };
 
@@ -235,6 +245,7 @@
       var channelId = document.getElementById('channelIdInput').value;
             if (!channelId) { return; }
       app.connectChannel(channelId);
+      $('#connectChannelButton').attr('disabled',true);
       return false;
     };
   </script>
