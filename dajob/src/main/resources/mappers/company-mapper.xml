@@ -52,7 +52,7 @@
 		
 	<update id="updateCompany" parameterType="Company" flushCache="true"
 		statementType="PREPARED" timeout="20">
-		UPDATE MEMBER_COMPANY SET COMPANY_NAME = #{company_name}, COMPANY_TYPE = #{company_type}, company_staff = #{COMPANY_STAFF},
+		UPDATE MEMBER_COMPANY SET COMPANY_NAME = #{company_name}, COMPANY_TYPE = #{company_type}, company_staff = #{company_staff},
 		COMPANY_CAPITAL = #{company_capital}, COMPANY_CODE = #{company_code},COMPANY_TEL = #{company_tel},
 		COMPANY_FAX = #{company_fax}, COMPANY_WELFARE = #{company_welfare}, COMPANY_DATE = #{company_date} WHERE MEMBER_ID = #{member_id}
 	</update>

@@ -80,11 +80,11 @@ public class MemberDao {
 	}
 	
 	public int updateUser(User user) {
-		return 0;
+		return sqlSession.update("User.updateMember", user);
 	}
 
 	public int updateCompany(Company company) {
-		return 0;
+		return sqlSession.update("Company.updateCompany",company);
 	}
 
 	public int insertResumeData(User user) {

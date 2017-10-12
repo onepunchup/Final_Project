@@ -40,7 +40,7 @@
 
 	<update id="updateMember" parameterType="User" flushCache="true"
 		statementType="PREPARED" timeout="20">
-		UPDATE MEMBER SET GENDER = #{gender}, BIRTHDAY = #{birthday}, RESUME_DATA = #{resume_data}
+		UPDATE MEMBER_USER SET GENDER = #{gender}, BIRTHDAY = #{birthday}
 		WHERE MEMBER_ID = #{member_id}
 	</update>
 	

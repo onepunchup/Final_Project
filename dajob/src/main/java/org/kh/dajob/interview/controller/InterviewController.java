@@ -52,11 +52,12 @@ public class InterviewController {
 	}
 	
 	@RequestMapping(value = "interviewDetail.do")
-	public String interviewDetail(HttpSession session, HttpServletRequest request, Model model) throws IOException {
-		model.addAttribute("all", memberService.selectMemberAll());
-		model.addAttribute("interview", interviewService.selectInterview(request.getParameter("interview_no")));
-
-		return "interview/interviewdetail";
+	public ModelAndView interviewDetail(HttpSession session, HttpServletRequest request, ModelAndView model) throws IOException {
+		model.addObject("all", memberService.selectMemberAll());
+		model.addObject("interview", interviewService.selectInterview(request.getParameter("interview_no")));
+		//model.setViewName("redirect:https://192.168.30.39:8443/dajob/views/interview/interviewdetail.jsp");
+		model.setViewName("interview/interviewdetail");
+		return model;
 	}
 	
 	@RequestMapping(value = "interviewDelete.do")

@@ -376,24 +376,32 @@ public class MemberController {
 		sb.append(request.getParameter("addr2"));
 		String member_address = sb.toString();
 		
+		Member m = memberService.loginMember(new Member(member_id, member_password));
+		
 		// 유저의 자격증 정보 Map으로 취합
 		Map<String, Object> map = null;
 		
 		int result = memberService.updateMember(new Member(member_id,member_password,"U",
-				member_name,member_email,member_phone,member_address,"default.jpg"));
+				member_name,member_email,member_phone,member_address,m.getMember_profile_img()));
 		if (result > 0) {
 			result = memberService.updateUser(new User(member_id, gender, birthday, null, null, null, null));
 			
 			if(result > 0) {
 				
-				if(request.getParameter("certCnt") != null || certCnt > 0) {
+				if(request.getParameter("certCnt") != null && certCnt > 0) {
+					
+					System.out.println(certCnt);
+					
 					map = new HashMap<String, Object>();
 					ArrayList<UserCert> list = new ArrayList<UserCert>();
 					int i = 1;
 					while(i < certCnt+1) {
 						String cert_no = request.getParameter("cert"+i);
 						Date cert_date = Date.valueOf(request.getParameter("certDate"+i));
+						
 						UserCert u = new UserCert(member_id, cert_no, cert_date);
+						System.out.println(u);
+						
 						list.add(u);
 						//map.put("cert_no", u);
 						i++;
@@ -409,11 +417,11 @@ public class MemberController {
 					returnPage = "member/memberError";
 				}
 			} else {
-				model.addAttribute("message", "회원 정보 등록 실패!!");
+				model.addAttribute("message", "회원 정보 수정 실패!!");
 				returnPage = "member/memberError";
 			}
 		} else {
-			model.addAttribute("message", "회원 가입 서비스 실패!!");
+			model.addAttribute("message", "회원 수정 서비스 실패!!");
 			returnPage = "member/memberError";
 		}
 		
@@ -443,6 +451,7 @@ public class MemberController {
 		String member_address = sb.toString();
 		
 		String company_welfare = request.getParameter("company_wel");
+		
 		String company_name = request.getParameter("company_name");
 		String company_type = request.getParameter("company_type");
 		int company_staff = Integer.parseInt(request.getParameter("company_staff"));
@@ -452,10 +461,12 @@ public class MemberController {
 		String company_fax = request.getParameter("company_fax");
 		Date company_date = Date.valueOf(request.getParameter("company_date"));
 		
-		int result = memberService.insertMember(new Member(member_id,member_password,"C",
-				member_name,member_email,member_phone,member_address,"default.jpg"));
+		Member m = memberService.loginMember(new Member(member_id, member_password));
+		
+		int result = memberService.updateMember(new Member(member_id,member_password,"C",
+				member_name,member_email,member_phone,member_address,m.getMember_profile_img()));
 		if (result > 0) {
-			result = memberService.insertCompany(new Company(member_id, company_name, company_type, company_staff, company_capital, company_code, company_tel, company_fax, company_welfare, company_date));
+			result = memberService.updateCompany(new Company(member_id, company_name, company_type, company_staff, company_capital, company_code, company_tel, company_fax, company_welfare, company_date));
 			if(result > 0) {
 				returnPage = "index";
 			} else {

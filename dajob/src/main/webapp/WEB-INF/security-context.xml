@@ -9,8 +9,21 @@
     http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 	<http auto-config='true'>
 		<intercept-url pattern="/**/interviewDetail.do" requires-channel="https" />
+		<intercept-url pattern="/**/interviewUpdateAnswer.do" requires-channel="https" />
 		<intercept-url pattern="/**" requires-channel="http"  />
+		<csrf disabled="true"/>
+		<port-mappings>
+	        <!-- Default ports -->
+	        <port-mapping http="80" https="443"/>
+	        <!-- Websphere default ports -->
+	        <port-mapping http="9080" https="9443"/>
+	        <!-- Tomcat default ports -->
+	        <port-mapping http="4080" https="8443"/>
+	        <!-- Jetty custom ports -->
+	        <port-mapping http="7777" https="7443"/>
+    	</port-mappings>
 	</http>
+	
 	<authentication-manager>
 	</authentication-manager>
 </beans:beans>

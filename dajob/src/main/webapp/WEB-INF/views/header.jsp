@@ -188,7 +188,10 @@ function chkEnter(){
 function login(){
 	$.ajax({
 		url : "login.do",
-		data : {member_id : $('#uLogin').val(), member_password : $('#uPassword').val()},
+		data : {
+			member_id : $('#uLogin').val(),
+			member_password : $('#uPassword').val(),
+			_csrf : $("#_csrf").val()},
 		type : "post",
 		success : function(result){
 			if(result == "ok"){
@@ -218,6 +221,7 @@ function login(){
 
 			<div class="modal-body">
 				<form role="form" id="loginform">
+				<input type="hidden" id="_csrf" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<div class="form-group">
 						<div class="input-group">
 							<label for="uLogin" class="input-group-addon glyphicon glyphicon-user"></label>

@@ -214,7 +214,7 @@
 	<c:import url="../footer.jsp" />
 	<!--end footer-->
 				 
-    <script src="http://www.playrtc.com/sdk/js/playrtc.min.js"></script>
+    <script src="//www.playrtc.com/sdk/js/playrtc.min.js"></script>
     <script>
     app = new PlayRTC({
             projectKey: '60ba608a-e228-4530-8711-fa38004719c1',
@@ -245,6 +245,6 @@
        if("http:" == protocol){
            window.location.replace("https://" + arrUrl[1]);
        }
-</script> -->
+	</script> -->
 </body>
 </html>

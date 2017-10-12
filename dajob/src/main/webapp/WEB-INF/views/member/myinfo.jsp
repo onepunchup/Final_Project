@@ -565,7 +565,12 @@ label {
 		if (checkDupCert()) {
 			alert('동일한 자격증이 존재합니다.');
 			event.preventDefault();
-		};
+		}
+		if (cnt > 0){
+			$('#certCnt').val(cnt);
+		} else {
+			$('#certCnt').val(0);
+		}
 		return;
 	});
 	
@@ -578,6 +583,7 @@ label {
 				arrayParam.push($(this).val());
 			});
 			$("#company_wel").val(arrayParam);
+			console.log(arrayParam);
 		});
 		$("#certChk").change(function() {
 			if ($("#certChk").is(":checked")) {
@@ -605,6 +611,7 @@ label {
 				name : 'certDate' + cnt,
 				id : 'certDate' + cnt
 			});
+			console.log(cnt);
 		});
 		$("#delCert").on("click", function() {
 			if (cnt <= 1) {
@@ -613,6 +620,7 @@ label {
 				$(".certList:last").remove();
 				cnt--;
 			}
+			console.log(cnt);
 		});
 
 		var today = new Date();
