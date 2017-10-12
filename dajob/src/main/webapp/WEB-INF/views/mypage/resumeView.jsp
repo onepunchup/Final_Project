@@ -283,11 +283,11 @@
 			                    <c:forEach items="${ likeList }" var="likeList" varStatus="vs">
 			                    <div class="award">
 			                        <h4>${likeList.company_name}</h4>
-			                        <p>${likeList.work_title}</p>
+			                        <p>&nbsp;&nbsp; : ${likeList.work_title}</p>
 			                        <c:url var="workhere" value="/workhereDetail.do">
 			                        	<c:param name="workhere_no" value="${likeList.work_no}"/>
 			                        </c:url>
-			                        <p class="sub"><a href="${workhere}">자세히 보기</a></p>
+			                        <p class="sub"><a href="${workhere}">&nbsp;&nbsp;&nbsp;자세히 보기</a></p>
 			                    </div>
 			                    </c:forEach>
 			                </c:if><c:if test="${ empty likeList }">

@@ -253,14 +253,13 @@ String svrIP = inet.getHostAddress();
     <!--end wrapper-->
 <c:import url="./footer.jsp"/>
 
-<c:if test="${empty member}">
-        <input type="hidden" value='비회원' id='chat_id' />
-    </c:if>
-    <c:if test="${!empty member}">
-        <input type="hidden" value='${ member.member_id }' id='chat_id' />
-    </c:if>
  <!-- Start Style Switcher -->
- <div class="switcher"></div>
+ <c:if test="${!empty member}">
+        <input type="hidden" value='${ member.member_id }' id='chat_id' />
+         <!-- Start Style Switcher -->
+ 			<div class="switcher"></div>
+ 		<!-- End Style Switcher -->
+    </c:if>
  <!-- End Style Switcher -->
 <script type="text/javascript">
 $(function(){

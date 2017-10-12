@@ -127,7 +127,7 @@
 						</div>
 					</div>
 					<div class="col-lg-6 col-sm-6">
-                        <div class="promo_box" style="margin-top:10%">
+                        <div class="promo_box" style="margin-top:0%">
                             <div class="col-sm-9">
                                 <div class="promo_content">
                                     <h3 style="width: 140%;">취득 자격증 기준 <b style="color:#03adde">${ user.member_name }</b>님의 전문 능력 : 
